@@ -5,6 +5,8 @@ export const apiClient = axios.create({
   headers: { Accept: "application/json" },
 });
 
+// All server responses use the team's envelope. Centralizing the unwrap logic
+// keeps pages focused on their UI state instead of response-shape details.
 export function unwrapResponse(response) {
   const body = response.data;
   if (!body?.success) {

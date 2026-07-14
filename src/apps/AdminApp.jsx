@@ -1,5 +1,7 @@
 import { NavLink, Route, Routes } from "react-router-dom";
 
+// Keep navigation metadata in one place so a new admin feature adds its URL,
+// sidebar entry, and screen identifier together.
 const menus = [
   ["/", "주문 현황", "SCR-009"],
   ["/sold-out", "품절 관리", "SCR-011"],
