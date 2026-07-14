@@ -8,5 +8,6 @@
 | [04 상세 일정](../IMPLEMENTATION_PLAN.md) | 매일 작업 전 | 화면별 계약·날짜별 산출물·테스트·브랜치 규칙 |
 | [05 Git 운영](05-git-workflow.md) | 브랜치/PR 전 | 브랜치, 커밋, PR, 충돌 대응 |
 | [06 API 연동](06-api-integration.md) | 서버 연결 시 | 응답 envelope, 인증, 오류 처리 |
+| [07 Figma MCP 구현 가이드](07-figma-mcp-implementation-guide.md) | 디자인 구현 시작 전/후 | 프로토타입 반영 범위, 실제 구현 작업, 화면별 체크리스트 |
 
 문서와 구현이 충돌하면 API 계약과 운영 정책을 먼저 확인하고, 결정 사항을 해당 문서에 갱신합니다.
