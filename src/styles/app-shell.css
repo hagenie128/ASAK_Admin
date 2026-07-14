@@ -1,0 +1,17 @@
+:root { font-family: Inter, Pretendard, system-ui, sans-serif; color: #17221a; background: #f4f7f2; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+a { color: inherit; text-decoration: none; }
+.admin-app { display: grid; grid-template-columns: 240px minmax(0, 1fr); min-height: 100vh; }
+.admin-sidebar { padding: 30px 20px; background: #173d28; color: #eff8eb; }
+.brand { font-weight: 800; letter-spacing: -.04em; }
+.admin-sidebar nav { display: flex; flex-direction: column; gap: 8px; margin-top: 38px; }
+.admin-sidebar nav a { padding: 12px; border-radius: 8px; color: #c9dbc9; }
+.admin-sidebar nav a.active { background: #2c6641; color: #fff; font-weight: 800; }
+.admin-main { padding: 64px clamp(24px, 7vw, 100px); }
+.admin-screen { max-width: 900px; }
+.screen-id { color: #4e825a; font-size: .78rem; font-weight: 800; letter-spacing: .12em; }
+.admin-screen h1 { margin: 8px 0 16px; font-size: clamp(2.2rem, 7vw, 4.8rem); letter-spacing: -.06em; }
+.admin-screen > p { max-width: 560px; color: #58705c; font-size: 1.1rem; line-height: 1.7; }
+.empty-state { margin-top: 44px; padding: 20px; border-radius: 12px; background: #edf5e9; color: #426349; }
+@media (max-width: 700px) { .admin-app { grid-template-columns: 1fr; } .admin-sidebar nav { flex-direction: row; overflow-x: auto; margin-top: 20px; } .admin-main { padding: 40px 24px; } }
