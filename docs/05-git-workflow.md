@@ -1,5 +1,7 @@
 # 05. Git 브랜치·PR 운영 계획
 
+> 모든 Git 명령은 `C:\ASAK-workspace\ASAK-Admin` 폴더에서 실행합니다. 상위 `ASAK-workspace`는 이 프로젝트의 소스 저장소가 아니라 작업공간 안내·프로젝트 참조용 저장소입니다. 전체 구조는 [작업공간 안내](../../README.md)를 참고합니다.
+
 ## 브랜치
 
 ```text
@@ -20,6 +22,7 @@ docs/admin-onboarding
 ## 작업 절차
 
 ```bash
+cd C:\ASAK-workspace\ASAK-Admin
 git switch main
 git pull --rebase origin main
 git switch -c feature/admin-orders

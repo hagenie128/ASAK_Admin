@@ -25,6 +25,7 @@ npm run dev
 
 ## 문서
 
+- [작업공간·Git 저장소 안내](../README.md)
 - [문서 목차](docs/README.md)
 - [개발 환경과 온보딩](docs/01-onboarding.md)
 - [프론트 구조와 책임 경계](docs/02-architecture.md)
