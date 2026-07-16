@@ -162,6 +162,6 @@ docs(admin): align order mock fields with API-007
 - Status: Needs Review
 - Written-at context: pre-canonical Admin mock implementation plan.
 - Product Bible relationship: [Pack 12](../ASAK/docs/product_bible/12_Frontend_Implementation/README.md).
-- Latest implementation baseline: [Current Implementation Map](../ASAK/docs/CURRENT_IMPLEMENTATION_MAP.md).
-- Central canonical contract: [Canonical Contract Decisions](../ASAK/docs/CANONICAL_CONTRACT_DECISIONS.md).
+- Latest implementation baseline: [Current Implementation Map](../ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md).
+- Central canonical contract: [Canonical Contract Decisions](../ASAK/docs/governance/CANONICAL_CONTRACT_DECISIONS.md).
 - Potential conflict: route/API assumptions may differ from canonical camelCase paths; source remains unchanged.
