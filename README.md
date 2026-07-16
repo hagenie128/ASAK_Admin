@@ -7,6 +7,9 @@
 - [Product Bible Pack 11 — Backend Implementation](../ASAK/docs/product_bible/11_Backend_Implementation/README.md)
 - [Current Implementation Map](../ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md)
 - [Implementation Priority](../ASAK/docs/planning/IMPLEMENTATION_PRIORITY.md)
+- [Implementation Guide Start](../ASAK/docs/implementation_guide/00_START_HERE.md)
+- [Admin Implementation Guide](../ASAK/docs/implementation_guide/03_ADMIN_IMPLEMENTATION.md)
+- [API·Response Guide](../ASAK/docs/implementation_guide/04_API_DB_IMPLEMENTATION.md)
 
 This is the canonical implementation repository for administrator React JavaScript.
 
@@ -57,3 +60,10 @@ docs/         교육, 일정, Git 및 API 연동 문서
 `src/`의 화면·컴포넌트 파일은 현재 구현 전 단계의 힌트 파일입니다. 상세 역할은 [src 안내](src/README.md)와 [요구사항·화면 매핑](src/contracts/requirements-screen-map.md)을 참고합니다.
 
 이 저장소의 화면 범위와 구현 순서는 `IMPLEMENTATION_PLAN.md`를 기준으로 합니다. 공통 API 계약이 변경되면 영향 화면을 먼저 확인합니다.
+
+## 현재 구현 기준
+
+- 화면·상태 정본: [06-C Admin](https://www.figma.com/design/JSrjOy668zhfkiLplCkreh/ASAK-%E2%80%94-Design-System---Product-UI-0715?node-id=134-10606), [07-C State Matrix](https://www.figma.com/design/JSrjOy668zhfkiLplCkreh/ASAK-%E2%80%94-Design-System---Product-UI-0715?node-id=190-2)
+- 정본 route: `/`, `/orders/live`, `/orders`, `/soldOut`, `/menus`, `/paymentMethods`, `/sales`, `/sales/monthly`, `/sales/daily`
+- 관리자 구현의 정본 위치는 이 저장소다. Kiosk 안의 Admin scaffold는 Legacy Reference이므로 새 관리자 기능을 그곳에 구현하지 않는다.
+- API 계약은 목표 상태이며, Backend endpoint/DTO가 구현되기 전에는 mock UI와 실제 연동 완료를 구분한다.
