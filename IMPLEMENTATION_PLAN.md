@@ -156,3 +156,12 @@ docs(admin): align order mock fields with API-007
 ```
 
 매일 종료 전 worklog에 `완료 화면 / 변경한 fixture·API 필드 / 실행한 TC / 다음 작업 / 공통 파일 변경 여부`를 기록한다. 구현 시작 전에는 해당 `SCR`, `API`, `TC`를 계약 문서에서 확인한다.
+
+## Documentation status (2026-07-16)
+
+- Status: Needs Review
+- Written-at context: pre-canonical Admin mock implementation plan.
+- Product Bible relationship: [Pack 12](../ASAK/docs/product_bible/12_Frontend_Implementation/README.md).
+- Latest implementation baseline: [Current Implementation Map](../ASAK/docs/CURRENT_IMPLEMENTATION_MAP.md).
+- Central canonical contract: [Canonical Contract Decisions](../ASAK/docs/CANONICAL_CONTRACT_DECISIONS.md).
+- Potential conflict: route/API assumptions may differ from canonical camelCase paths; source remains unchanged.

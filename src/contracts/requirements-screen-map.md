@@ -9,3 +9,10 @@
 | 메뉴 관리 | `MenuManagePage`, `MenuEditPage` | API-011/012 | 폼 검증 |
 | 결제수단 | `PaymentMethodPage` | API-013/014 | 활성화·정렬 |
 | 매출 | `SalesSummaryPage`, `SalesChart` | API-015 | 기간별 요약 |
+
+## Canonical contract relationship
+
+- Status: Needs Review — current Admin Frontend expected shape.
+- Canonical routes and API decisions: [ASAK docs](../../../ASAK/docs/README.md) and [Canonical Contract Decisions](../../../ASAK/docs/CANONICAL_CONTRACT_DECISIONS.md).
+- Canonical Admin routes use `/orders/live`, `/soldOut`, and `/paymentMethods`; existing assumptions are not changed here.
+- Adapter/Backend DTO confirmation is required before implementation.

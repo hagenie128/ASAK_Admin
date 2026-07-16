@@ -1,5 +1,15 @@
 # ASAK Admin
 
+## Central documentation
+
+- [ASAK docs index](../ASAK/docs/README.md)
+- [Product Bible Pack 12 — Frontend Implementation](../ASAK/docs/product_bible/12_Frontend_Implementation/README.md)
+- [Product Bible Pack 11 — Backend Implementation](../ASAK/docs/product_bible/11_Backend_Implementation/README.md)
+- [Current Implementation Map](../ASAK/docs/CURRENT_IMPLEMENTATION_MAP.md)
+- [Implementation Priority](../ASAK/docs/IMPLEMENTATION_PRIORITY.md)
+
+This is the canonical implementation repository for administrator React JavaScript.
+
 ASAK 관리자 운영 화면 전용 React/Vite 애플리케이션입니다. 주문 조회·상태 변경, 품절, 메뉴·결제수단 설정, 매출 조회를 이 저장소에서 담당합니다. 주문 키오스크 화면은 `ASAK-kiosk` 저장소에서 개발합니다.
 
 ## 빠른 시작
