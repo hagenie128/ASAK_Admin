@@ -1,5 +1,25 @@
 import { NavLink, Route, Routes } from "react-router-dom";
 
+/*
+ * [학습] AdminApp 인라인 책임 — 지금은 아래가 한 파일에 섞여 있다.
+ * 1) 네비게이션 메타(menus)
+ * 2) Sidebar UI (aside)
+ * 3) Routes 정의
+ * 4) 화면 Placeholder (AdminScreen)
+ *
+ * 분리 계획 (완성 구현 금지, Figma 승인 후):
+ * - menus/path → constants/routes.js
+ * - aside → layouts/AdminLayout + components/admin/AdminSidebar + AdminHeader
+ * - 각 Route element → pages/admin/* 실제 Page (지금은 AdminScreen 유지)
+ * - AdminScreen → 개발용 임시. 프로덕션 Page로 교체 시 삭제 후보
+ *
+ * Figma Component 연결 후보: AdminLayout, Sidebar, Header
+ * 현재 코드 역할: 앱 셸 + 라우트 임시 조립
+ * 최종 명칭 확인 필요: "/" 주문 현황이 Live Order인지 Dashboard인지
+ * Figma 승인 후 연결할 Props: Layout children, nav items
+ * 이 파일이 직접 처리하면 안 되는 상태: 주문/품절/매출 데이터, Draft, KPI 계산
+ */
+
 // Keep navigation metadata in one place so a new admin feature adds its URL,
 // sidebar entry, and screen identifier together.
 const menus = [
