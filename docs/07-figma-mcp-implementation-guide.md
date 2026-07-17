@@ -1,5 +1,8 @@
 # Figma Prototype → MCP → Admin 구현 가이드
 
+> **중앙 Figma QA 정본:** [`ASAK/docs/design/FIGMA_QA_UNIFIED_COMPLETE_2026-07-17.md`](../../ASAK/docs/design/FIGMA_QA_UNIFIED_COMPLETE_2026-07-17.md)  
+> 이 문서는 **Admin 저장소**에서 MCP→코드 연결용입니다. Kiosk는 `ASAK-Kiosk/docs/figma-mcp-implementation-guide.md`.
+
 ## 목적과 범위
 
 Figma 화면과 프로토타입은 Admin React 구현의 출발점이다. MCP로 가져온 결과는 화면 구조·디자인 규칙·인터랙션 의도이며, 실제 데이터·권한·저장 동작까지 자동으로 완성하지는 않는다.
