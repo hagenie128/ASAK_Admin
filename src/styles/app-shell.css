@@ -138,13 +138,13 @@ a {
 /* Figma 06-C / SCR-009 정적 프리뷰 — API·상태 전이 없이 레이아웃만 반영 */
 .live-order-preview {
   min-height: 100vh;
-  background: #f8fafc;
+  background: #f7f7f7;
   color: #111827;
 }
 
 .live-order-preview__topbar {
   display: grid;
-  grid-template-columns: 90px minmax(0, 1fr) auto;
+  grid-template-columns: 120px minmax(0, 1fr) auto;
   align-items: center;
   min-height: 72px;
   background: #fff;
@@ -157,11 +157,12 @@ a {
   height: 50px;
   margin: 0 auto;
   place-items: center;
-  border-radius: 16px;
-  background: var(--admin-lime);
-  color: #111827;
-  font-size: 1.7rem;
-  font-weight: 900;
+}
+
+.live-order-preview__logo img {
+  display: block;
+  width: 50px;
+  height: 50px;
 }
 
 .live-order-preview__heading {
@@ -191,18 +192,18 @@ a {
 
 .live-order-preview__content {
   display: grid;
-  grid-template-columns: 40px minmax(0, 1fr) 40px;
-  align-items: center;
-  gap: 20px;
+  grid-template-columns: 32px minmax(0, 1fr) 32px;
+  align-items: start;
+  gap: 12px;
   min-height: calc(100vh - 72px);
-  padding: 24px 32px;
+  padding: 46px 32px 24px;
 }
 
 .live-order-preview__board {
   display: grid;
-  grid-template-columns: repeat(4, minmax(280px, 1fr));
+  grid-template-columns: repeat(4, 380px);
   gap: 16px;
-  align-self: stretch;
+  align-self: start;
 }
 
 .live-order-preview__arrow {
@@ -291,6 +292,93 @@ a {
   font-weight: 800;
 }
 
+/* SCR-009 / Live Order / Default (Figma node 134:10607) */
+.figma-order-card {
+  display: flex;
+  width: 380px;
+  height: 821px;
+  flex-direction: column;
+  padding: 20px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 1px -1px 2px rgba(18, 26, 0, 0.05), -1px -1px 2px rgba(18, 26, 0, 0.05), 0 20px 24px -4px rgba(18, 26, 0, 0.1), 0 8px 8px -4px rgba(18, 26, 0, 0.04);
+}
+
+.figma-order-card__header,
+.figma-order-card__footer > div:first-child,
+.figma-order-menu__title,
+.figma-order-card__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.figma-order-card__header strong {
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.figma-order-card__header time {
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #f5f5f5;
+  color: #212121;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+.figma-order-card__type {
+  width: fit-content;
+  margin-top: 8px;
+  padding: 3px 16px;
+  border-radius: 999px;
+  background: #b5e30f;
+  color: #111827;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.figma-order-card__type--takeout { background: #111827; color: #b5e30f; }
+
+.figma-order-card__menus { display: grid; gap: 8px; margin-top: 16px; }
+
+.figma-order-menu {
+  height: 181px;
+  padding: 16px 12px 10px;
+  border: 1px solid #bfbfbf;
+  border-radius: 12px;
+}
+
+.figma-order-menu__title { margin-top: -10px; }
+.figma-order-menu__title strong { font-size: 22px; line-height: 28px; }
+.figma-order-menu__title span { color: #737373; font-size: 16px; line-height: 24px; }
+.figma-order-menu p { margin: 4px 0 0; color: #111827; font-size: 14px; line-height: 20px; }
+
+.figma-order-menu__options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px 8px;
+  margin-top: 5px;
+}
+
+.figma-order-option { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; line-height: 16px; white-space: nowrap; }
+.figma-order-option i { display: grid; width: 40px; height: 40px; place-items: center; border: 2px solid #b5e30f; border-radius: 50%; color: #b5e30f; font-style: normal; }
+.figma-order-option i img { display: block; width: 9px; height: 9px; }
+.figma-order-option--2, .figma-order-option--3 { margin-top: -6px; }
+.figma-order-option--2 i, .figma-order-option--3 i { width: 16px; height: 16px; border-color: #ff8d28; color: #ff8d28; }
+.figma-order-option--2 i img, .figma-order-option--3 i img { width: 8px; height: 8px; }
+.figma-order-option--3 i { border-color: #b5e30f; color: #b5e30f; }
+
+.figma-order-card__footer { margin-top: auto; }
+.figma-order-card__footer > div:first-child { padding: 0 16px; font-size: 18px; font-weight: 700; line-height: 24px; }
+.figma-order-card__actions { gap: 8px; margin-top: 16px; }
+.figma-order-card__actions button { height: 80px; border: 0; font: inherit; }
+.figma-order-card__actions button:first-child { width: 80px; background: transparent; color: #6b7280; font-size: 12px; text-decoration: underline; }
+.figma-order-card__actions button:last-child { flex: 1; border-radius: 8px; background: #b5e30f; box-shadow: inset 0 -2px 4px rgba(152, 202, 34, 0.75), inset 0 2px 8px rgba(255, 255, 255, 0.6), inset 0 -4px 12px rgba(152, 202, 34, 0.65), inset 2px 4px 12px rgba(255, 255, 255, 0.65); color: #111827; font-size: 28px; font-weight: 700; line-height: 36px; opacity: 1; }
+
 @media (max-width: 1280px) {
   .live-order-preview__board { grid-template-columns: repeat(2, minmax(280px, 1fr)); }
 }
@@ -300,10 +388,12 @@ a {
   height: 60px;
   display: grid;
   place-items: center;
-  color: var(--admin-deep-green);
-  font-size: 28px;
-  font-weight: 900;
-  letter-spacing: -0.08em;
+}
+
+.admin-sidebar__brand img {
+  display: block;
+  width: 50px;
+  height: 50px;
 }
 
 .admin-sidebar__nav {

@@ -12,6 +12,7 @@
  */
 
 import { NavLink } from "react-router-dom";
+import asakSLogo from "../../assets/figma/asak-s-logo.svg";
 
 const navSymbols = {
   "/": "▦",
@@ -26,7 +27,9 @@ const navSymbols = {
 export default function AdminSidebar({ items }) {
   return (
     <aside className="admin-sidebar">
-      <div className="admin-sidebar__brand" aria-label="ASAK Admin">ASAK</div>
+      <div className="admin-sidebar__brand" aria-label="ASAK Admin">
+        <img alt="ASAK" src={asakSLogo} />
+      </div>
       <nav className="admin-sidebar__nav" aria-label="관리자 메뉴">
         {items.map(({ path, label }) => (
           <NavLink key={path} end={path === "/"} to={path}>
