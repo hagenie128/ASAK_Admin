@@ -18,18 +18,25 @@
  * TODO 2: API-011 필드 계약 확정 전 mock 필드 고정 금지
  */
 
-import AdminPageHeader from "../../components/admin/AdminPageHeader.jsx";
-import StaticDataTable from "../../components/admin/StaticDataTable.jsx";
+import chickenImage from "../../assets/figma/soldout-chicken.png";
+import pastaImage from "../../assets/figma/soldout-pasta.png";
+import ricottaImage from "../../assets/figma/soldout-ricotta.png";
+import salmonImage from "../../assets/figma/soldout-salmon.png";
+import sandwichImage from "../../assets/figma/soldout-sandwich.png";
+import tomatoImage from "../../assets/figma/soldout-tomato.png";
+
+// Static Figma preview data. Menu fetching, search, creation, and editing are deferred.
+const menus = [
+  ["리코타 샐러드", "9,300", "샐러드", ricottaImage], ["연어 포케볼", "12,900", "포케볼", salmonImage],
+  ["수비드 치킨 샐러드", "10,900", "샐러드", chickenImage], ["토마토 파스타", "11,500", "웜볼", tomatoImage],
+  ["트러플 버섯 파스타", "12,500", "웜볼", pastaImage], ["바질 치킨 샌드위치", "8,900", "샌드위치", sandwichImage],
+  ["연어 아보카도 랩", "9,900", "랩&롤", salmonImage], ["닭가슴살 또띠아 랩", "8,900", "랩&롤", chickenImage],
+];
 
 export default function MenuManagePage() {
-  return (
-    <section className="admin-page">
-      <AdminPageHeader title="메뉴 관리" description="키오스크에 표시할 메뉴를 관리합니다." actionLabel="메뉴 추가" />
-      <div className="admin-filter-bar"><button type="button" disabled>전체 카테고리</button><input value="메뉴명 검색" disabled readOnly /></div>
-      <StaticDataTable
-        columns={["메뉴", "카테고리", "가격", "판매 상태", "관리"]}
-        rows={[["메뉴명", "카테고리", "0원", "판매중", "상세 보기"], ["메뉴명", "카테고리", "0원", "판매중", "상세 보기"]]}
-      />
-    </section>
-  );
+  return <section className="menu-management">
+    <header className="menu-management__header"><h1>메뉴 관리</h1><p>상품 기본정보 / 가격 / 카테고리 / 옵션그룹 / 노출여부를 관리하세요.</p></header>
+    <div className="menu-management__toolbar"><div className="menu-management__tabs">{["전체", "샐러드", "포케볼", "랩&롤", "음료"].map((item, index) => <button type="button" disabled key={item} className={index === 0 ? "is-selected" : ""}>{item}</button>)}</div><label><span className="sr-only">메뉴명 검색</span><span aria-hidden="true">⌕</span><input value="" placeholder="메뉴명 검색" readOnly disabled /></label></div>
+    <div className="menu-management__grid">{menus.map(([name, price, category, image]) => <article key={name}><img src={image} alt="" /><div><strong>{name}</strong><b>{price}</b></div><span>{category}</span><button type="button" disabled aria-label={`${name} 편집`}>편집</button></article>)}</div>
+  </section>;
 }

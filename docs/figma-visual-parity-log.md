@@ -78,7 +78,7 @@ Figma MCP가 내려주는 에셋 URL은 단기 URL이므로, 코드에는 URL을
 
 Visual capture: `docs/screenshots/2026-07-18-admin-sold-out-1920x1080.png`.
 | Login / Default | `134:12033` | `pages/admin/LoginPage.jsx` | 미대조 | 대기 |
-| Menu Management / Default | `134:12137` | `pages/admin/MenuManagePage.jsx` | 메뉴 이미지 에셋 포함 대조 필요 | 대기 |
+| Menu Management / Default | `134:12137` | `pages/admin/MenuManagePage.jsx` | Local food thumbnails reused from the current Admin source; static category tabs, search field, and card-edit affordance rendered disabled. Visual capture: `docs/screenshots/2026-07-18-admin-menu-management-1920x1080.png`. | UI complete / data adapter deferred |
 | Payment / Default | `134:11493` | `pages/admin/PaymentMethodPage.jsx` | 미대조 | 대기 |
 | Sales / Default | `134:10661` | `pages/admin/SalesSummaryPage.jsx` | 미대조 | 대기 |
 | Dashboard / Default | `227:5008` | `pages/admin/DashboardPage.jsx` | 미대조 | 대기 |
