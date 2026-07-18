@@ -13,6 +13,16 @@
 
 import { NavLink } from "react-router-dom";
 
+const navSymbols = {
+  "/": "▦",
+  "/dashboard": "⌂",
+  "/orders": "☷",
+  "/sold-out": "◫",
+  "/menus": "◉",
+  "/payment-methods": "▣",
+  "/sales": "⌁",
+};
+
 export default function AdminSidebar({ items }) {
   return (
     <aside className="admin-sidebar">
@@ -20,7 +30,7 @@ export default function AdminSidebar({ items }) {
       <nav className="admin-sidebar__nav" aria-label="관리자 메뉴">
         {items.map(({ path, label }) => (
           <NavLink key={path} end={path === "/"} to={path}>
-            <span aria-hidden="true">•</span>
+            <span aria-hidden="true">{navSymbols[path] ?? "•"}</span>
             {label}
           </NavLink>
         ))}
