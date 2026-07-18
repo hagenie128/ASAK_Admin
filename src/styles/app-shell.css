@@ -1,4 +1,6 @@
 /* ASAK Admin — 기존 셸에 키오스크와 맞춘 브랜드 톤 (Placeholder 화면용) */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
 :root {
   --admin-bg: #f4f1ea;
   --admin-sidebar: #1a2e24;
@@ -8,8 +10,6 @@
   --admin-muted: #5c6b61;
   --admin-font: "Pretendard Variable", Pretendard, sans-serif;
 }
-
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
 
 :root {
   font-family: var(--admin-font);

@@ -10,6 +10,11 @@
  * TODO 2: 401 시 로그인 경로로 보내는 책임 위치를 Layout vs Router에서 합의
  */
 
+import { useAdminSessionStore } from "../store/adminSessionStore.js";
+
 export function useAdminAuth() {
-  throw new Error("useAdminAuth: 미구현 — Route에 연결하지 말 것");
+  const session = useAdminSessionStore((state) => state.session);
+  const isAuthenticated = useAdminSessionStore((state) => state.isAuthenticated);
+
+  return { session, isAuthenticated };
 }
