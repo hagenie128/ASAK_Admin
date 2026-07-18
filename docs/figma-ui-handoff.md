@@ -61,3 +61,27 @@
 - `src/api/*`와 `axios`는 기존 개발 경계이므로 삭제하지 않았다. 이번 UI는 새 호출을 만들지 않는다.
 - `AdminLayout`은 side bar와 본문만 조립한다. URL별 페이지 선택은 `AdminApp`에, 화면 안의 정적 표/토글은 작은 presentational component에 둬서 나중의 API hook이 UI에 섞이지 않게 했다.
 - `StaticDataTable`, `StaticToggle`, `AdminPageHeader`는 Figma 화면의 반복 UI를 묶은 것이다. 실제 데이터/API 작업을 시작할 때 이 컴포넌트에 fetch나 store를 넣지 말고, page/hook에서 props로 넘긴다.
+
+## 상태별 Figma 화면 확인 방식
+
+상태별 화면은 운영 route를 별도로 계속 만들지 않는다. 실제 구현에서는 각 Page가 hook/API 결과로 `viewState`를 받고 본문·overlay·toast를 교체한다. 현재는 기능 없이 Figma 상태 화면을 확인하기 위해 아래 UI 전용 route만 제공한다.
+
+```text
+/ui-preview/:screen/:state
+예) /ui-preview/live/loading
+예) /ui-preview/soldout/confirm
+예) /ui-preview/payment/error
+```
+
+| Figma 상태 묶음 | preview screen | state 예 |
+| --- | --- | --- |
+| Live Order loading, empty, error, detail, status confirm, saving, toast, TTS failure | `live` | `loading`, `empty`, `error`, `detail`, `confirm`, `progress`, `success` |
+| Order Management filter, loading, empty, error | `orders` | `selection`, `loading`, `empty`, `error` |
+| Sold-out loading, empty, error, changed, disable confirm, saving, toast | `soldout` | `loading`, `empty`, `error`, `selection`, `confirm`, `progress`, `success` |
+| Login validation, authentication error, submitting | `login` | `selection`, `error`, `progress` |
+| Menu validation, delete confirm, save loading/success/error, empty/loading | `menu` | `selection`, `confirm`, `progress`, `success`, `error`, `empty` |
+| Payment toggle changed, save confirm/loading/success/error, all disabled, load error | `payment` | `selection`, `confirm`, `progress`, `success`, `error` |
+| Sales summary/monthly/daily loading, empty, error, filter/date changed, partial | `sales` | `loading`, `empty`, `error`, `selection` |
+| Dashboard loading, error, empty, partial | `dashboard` | `loading`, `error`, `empty`, `selection` |
+
+이 route는 실제 상태를 발생시키지 않으며 버튼도 비활성이다. 기능 개발 시에는 해당 페이지 안에서 동일한 view state를 렌더링하도록 옮기고 preview route는 제거한다.

@@ -8,6 +8,7 @@ import MenuEditPage from "../pages/admin/MenuEditPage.jsx";
 import PaymentMethodPage from "../pages/admin/PaymentMethodPage.jsx";
 import SalesSummaryPage from "../pages/admin/SalesSummaryPage.jsx";
 import DashboardPage from "../pages/admin/DashboardPage.jsx";
+import UiStatePreviewPage from "../pages/admin/UiStatePreviewPage.jsx";
 import AdminLayout from "../layouts/AdminLayout.jsx";
 
 /*
@@ -68,6 +69,9 @@ export default function AdminApp() {
   // TODO: 실제 관리자 라우팅 정책이 확정되면 이 분기를 canonical /orders/live 경로로 옮깁니다.
   if (pathname === "/") return <OrderListPage />;
   if (pathname === "/login") return <LoginPage />;
+  if (pathname.startsWith("/ui-preview/")) {
+    return <Routes><Route path="/ui-preview/:screen/:state" element={<UiStatePreviewPage />} /></Routes>;
+  }
 
   const staticPages = {
     "/dashboard": <DashboardPage />,
