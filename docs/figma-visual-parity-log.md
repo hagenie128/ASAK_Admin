@@ -79,9 +79,9 @@ Figma MCP가 내려주는 에셋 URL은 단기 URL이므로, 코드에는 URL을
 Visual capture: `docs/screenshots/2026-07-18-admin-sold-out-1920x1080.png`.
 | Login / Default | `134:12033` | `pages/admin/LoginPage.jsx` | 미대조 | 대기 |
 | Menu Management / Default | `134:12137` | `pages/admin/MenuManagePage.jsx` | Local food thumbnails reused from the current Admin source; static category tabs, search field, and card-edit affordance rendered disabled. Visual capture: `docs/screenshots/2026-07-18-admin-menu-management-1920x1080.png`. | UI complete / data adapter deferred |
-| Payment / Default | `134:11493` | `pages/admin/PaymentMethodPage.jsx` | 미대조 | 대기 |
-| Sales / Default | `134:10661` | `pages/admin/SalesSummaryPage.jsx` | 미대조 | 대기 |
-| Dashboard / Default | `227:5008` | `pages/admin/DashboardPage.jsx` | 미대조 | 대기 |
+| Payment / Default | `134:11493` | `pages/admin/PaymentMethodPage.jsx` | Figma의 4개 결제수단 행, 재정렬 affordance, 미리보기 목록, 정책 2카드, 저장 바를 정적 UI로 반영. 결제 브랜드는 외부 이미지/이모지 대신 색상·문자 마크로 대체해 자산 연결을 만들지 않음. Visual capture: `docs/screenshots/2026-07-18-admin-payment-1920x1080.png`. | UI complete / data adapter deferred |
+| Sales / Default | `134:10661` | `pages/admin/SalesSummaryPage.jsx` | 정적 KPI·시간대 차트·주문/결제 비율 UI 반영. Visual capture: `docs/screenshots/2026-07-18-admin-sales-1920x1080.png`. | UI complete / data adapter deferred |
+| Dashboard / Default | `227:5008` | `pages/admin/DashboardPage.jsx` | Figma의 4 KPI, 최근 주문, 상태 진행바, 품절/재고 알림, 주간 매출 요약을 정적 목업으로 반영. 네비게이션 7종 SVG와 177×60 로고를 현재 노드에서 로컬화. Visual capture: `docs/screenshots/2026-07-18-admin-dashboard-1920x1080.png`. | UI complete / data adapter deferred |
 
 ## 구현 경계
 

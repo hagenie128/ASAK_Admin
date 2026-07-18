@@ -1,45 +1,36 @@
 /*
- * 화면: Payment Methods SCR-018
- * 현재 Page 파일: PaymentMethodPage.jsx
- * 현재 Route: "/payment-methods" → 아직 AdminScreen
- * 필요한 데이터: 결제수단 목록, 활성 여부, 노출 순서
- * 상태 소유 후보: 서버 원본 vs Draft(순서·활성) / Preview는 읽기 전용 파생
- * API 호출 후보 위치: api (API-013/014 계약 후) — Preview에서 저장 호출 금지
- * Adapter 필요 여부: 계약 후
- * Hook 분리 필요 여부: 활성·순서 Draft와 Preview 표시 분리
- * 공통 Component 후보: PageHeader, SaveBar, ConfirmDialog, Loading/Error
- * Figma Component 연결 후보: SaveBar, (키오스크 Preview 프레임 명칭 확인)
- * 최종 명칭 확인 필요: path `/payment-methods` vs canonical `/paymentMethods`
- * Figma 승인 후 연결할 Props: methods, onReorder, onToggleActive, previewProps
- * 이 파일이 직접 처리하면 안 되는 상태: Preview가 실제 저장 상태를 직접 변경
- * 아직 구현하면 안 되는 부분: 완성 드래그 UI/CSS, 키오스크 Preview 픽셀
- *
- * TODO 1: Draft 저장 성공 전에는 Preview가 서버 확정값처럼 보이지 않게 라벨 구분
- * TODO 2: 실패 시 이전 순서·활성 복구
+ * SCR-018 / Payment Methods / Default (Figma node 134:11493)
+ * 정렬·토글·수정은 의도적으로 비활성 표시만 한다. 실제 draft와 저장은 API 계약 후 분리한다.
  */
-
-import AdminPageHeader from "../../components/admin/AdminPageHeader.jsx";
 import StaticToggle from "../../components/admin/StaticToggle.jsx";
 
 const methods = [
-  ["💳", "카드 / 삼성페이 결제", "신용 · 체크카드"],
-  ["K", "카카오페이 결제", "모바일 간편결제"],
+  ["CARD", "카드 / 삼성페이 결제", "신용 · 체크카드", "payment-mark--card"],
+  ["K", "카카오페이 결제", "모바일 간편결제", "payment-mark--kakao"],
+  ["N", "네이버페이 결제", "모바일 간편결제", "payment-mark--naver"],
+  ["QR", "제로페이 결제", "QR 결제", "payment-mark--zero"],
 ];
 
+function PaymentMethodRow({ method, compact = false }) {
+  const [mark, title, description, tone] = method;
+  return <article className={`payment-method-row${compact ? ' payment-method-row--compact' : ''}`}>
+    <span className={`payment-mark ${tone}`}>{mark}</span>
+    <div><strong>{title}</strong><small>{description}</small></div>
+    {!compact && <div className="payment-method-row__reorder"><button type="button" disabled aria-label={`${title} 위로 이동`}>↑</button><button type="button" disabled aria-label={`${title} 아래로 이동`}>↓</button></div>}
+    <StaticToggle label={`${title} 활성`} />
+  </article>;
+}
+
 export default function PaymentMethodPage() {
-  return (
-    <section className="admin-page admin-page--narrow">
-      <AdminPageHeader title="결제 수단" description="키오스크에서 노출할 결제 수단을 관리합니다." actionLabel="저장하기" />
-      <div className="admin-method-list">
-        {methods.map(([icon, title, description]) => (
-          <article key={title} className="admin-method-row">
-            <span className="admin-method-row__icon">{icon}</span>
-            <div><strong>{title}</strong><small>{description}</small></div>
-            <div className="admin-method-row__controls"><button type="button" disabled>↑</button><button type="button" disabled>↓</button><StaticToggle /></div>
-          </article>
-        ))}
+  return <section className="payment-settings" aria-label="결제수단 정적 미리보기">
+    <header className="payment-settings__header"><div><h1>결제수단 설정</h1><p>키오스크 및 웹 결제 화면에 노출할 수단과 안내 문구를 확인합니다.</p></div></header>
+    <div className="payment-settings__content">
+      <div className="payment-settings__main">
+        <section><h2>결제수단 관리</h2><p className="payment-settings__guide">표시 순서는 정적 목업입니다. 실제 변경은 저장 기능 구현 단계에서 연결합니다.</p><div className="payment-method-list">{methods.map((method) => <PaymentMethodRow key={method[1]} method={method} />)}</div></section>
+        <section className="payment-policies"><h2>결제 정책 설정</h2><div>{[["결제 실패 시 초기화 정책", "결제 실패 시 장바구니 데이터를 5분간 유지한 후 자동으로 초기화합니다"], ["영수증 안내 문구", "주문해주셔서 감사합니다. 맛있게 드시고 리뷰 작성 시 서비스를 드립니다!"]].map(([title, text]) => <article key={title}><header><h3>{title}</h3><button type="button" disabled>수정</button></header><p>{text}</p></article>)}</div></section>
       </div>
-      <div className="admin-save-bar"><span>저장하지 않은 변경 사항이 있습니다.</span><button type="button" disabled>저장하기</button></div>
-    </section>
-  );
+      <aside className="payment-preview"><header><h2>결제수단 목록</h2><p>설정한 순서대로 결제 화면에 노출됩니다.</p></header><div>{methods.map((method) => <PaymentMethodRow compact key={method[1]} method={method} />)}</div></aside>
+    </div>
+    <footer className="payment-save-bar"><span>저장하지 않은 변경 사항이 있습니다</span><button type="button" disabled>저장하기</button></footer>
+  </section>;
 }
