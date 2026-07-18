@@ -394,7 +394,21 @@ a {
   place-items: center;
 }
 
-.admin-sidebar__brand img { display:block; object-fit:contain; }.admin-sidebar__brand-full { width:177px; height:60px; }.admin-sidebar__brand-mark { display:none !important; width:50px; height:50px; }
+.admin-sidebar__brand img {
+  display: block;
+  object-fit: contain;
+}
+
+.admin-sidebar__brand-full {
+  width: 177px;
+  height: 60px;
+}
+
+.admin-sidebar__brand-mark {
+  width: 50px;
+  height: 50px;
+  display: none !important;
+}
 
 .admin-sidebar__nav {
   display: grid;
@@ -412,7 +426,15 @@ a {
   font-weight: 500;
 }
 
-.admin-sidebar__nav a img { width:20px; height:20px; flex:0 0 20px; }.admin-sidebar__nav a span { min-width:0; }
+.admin-sidebar__nav a img {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+}
+
+.admin-sidebar__nav a span {
+  min-width: 0;
+}
 
 .admin-sidebar__nav a.active {
   color: var(--admin-text-primary);
@@ -732,7 +754,25 @@ a {
 .order-management__table td { height: 48px; padding: 0 14px; border-top: 1px solid #f3f4f6; white-space: nowrap; }
 .order-management__table td:nth-child(2) { color: var(--admin-text-secondary); }
 .order-status { display: inline-flex; padding: 4px 8px; border-radius: 8px; font-size: 12px; line-height: 16px; }
-.order-status--received { background: #f5fbe0; color: #6c9700; }.order-status--preparing { background: #fff8e6; color: #a06400; }.order-status--complete { background: #f5f5f5; color: #6b7280; }.order-status--cancelled { background: #fff0eb; color: #ef4444; }
+.order-status--received {
+  background: #f5fbe0;
+  color: #6c9700;
+}
+
+.order-status--preparing {
+  background: #fff8e6;
+  color: #a06400;
+}
+
+.order-status--complete {
+  background: #f5f5f5;
+  color: #6b7280;
+}
+
+.order-status--cancelled {
+  background: #fff0eb;
+  color: #ef4444;
+}
 .order-management__pagination { display: flex; justify-content: center; gap: 8px; margin-top: 16px; color: var(--admin-text-secondary); }.order-management__pagination b, .order-management__pagination span { display:grid; width:32px; height:32px; place-items:center; border:1px solid #e5e7eb; border-radius:8px; font-size:14px; }.order-management__pagination b { border-color: transparent; background:var(--admin-brand-subtle); color:var(--admin-text-primary); }
 .order-management__detail { padding: 24px 28px; }.order-management__detail h2 { margin:0 0 20px; font-size:20px; line-height:28px; }.order-management__detail dl { margin:0; padding-bottom:14px; border-bottom:1px solid #f3f4f6; }.order-management__detail dl div, .order-management__total { display:flex; justify-content:space-between; margin:10px 0; font-size:14px; line-height:20px; }.order-management__detail dt { color:var(--admin-text-secondary); }.order-management__detail dd { margin:0; font-weight:600; }.order-management__item { padding:16px 8px; border-bottom:1px solid #f3f4f6; }.order-management__item strong { font-size:14px; }.order-management__item span { float:right; font-size:13px; color:var(--admin-text-secondary); }.order-management__item small { display:block; margin-top:6px; color:var(--admin-text-secondary); font-size:12px; line-height:16px; }.order-management__detail section { padding:16px 0; border-bottom:1px solid #f3f4f6; }.order-management__detail h3 { margin:0 0 10px; font-size:14px; }.order-management__detail section p { margin:0; padding:14px; border-radius:8px; background:#f5f5f5; color:var(--admin-text-secondary); font-size:13px; }.order-management__total { margin-top:28px; font-size:16px; }.order-management__total b { color:#6c9700; font-size:24px; }.order-management__detail footer { display:grid; grid-template-columns:1fr 1fr 1.5fr; gap:8px; margin-top:28px; }.order-management__detail footer button { height:40px; border:1px solid #e5e7eb; border-radius:8px; background:#fff; color:var(--admin-text-secondary); font:inherit; }.order-management__detail footer button:nth-child(2) { border-color:#ef4444; color:#ef4444; }.order-management__detail footer button:last-child { border-color:var(--admin-brand-primary); background:var(--admin-brand-primary); color:#0d0d0d; font-weight:700; }
 
