@@ -1,5 +1,13 @@
 # Admin Figma 시각 일치 기록
 
+## Login and menu-edit visual verification — 2026-07-19
+
+- Figma source: `Login / Default` (`134:12033`) in **ASAK — Design System Product UI 0718**.
+- `LoginPage.jsx` now uses the local `src/assets/figma/asak-admin-logo.svg` instead of a text approximation. The SVG is bundled with the app; no Figma URL or external asset is used at runtime.
+- Rendered at `1920×1080`: `docs/screenshots/2026-07-19-admin-login-1920x1080.png`.
+- `MenuEditPage.jsx` is available at `/menus/new` and `/menus/edit` through the shared `AdminLayout`; rendered at `1920×1080`: `docs/screenshots/2026-07-19-admin-menu-edit-1920x1080.png`.
+- Both screens intentionally keep their inputs and CTAs disabled. Authentication, form state, validation, upload, API calls, JSON loading, and Zustand writes remain outside this UI-only change.
+
 ## 기준 파일
 
 - Figma: `ASAK — Design System Product UI 0718`

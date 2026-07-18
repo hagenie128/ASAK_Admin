@@ -1,3 +1,5 @@
+import adminLogo from "../../assets/figma/asak-admin-logo.svg";
+
 /*
  * 화면: 로그인 SCR-015
  * 현재 Page 파일: pages/admin/LoginPage.jsx
@@ -22,7 +24,7 @@ export default function LoginPage() {
   return (
     <main className="admin-login-page">
       <section className="admin-login-card">
-        <div className="admin-login-card__brand">ASAK</div>
+        <img className="admin-login-card__brand" src={adminLogo} alt="ASAK" />
         <h1>관리자 로그인</h1>
         <label>아이디<input value="admin_asak" disabled readOnly /></label>
         <label>비밀번호<input value="••••••••" disabled readOnly /></label>
