@@ -2,6 +2,7 @@ import { NavLink, Route, Routes, useLocation } from "react-router-dom";
 import OrderListPage from "../pages/admin/OrderListPage.jsx";
 import LoginPage from "../pages/admin/LoginPage.jsx";
 import OrderDetailPage from "../pages/admin/OrderDetailPage.jsx";
+import OrderManagementPreview from "../pages/admin/OrderManagementPreview.jsx";
 import SoldOutManagePage from "../pages/admin/SoldOutManagePage.jsx";
 import MenuManagePage from "../pages/admin/MenuManagePage.jsx";
 import MenuEditPage from "../pages/admin/MenuEditPage.jsx";
@@ -75,7 +76,7 @@ export default function AdminApp() {
 
   const staticPages = {
     "/dashboard": <DashboardPage />,
-    "/orders": <OrderDetailPage />,
+    "/orders": <OrderManagementPreview />,
     "/sold-out": <SoldOutManagePage />,
     "/menus": <MenuManagePage />,
     "/menus/new": <MenuEditPage />,

@@ -55,12 +55,14 @@ Figma MCP가 내려주는 에셋 URL은 단기 URL이므로, 코드에는 URL을
 
 `Live Order`의 옵션 원형은 원본 48px에서 시각 크기를 40px으로 축소했지만, 실제 선택 기능 구현 시에는 48px 이상의 투명한/여백 포함 클릭 영역을 별도로 둔다. 또한 문서의 Blue 제거 원칙에 따라 음료 아이콘 wrapper의 blue border는 Brand Primary로 교체했다.
 
+0718 handoff의 `00. START HERE`는 전체 텍스트를 `Noto Sans KR`로 마이그레이션했다고 기록하지만, 일부 이전 화면 노드는 Pretendard/Inter를 포함한다. 공통 CSS는 `Noto Sans KR`을 첫 폴백으로 두고 Pretendard를 보조 폴백으로 둔다. 개별 화면에서 실제 캡처와 글자 폭이 달라질 경우 해당 화면의 source node를 우선해 font/weight를 따로 기록한다.
+
 ## 화면별 진행 상태
 
 | 화면 | Figma 노드 | 코드 화면 | 에셋/효과 대조 | 상태 |
 | --- | --- | --- | --- | --- |
 | Live Order / Default | `134:10607` | `components/admin/LiveOrderPreview.jsx` | navbar 원본 logo 확보, 주문 카드 대조 진행 중 | 진행 중 |
-| Order Detail / Default | `134:10630` | `pages/admin/OrderDetailPage.jsx` | 미대조 | 대기 |
+| Order Detail / Default | `134:10630` | `pages/admin/OrderManagementPreview.jsx` | 1920×1080 대조 완료. 필터·10행 테이블·상세 패널을 정적 목업으로 반영, 로고 교체 대기 | 진행 중 |
 | Sold-out / Default | `134:11863` | `pages/admin/SoldOutManagePage.jsx` | 미대조 | 대기 |
 | Login / Default | `134:12033` | `pages/admin/LoginPage.jsx` | 미대조 | 대기 |
 | Menu Management / Default | `134:12137` | `pages/admin/MenuManagePage.jsx` | 메뉴 이미지 에셋 포함 대조 필요 | 대기 |
