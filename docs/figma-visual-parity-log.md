@@ -3,6 +3,7 @@
 ## Login and menu-edit visual verification — 2026-07-19
 
 - Figma source: `Login / Default` (`134:12033`) in **ASAK — Design System Product UI 0718**.
+- Responsive check: `/dashboard` was rendered at `1024×768` in `docs/screenshots/2026-07-19-admin-dashboard-tablet-1024x768.png`. The sidebar switches to its icon-only rail and the dashboard cards remain in a usable four-column overview at this tablet-width checkpoint.
 - `LoginPage.jsx` now uses the local `src/assets/figma/asak-admin-logo.svg` instead of a text approximation. The SVG is bundled with the app; no Figma URL or external asset is used at runtime.
 - Rendered at `1920×1080`: `docs/screenshots/2026-07-19-admin-login-1920x1080.png`.
 - `MenuEditPage.jsx` is available at `/menus/new` and `/menus/edit` through the shared `AdminLayout`; rendered at `1920×1080`: `docs/screenshots/2026-07-19-admin-menu-edit-1920x1080.png`.
