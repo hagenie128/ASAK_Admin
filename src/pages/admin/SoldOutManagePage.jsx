@@ -1,37 +1,47 @@
-/*
- * 화면: Sold-out Management SCR-011
- * 현재 Page 파일: SoldOutManagePage.jsx
- * 현재 Route: "/sold-out" → 아직 AdminScreen (이 파일 미연결)
- * 필요한 데이터: MENU/INGREDIENT/OPTION_ITEM 품절 목록, reasonType
- * 상태 소유 후보: useSoldOutDraft (serverRows vs draftRows, isDirty)
- * API 호출 후보 위치: api/admin sold-out — SoldOutToggle 안에서 호출 금지(사건만 상위로)
- * Adapter 필요 여부: soldOutAdapter
- * Hook 분리 필요 여부: 예 (원본/Draft/저장 실패 복구)
- * 공통 Component 후보: PageHeader, FilterBar, DataTable, SoldOutToggle, SaveBar, ConfirmDialog, Loading/Empty/Error
- * Figma Component 연결 후보: FilterBar, DataTable, SaveBar, SoldOutToggle
- * 최종 명칭 확인 필요: path `/sold-out` vs canonical `/soldOut`
- * Figma 승인 후 연결할 Props: rows, typeFilter, isDirty, onToggle, onSave
- * 이 파일이 직접 처리하면 안 되는 상태: Live Order 상태 변경, Preview가 서버를 직접 수정
- * 아직 구현하면 안 되는 부분: 완성 토글 UI/CSS, 일괄 품절 픽셀 디자인
- *
- * TODO 1: 서버 원본 hydrate → Draft 편집 → save/fail 시 입력 유지
- * TODO 2: 요청 중 중복 토글 방지
- */
+/* SCR-011 / Sold-out Management: static visual handoff only. */
+import carrotImage from "../../assets/figma/soldout-carrot.png";
+import chickenImage from "../../assets/figma/soldout-chicken.png";
+import lettuceImage from "../../assets/figma/soldout-lettuce.png";
+import pastaImage from "../../assets/figma/soldout-pasta.png";
+import ricottaImage from "../../assets/figma/soldout-ricotta.png";
+import salmonImage from "../../assets/figma/soldout-salmon.png";
+import sandwichImage from "../../assets/figma/soldout-sandwich.png";
+import tomatoImage from "../../assets/figma/soldout-tomato.png";
 
-import AdminPageHeader from "../../components/admin/AdminPageHeader.jsx";
-import StaticDataTable from "../../components/admin/StaticDataTable.jsx";
-import StaticToggle from "../../components/admin/StaticToggle.jsx";
+// Local mock data. Fetching, moving selected items, and saving belong to the future adapter.
+const availableItems = [
+  ["리코타 샐러드", "샐러드", ricottaImage, true], ["연어 포케볼", "샐러드", salmonImage],
+  ["수비드 치킨 샐러드", "샐러드", chickenImage], ["토마토 파스타", "웜볼", tomatoImage],
+  ["트러플 버섯 파스타", "웜볼", pastaImage], ["바질 치킨 샌드위치", "샌드위치", sandwichImage],
+  ["연어 아보카도 랩", "랩", salmonImage], ["닭가슴살 또띠아 랩", "랩", chickenImage],
+  ["오늘의 스프", "사이드", tomatoImage], ["레몬 에이드", "음료", ricottaImage],
+  ["콜드브루", "음료", pastaImage], ["그릭 요거트", "사이드", sandwichImage],
+];
+const soldOutItems = [
+  ["리코타 샐러드", "샐러드", ricottaImage], ["토마토 파스타", "웜볼", tomatoImage],
+  ["바질 치킨 샌드위치", "샌드위치", sandwichImage], ["콜드브루", "음료", pastaImage],
+];
+
+function ItemCard({ item, isSoldOut = false }) {
+  const [name, category, image, checked] = item;
+  return <article className={`sold-out-card${isSoldOut ? " sold-out-card--active" : ""}`}>
+    <div className="sold-out-card__image"><img src={image} alt="" /><input type="checkbox" checked={Boolean(checked || isSoldOut)} readOnly disabled aria-label={`${name} 선택`} /></div>
+    <div className="sold-out-card__info"><strong>{name}</strong><span>{category}</span></div>
+  </article>;
+}
 
 export default function SoldOutManagePage() {
-  return (
-    <section className="admin-page">
-      <AdminPageHeader title="품절 관리" description="메뉴와 재료의 판매 상태를 관리합니다." actionLabel="저장하기" />
-      <div className="admin-filter-bar"><button type="button" disabled>전체</button><button type="button" disabled>메뉴</button><button type="button" disabled>재료</button><input value="품목 검색" disabled readOnly /></div>
-      <StaticDataTable
-        columns={["구분", "품목", "상태", "사유", "변경"]}
-        rows={[["메뉴", "메뉴명", <StaticToggle key="toggle-1" />, "-", "저장 전"], ["재료", "재료명", <StaticToggle key="toggle-2" />, "-", "저장 전"]]}
-      />
-      <div className="admin-save-bar"><span>저장하지 않은 변경 사항이 있습니다.</span><button type="button" disabled>저장하기</button></div>
-    </section>
-  );
+  return <section className="sold-out-management">
+    <header className="sold-out-management__header"><small>Admin / 품절 관리</small><h1>품절 관리</h1><p>메뉴, 재료, 옵션의 판매 상태를 관리하세요.</p></header>
+    <div className="sold-out-management__workspace">
+      <section className="sold-out-board" aria-label="판매 항목">
+        <div className="sold-out-board__controls"><div className="sold-out-tabs" aria-label="항목 유형">{["메뉴", "재료", "옵션 선택지"].map((label, index) => <button key={label} type="button" disabled className={index === 0 ? "is-selected" : ""}>{label}</button>)}</div><label className="sold-out-search"><span className="sr-only">이름으로 검색</span><input value="" placeholder="이름으로 검색..." readOnly disabled /><span aria-hidden="true">⌕</span></label></div>
+        <div className="sold-out-chips" aria-label="카테고리">{["전체", "샐러드", "샌드위치", "웜볼", "랩", "사이드", "음료"].map((category, index) => <button key={category} type="button" disabled className={index === 0 ? "is-selected" : ""}>{category}</button>)}</div>
+        <div className="sold-out-board__title"><strong>전체 항목</strong><span>12</span></div><div className="sold-out-grid">{availableItems.map((item) => <ItemCard key={item[0]} item={item} />)}</div>
+      </section>
+      <div className="sold-out-management__transfer" aria-label="항목 이동"><button type="button" disabled aria-label="품절 목록으로 이동">→</button><button type="button" disabled aria-label="전체 항목으로 이동">←</button></div>
+      <section className="sold-out-board sold-out-board--selected" aria-label="품절 항목"><div className="sold-out-board__selected-heading"><div><strong>품절 목록</strong><span>4</span></div><button type="button" disabled>전체 해제</button></div><p className="sold-out-board__hint">품절 처리할 항목을 선택하세요.</p><div className="sold-out-grid sold-out-grid--selected">{soldOutItems.map((item) => <ItemCard key={item[0]} item={item} isSoldOut />)}</div><div className="sold-out-save-bar"><span><b>Changed</b> 3</span><button type="button" disabled>저장</button></div></section>
+    </div>
+    <aside className="sold-out-promo" aria-hidden="true"><img className="sold-out-promo__lettuce" src={lettuceImage} alt="" /><img className="sold-out-promo__carrot" src={carrotImage} alt="" /></aside>
+  </section>;
 }

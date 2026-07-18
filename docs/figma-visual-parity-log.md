@@ -74,7 +74,7 @@ Figma MCP가 내려주는 에셋 URL은 단기 URL이므로, 코드에는 URL을
 | --- | --- | --- | --- | --- |
 | Live Order / Default | `134:10607` | `components/admin/LiveOrderPreview.jsx` | navbar 원본 logo 확보, 주문 카드 대조 진행 중 | 진행 중 |
 | Order Detail / Default | `134:10630` | `pages/admin/OrderManagementPreview.jsx` | 1920×1080 대조 완료. 필터·10행 테이블·상세 패널을 정적 목업으로 반영, 로고 교체 대기 | 진행 중 |
-| Sold-out / Default | `134:11863` | `pages/admin/SoldOutManagePage.jsx` | 미대조 | 대기 |
+| Sold-out / Default | `134:11863` | `pages/admin/SoldOutManagePage.jsx` | Current-node thumbnails downloaded locally; static two-board layout, selection, transfer and save affordances rendered disabled; 1920×1080 browser capture checked. | UI complete / data adapter deferred |
 | Login / Default | `134:12033` | `pages/admin/LoginPage.jsx` | 미대조 | 대기 |
 | Menu Management / Default | `134:12137` | `pages/admin/MenuManagePage.jsx` | 메뉴 이미지 에셋 포함 대조 필요 | 대기 |
 | Payment / Default | `134:11493` | `pages/admin/PaymentMethodPage.jsx` | 미대조 | 대기 |
