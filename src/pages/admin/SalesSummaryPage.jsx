@@ -18,29 +18,19 @@
  * TODO 2: Mock/API 출처를 UI에 표시할지는 제품 결정 후
  */
 
-import AdminPageHeader from "../../components/admin/AdminPageHeader.jsx";
-import StaticDataTable from "../../components/admin/StaticDataTable.jsx";
+const chartBars = [40, 30, 45, 60, 50, 35, 25, 20, 15, 10, 5];
+const paymentShare = [["카드", "72%", 72], ["간편결제", "15%", 15], ["현금", "13%", 13]];
+const orderShare = [["매장", "58%", 58], ["포장", "32%", 32], ["배달", "10%", 10]];
 
-const bars = [22, 38, 52, 78, 64, 43, 31, 48, 69, 90, 58, 35];
+function ShareCard({ title, rows }) {
+  return <section className="sales-share-card"><h2>{title}</h2>{rows.map(([label, amount, width]) => <div key={label}><p><span>{label}</span><b>{amount}</b></p><i><em style={{ width: `${width}%` }} /></i></div>)}</section>;
+}
 
 export default function SalesSummaryPage({ view = "summary" }) {
-  const titleByView = {
-    summary: "매출 요약",
-    monthly: "월별 매출",
-    daily: "일별 매출",
-  };
-
-  return (
-    <section className="admin-page">
-      <AdminPageHeader title={titleByView[view]} description="기간별 매출 현황을 확인합니다." />
-      <div className="admin-filter-bar"><button type="button" disabled>오늘</button><button type="button" disabled>기간 선택</button><button type="button" disabled>조회</button></div>
-      <div className="admin-kpi-grid">
-        <article><span>총 매출</span><strong>0원</strong></article>
-        <article><span>주문 수</span><strong>0건</strong></article>
-        <article><span>객단가</span><strong>0원</strong></article>
-      </div>
-      <section className="admin-chart-card"><h2>시간대별 매출</h2><div className="admin-chart-bars">{bars.map((height, index) => <span key={index} style={{ height: `${height}%` }} />)}</div><p>실제 매출 데이터 연결 전 시각화입니다.</p></section>
-      <StaticDataTable columns={["시간", "주문 수", "매출"]} rows={[["--:--", "-", "0원"], ["--:--", "-", "0원"]]} />
-    </section>
-  );
+  const title = view === "daily" ? "일별 매출" : view === "monthly" ? "월별 매출" : "매출 요약";
+  return <section className="sales-summary">
+    <header><div><h1>{title}</h1><p>매출 현황 및 시간대 분석</p></div><button type="button" disabled>오늘 ⌄</button></header>
+    <div className="sales-summary__kpis">{[["당일 총매출", "468,000원", "↓ 2.8%  전일 대비"], ["주문 수", "39건", "↓ 4.5%  전일 대비"], ["평균 객단가", "12,000원", "↑ 0.5%  전일 대비"], ["피크 시간대", "13:00~14:00", "117,000원"]].map(([label,value,note]) => <article key={label}><span>{label}</span><strong>{value}</strong><small>{note}</small></article>)}</div>
+    <div className="sales-summary__body"><section className="sales-chart"><h2>시간대별 매출</h2><div className="sales-chart__bars">{chartBars.map((height,index) => <i key={index} style={{ height: `${height}%` }} />)}</div><div className="sales-chart__ticks"><span>10시</span><span>12시</span><span>14시</span><span>16시</span><span>18시</span><span>20시</span><span>21시</span></div><p><b>126,000원</b> 피크 시간 12:00</p></section><aside><ShareCard title="결제수단별 매출" rows={paymentShare} /><ShareCard title="주문 유형별 매출" rows={orderShare} /></aside></div>
+  </section>;
 }
