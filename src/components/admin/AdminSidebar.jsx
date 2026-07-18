@@ -11,6 +11,21 @@
  * TODO 2: NavLink는 여기 두되, path 상수 소유권은 routes.js
  */
 
-export default function AdminSidebar(/* props */) {
-  return null;
+import { NavLink } from "react-router-dom";
+
+export default function AdminSidebar({ items }) {
+  return (
+    <aside className="admin-sidebar">
+      <div className="admin-sidebar__brand" aria-label="ASAK Admin">ASAK</div>
+      <nav className="admin-sidebar__nav" aria-label="관리자 메뉴">
+        {items.map(({ path, label }) => (
+          <NavLink key={path} end={path === "/"} to={path}>
+            <span aria-hidden="true">•</span>
+            {label}
+          </NavLink>
+        ))}
+      </nav>
+      <span className="admin-sidebar__footer">관리자 화면 UI 미리보기</span>
+    </aside>
+  );
 }

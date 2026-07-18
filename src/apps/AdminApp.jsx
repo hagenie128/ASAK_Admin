@@ -1,4 +1,14 @@
-import { NavLink, Route, Routes } from "react-router-dom";
+import { NavLink, Route, Routes, useLocation } from "react-router-dom";
+import OrderListPage from "../pages/admin/OrderListPage.jsx";
+import LoginPage from "../pages/admin/LoginPage.jsx";
+import OrderDetailPage from "../pages/admin/OrderDetailPage.jsx";
+import SoldOutManagePage from "../pages/admin/SoldOutManagePage.jsx";
+import MenuManagePage from "../pages/admin/MenuManagePage.jsx";
+import MenuEditPage from "../pages/admin/MenuEditPage.jsx";
+import PaymentMethodPage from "../pages/admin/PaymentMethodPage.jsx";
+import SalesSummaryPage from "../pages/admin/SalesSummaryPage.jsx";
+import DashboardPage from "../pages/admin/DashboardPage.jsx";
+import AdminLayout from "../layouts/AdminLayout.jsx";
 
 /*
  * [학습] AdminApp 인라인 책임 — 지금은 아래가 한 파일에 섞여 있다.
@@ -30,6 +40,16 @@ const menus = [
   ["/sales", "매출", "SCR-019"],
 ];
 
+const adminMenuItems = [
+  { path: "/", label: "실시간 주문" },
+  { path: "/dashboard", label: "대시보드" },
+  { path: "/orders", label: "주문 관리" },
+  { path: "/sold-out", label: "품절 관리" },
+  { path: "/menus", label: "메뉴 관리" },
+  { path: "/payment-methods", label: "결제 수단" },
+  { path: "/sales", label: "매출" },
+];
+
 function AdminScreen({ title, screenId }) {
   return (
     <section className="admin-screen">
@@ -42,6 +62,30 @@ function AdminScreen({ title, screenId }) {
 }
 
 export default function AdminApp() {
+  const { pathname } = useLocation();
+
+  // SCR-009 정적 프리뷰는 Figma의 전체 폭 top-bar 레이아웃을 그대로 보여 줍니다.
+  // TODO: 실제 관리자 라우팅 정책이 확정되면 이 분기를 canonical /orders/live 경로로 옮깁니다.
+  if (pathname === "/") return <OrderListPage />;
+  if (pathname === "/login") return <LoginPage />;
+
+  const staticPages = {
+    "/dashboard": <DashboardPage />,
+    "/orders": <OrderDetailPage />,
+    "/sold-out": <SoldOutManagePage />,
+    "/menus": <MenuManagePage />,
+    "/menus/new": <MenuEditPage />,
+    "/menus/edit": <MenuEditPage />,
+    "/payment-methods": <PaymentMethodPage />,
+    "/sales": <SalesSummaryPage />,
+    "/sales/monthly": <SalesSummaryPage view="monthly" />,
+    "/sales/daily": <SalesSummaryPage view="daily" />,
+  };
+
+  if (staticPages[pathname]) {
+    return <AdminLayout items={adminMenuItems}>{staticPages[pathname]}</AdminLayout>;
+  }
+
   return (
     <div className="admin-app">
       <aside className="admin-sidebar">
@@ -52,7 +96,8 @@ export default function AdminApp() {
       </aside>
       <main className="admin-main">
         <Routes>
-          {menus.map(([path, title, screenId]) => <Route key={path} path={path} element={<AdminScreen title={title} screenId={screenId} />} />)}
+          <Route path="/" element={<OrderListPage />} />
+          {menus.filter(([path]) => path !== "/").map(([path, title, screenId]) => <Route key={path} path={path} element={<AdminScreen title={title} screenId={screenId} />} />)}
           <Route path="*" element={<AdminScreen title="페이지를 찾을 수 없습니다" screenId="404" />} />
         </Routes>
       </main>

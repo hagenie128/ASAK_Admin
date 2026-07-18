@@ -18,6 +18,20 @@
  * TODO 2: 요청 중 중복 토글 방지
  */
 
+import AdminPageHeader from "../../components/admin/AdminPageHeader.jsx";
+import StaticDataTable from "../../components/admin/StaticDataTable.jsx";
+import StaticToggle from "../../components/admin/StaticToggle.jsx";
+
 export default function SoldOutManagePage() {
-  return null;
+  return (
+    <section className="admin-page">
+      <AdminPageHeader title="품절 관리" description="메뉴와 재료의 판매 상태를 관리합니다." actionLabel="저장하기" />
+      <div className="admin-filter-bar"><button type="button" disabled>전체</button><button type="button" disabled>메뉴</button><button type="button" disabled>재료</button><input value="품목 검색" disabled readOnly /></div>
+      <StaticDataTable
+        columns={["구분", "품목", "상태", "사유", "변경"]}
+        rows={[["메뉴", "메뉴명", <StaticToggle key="toggle-1" />, "-", "저장 전"], ["재료", "재료명", <StaticToggle key="toggle-2" />, "-", "저장 전"]]}
+      />
+      <div className="admin-save-bar"><span>저장하지 않은 변경 사항이 있습니다.</span><button type="button" disabled>저장하기</button></div>
+    </section>
+  );
 }

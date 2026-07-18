@@ -22,6 +22,8 @@
  * TODO 2: loading/empty/error 분리
  */
 
+import LiveOrderPreview from "../../components/admin/LiveOrderPreview.jsx";
+
 export default function OrderListPage() {
-  return null;
+  return <LiveOrderPreview />;
 }

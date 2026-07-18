@@ -18,6 +18,20 @@
  * TODO 2: 저장 실패 시 입력 보존
  */
 
+import AdminPageHeader from "../../components/admin/AdminPageHeader.jsx";
+
 export default function MenuEditPage() {
-  return null;
+  return (
+    <section className="admin-page">
+      <AdminPageHeader title="메뉴 상세" description="메뉴 등록과 수정에 사용하는 정적 폼입니다." actionLabel="저장하기" />
+      <form className="admin-form">
+        <label>메뉴명<input value="메뉴명" disabled readOnly /></label>
+        <label>카테고리<select disabled value="카테고리" readOnly><option>카테고리</option></select></label>
+        <label>판매 가격<input value="0원" disabled readOnly /></label>
+        <label>설명<textarea value="메뉴 설명" disabled readOnly /></label>
+        <section><strong>옵션 그룹</strong><p>옵션 데이터 연결 전 UI 영역입니다.</p></section>
+        <section><strong>재료 구성</strong><p>재료 데이터 연결 전 UI 영역입니다.</p></section>
+      </form>
+    </section>
+  );
 }

@@ -18,6 +18,18 @@
  * TODO 2: API-011 필드 계약 확정 전 mock 필드 고정 금지
  */
 
+import AdminPageHeader from "../../components/admin/AdminPageHeader.jsx";
+import StaticDataTable from "../../components/admin/StaticDataTable.jsx";
+
 export default function MenuManagePage() {
-  return null;
+  return (
+    <section className="admin-page">
+      <AdminPageHeader title="메뉴 관리" description="키오스크에 표시할 메뉴를 관리합니다." actionLabel="메뉴 추가" />
+      <div className="admin-filter-bar"><button type="button" disabled>전체 카테고리</button><input value="메뉴명 검색" disabled readOnly /></div>
+      <StaticDataTable
+        columns={["메뉴", "카테고리", "가격", "판매 상태", "관리"]}
+        rows={[["메뉴명", "카테고리", "0원", "판매중", "상세 보기"], ["메뉴명", "카테고리", "0원", "판매중", "상세 보기"]]}
+      />
+    </section>
+  );
 }

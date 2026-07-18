@@ -18,6 +18,28 @@
  * TODO 2: 실패 시 이전 순서·활성 복구
  */
 
+import AdminPageHeader from "../../components/admin/AdminPageHeader.jsx";
+import StaticToggle from "../../components/admin/StaticToggle.jsx";
+
+const methods = [
+  ["💳", "카드 / 삼성페이 결제", "신용 · 체크카드"],
+  ["K", "카카오페이 결제", "모바일 간편결제"],
+];
+
 export default function PaymentMethodPage() {
-  return null;
+  return (
+    <section className="admin-page admin-page--narrow">
+      <AdminPageHeader title="결제 수단" description="키오스크에서 노출할 결제 수단을 관리합니다." actionLabel="저장하기" />
+      <div className="admin-method-list">
+        {methods.map(([icon, title, description]) => (
+          <article key={title} className="admin-method-row">
+            <span className="admin-method-row__icon">{icon}</span>
+            <div><strong>{title}</strong><small>{description}</small></div>
+            <div className="admin-method-row__controls"><button type="button" disabled>↑</button><button type="button" disabled>↓</button><StaticToggle /></div>
+          </article>
+        ))}
+      </div>
+      <div className="admin-save-bar"><span>저장하지 않은 변경 사항이 있습니다.</span><button type="button" disabled>저장하기</button></div>
+    </section>
+  );
 }

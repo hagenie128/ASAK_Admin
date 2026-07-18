@@ -19,5 +19,17 @@
  */
 
 export default function LoginPage() {
-  return null;
+  return (
+    <main className="admin-login-page">
+      <section className="admin-login-card">
+        <div className="admin-login-card__brand">ASAK</div>
+        <h1>관리자 로그인</h1>
+        <label>아이디<input value="admin_asak" disabled readOnly /></label>
+        <label>비밀번호<input value="••••••••" disabled readOnly /></label>
+        <label className="admin-login-card__check"><input type="checkbox" checked readOnly disabled /> 로그인 상태 유지</label>
+        <button type="button" disabled>로그인</button>
+        <small>인증 연결 전 정적 UI입니다.</small>
+      </section>
+    </main>
+  );
 }

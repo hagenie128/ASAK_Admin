@@ -13,6 +13,13 @@
  * TODO 3: 완성 픽셀 CSS는 Figma 승인 후
  */
 
-export default function AdminLayout(/* { children } */) {
-  return null;
+import AdminSidebar from "../components/admin/AdminSidebar.jsx";
+
+export default function AdminLayout({ children, items }) {
+  return (
+    <div className="admin-app">
+      <AdminSidebar items={items} />
+      <main className="admin-main">{children}</main>
+    </div>
+  );
 }

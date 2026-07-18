@@ -18,6 +18,29 @@
  * TODO 2: Mock/API 출처를 UI에 표시할지는 제품 결정 후
  */
 
-export default function SalesSummaryPage() {
-  return null;
+import AdminPageHeader from "../../components/admin/AdminPageHeader.jsx";
+import StaticDataTable from "../../components/admin/StaticDataTable.jsx";
+
+const bars = [22, 38, 52, 78, 64, 43, 31, 48, 69, 90, 58, 35];
+
+export default function SalesSummaryPage({ view = "summary" }) {
+  const titleByView = {
+    summary: "매출 요약",
+    monthly: "월별 매출",
+    daily: "일별 매출",
+  };
+
+  return (
+    <section className="admin-page">
+      <AdminPageHeader title={titleByView[view]} description="기간별 매출 현황을 확인합니다." />
+      <div className="admin-filter-bar"><button type="button" disabled>오늘</button><button type="button" disabled>기간 선택</button><button type="button" disabled>조회</button></div>
+      <div className="admin-kpi-grid">
+        <article><span>총 매출</span><strong>0원</strong></article>
+        <article><span>주문 수</span><strong>0건</strong></article>
+        <article><span>객단가</span><strong>0원</strong></article>
+      </div>
+      <section className="admin-chart-card"><h2>시간대별 매출</h2><div className="admin-chart-bars">{bars.map((height, index) => <span key={index} style={{ height: `${height}%` }} />)}</div><p>실제 매출 데이터 연결 전 시각화입니다.</p></section>
+      <StaticDataTable columns={["시간", "주문 수", "매출"]} rows={[["--:--", "-", "0원"], ["--:--", "-", "0원"]]} />
+    </section>
+  );
 }

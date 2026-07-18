@@ -18,6 +18,26 @@
  * TODO 2: 요청 중 버튼 잠금, 성공 시 목록·상세 배지 일치
  */
 
+import AdminPageHeader from "../../components/admin/AdminPageHeader.jsx";
+import StaticDataTable from "../../components/admin/StaticDataTable.jsx";
+
 export default function OrderDetailPage() {
-  return null;
+  return (
+    <section className="admin-page">
+      <AdminPageHeader title="주문 관리" description="주문 상세와 상태 변경 UI 미리보기" />
+      <div className="admin-filter-bar">
+        <button type="button" disabled>오늘</button><button type="button" disabled>전체 상태</button>
+        <input value="주문번호 또는 메뉴명 검색" disabled readOnly />
+      </div>
+      <StaticDataTable
+        columns={["주문번호", "주문일시", "주문방식", "메뉴", "수량", "결제", "상태"]}
+        rows={[["#----------", "----.--.-- --:--", "포장", "주문 메뉴", "-", "결제완료", "접수"]]}
+      />
+      <aside className="admin-detail-panel">
+        <div><span>주문 상세</span><strong>#----------</strong></div>
+        <p>주문 데이터 연결 후 메뉴와 옵션이 표시됩니다.</p>
+        <button type="button" disabled>상태 변경</button>
+      </aside>
+    </section>
+  );
 }
