@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import adminLogo from "../../assets/figma/asak-admin-logo.svg";
 import adminMark from "../../assets/figma/asak-s-logo.svg";
@@ -18,28 +17,7 @@ import promoCarrot from "../../assets/figma/promo-carrot.png";
  * 메뉴 구성/순서/라벨은 Figma 원본을 그대로 따른다. 라우팅 경로만 이 프로젝트 것으로 매핑했다.
  * 이 컴포넌트는 네비게이션 표시만 소유한다. 인증, 로그아웃 요청, 권한 판정은 여기서 처리하지 않는다.
  */
-const navItems = [
-  { path: "/dashboard", label: "Home", icon: dashboardIcon },
-  { path: "/orders", label: "주문 관리", icon: ordersIcon },
-  {
-    // 매출 관리 자체가 매출 요약 화면이고, 하위에 일별/월별이 붙는다.
-    path: "/sales",
-    label: "매출 관리",
-    icon: salesIcon,
-    children: [
-      { path: "/sales/daily", label: "일별 매출" },
-      { path: "/sales/monthly", label: "월별 매출" },
-    ],
-  },
-  { path: "/menus", label: "메뉴 관리", icon: menuIcon },
-  { path: "/sold-out", label: "항목 품절 관리", icon: soldOutIcon },
-  { path: "/payment-methods", label: "결제수단 설정", icon: paymentIcon },
-];
-
 export default function AdminSidebar() {
-  // Figma의 매출 관리 그룹은 펼쳐진 상태가 기본이다. 표시 상태만 다루며 데이터와 무관하다.
-  const [salesOpen, setSalesOpen] = useState(true);
-
   return (
     <aside className="admin-sidebar">
       <div className="admin-sidebar__brand" aria-label="ASAK Admin">
@@ -48,43 +26,12 @@ export default function AdminSidebar() {
       </div>
 
       <nav className="admin-sidebar__nav" aria-label="관리자 메뉴">
-        {navItems.map((item) =>
-          item.children ? (
-            <div className="admin-sidebar__group" key={item.label}>
-              <div className="admin-sidebar__group-row">
-                <NavLink end to={item.path}>
-                  <img alt="" aria-hidden="true" src={item.icon} />
-                  <span>{item.label}</span>
-                </NavLink>
-                <button
-                  type="button"
-                  className="admin-sidebar__caret-button"
-                  aria-expanded={salesOpen}
-                  aria-label={`${item.label} 하위 메뉴 ${salesOpen ? "접기" : "펼치기"}`}
-                  onClick={() => setSalesOpen((open) => !open)}
-                >
-                  <img
-                    className={`admin-sidebar__caret${salesOpen ? " is-open" : ""}`}
-                    alt=""
-                    aria-hidden="true"
-                    src={caretDownIcon}
-                  />
-                </button>
-              </div>
-              {salesOpen &&
-                item.children.map((child) => (
-                  <NavLink className="admin-sidebar__subitem" key={child.path} to={child.path}>
-                    <span>{child.label}</span>
-                  </NavLink>
-                ))}
-            </div>
-          ) : (
-            <NavLink key={item.path} end={item.path === "/"} to={item.path}>
-              <img alt="" aria-hidden="true" src={item.icon} />
-              <span>{item.label}</span>
-            </NavLink>
-          ),
-        )}
+        <NavLink end to="/dashboard"><img alt="" aria-hidden="true" src={dashboardIcon} /><span>Home</span></NavLink>
+        <NavLink end to="/orders"><img alt="" aria-hidden="true" src={ordersIcon} /><span>주문 관리</span></NavLink>
+        <div className="admin-sidebar__group"><div className="admin-sidebar__group-row"><NavLink end to="/sales"><img alt="" aria-hidden="true" src={salesIcon} /><span>매출 관리</span></NavLink><button type="button" className="admin-sidebar__caret-button" aria-expanded="true" aria-label="매출 관리 하위 메뉴" disabled><img className="admin-sidebar__caret is-open" alt="" aria-hidden="true" src={caretDownIcon} /></button></div><NavLink className="admin-sidebar__subitem" to="/sales/daily"><span>일별 매출</span></NavLink><NavLink className="admin-sidebar__subitem" to="/sales/monthly"><span>월별 매출</span></NavLink></div>
+        <NavLink end to="/menus"><img alt="" aria-hidden="true" src={menuIcon} /><span>메뉴 관리</span></NavLink>
+        <NavLink end to="/sold-out"><img alt="" aria-hidden="true" src={soldOutIcon} /><span>항목 품절 관리</span></NavLink>
+        <NavLink end to="/payment-methods"><img alt="" aria-hidden="true" src={paymentIcon} /><span>결제수단 설정</span></NavLink>
       </nav>
 
       {/* Figma의 Promotional Banner. 야채 일러스트는 카드 위쪽으로 넘쳐 보이는 것이 원본 의도다. */}

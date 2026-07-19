@@ -19,7 +19,6 @@
  */
 
 import AdminPageHeader from "../../components/admin/AdminPageHeader.jsx";
-import StaticDataTable from "../../components/admin/StaticDataTable.jsx";
 
 export default function OrderDetailPage() {
   return (
@@ -29,10 +28,7 @@ export default function OrderDetailPage() {
         <button type="button" disabled>오늘</button><button type="button" disabled>전체 상태</button>
         <input value="주문번호 또는 메뉴명 검색" disabled readOnly />
       </div>
-      <StaticDataTable
-        columns={["주문번호", "주문일시", "주문방식", "메뉴", "수량", "결제", "상태"]}
-        rows={[["#----------", "----.--.-- --:--", "포장", "주문 메뉴", "-", "결제완료", "접수"]]}
-      />
+      <table className="admin-static-table"><thead><tr><th>주문번호</th><th>주문일시</th><th>주문방식</th><th>메뉴</th><th>수량</th><th>결제</th><th>상태</th></tr></thead><tbody><tr><td>#----------</td><td>----.--.-- --:--</td><td>포장</td><td>주문 메뉴</td><td>-</td><td>결제완료</td><td>접수</td></tr></tbody></table>
       <aside className="admin-detail-panel">
         <div><span>주문 상세</span><strong>#----------</strong></div>
         <p>주문 데이터 연결 후 메뉴와 옵션이 표시됩니다.</p>

@@ -7,33 +7,6 @@
 import ricottaImage from "../../assets/figma/soldout-ricotta.png";
 import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
 
-const CATEGORY_TABS = ["전체", "샐러드", "포케볼", "랩&롤", "음료"];
-
-// Figma는 같은 카드를 8장 반복해 밀도만 보여 준다.
-const menus = Array.from({ length: 8 }, (_, index) => ({
-  id: index,
-  name: "MENU",
-  price: "9,300",
-  image: ricottaImage,
-}));
-
-const optionGroups = [
-  ["드레싱", "추천 : 레몬허브 드레싱"],
-  ["베이스", "추천 : 레몬허브 드레싱"],
-  ["토핑", "추천 : 레몬허브 드레싱"],
-  ["소스", "추천 : 레몬허브 드레싱"],
-  ["사이드", "추천 : 레몬허브 드레싱"],
-  ["음료", "추천 : 레몬허브 드레싱"],
-];
-
-const nutrition = [
-  ["칼로리", "320 kcal"],
-  ["단백질", "18 g"],
-  ["탄수화물", "25 g"],
-  ["지방", "15 g"],
-  ["나트륨", "580 mg"],
-];
-
 export default function MenuManagePage() {
   return (
     <section className="menu-management">
@@ -47,11 +20,7 @@ export default function MenuManagePage() {
       <div className="menu-management__list">
         <div className="menu-management__toolbar">
           <div className="menu-management__tabs">
-            {CATEGORY_TABS.map((item, index) => (
-              <button type="button" disabled key={item} className={index === 0 ? "is-selected" : ""}>
-                {item}
-              </button>
-            ))}
+            <button type="button" disabled className="is-selected">전체</button><button type="button" disabled>샐러드</button><button type="button" disabled>포케볼</button><button type="button" disabled>랩&롤</button><button type="button" disabled>음료</button>
           </div>
           <label className="menu-management__search">
             <span className="sr-only">메뉴명 검색</span>
@@ -61,15 +30,7 @@ export default function MenuManagePage() {
         </div>
 
         <div className="menu-management__grid">
-          {menus.map((menu) => (
-            <article className="admin-menu-card" key={menu.id}>
-              <img src={menu.image} alt="" />
-              <div>
-                <strong>{menu.name}</strong>
-                <b>{menu.price}</b>
-              </div>
-            </article>
-          ))}
+          <article className="admin-menu-card"><img src={ricottaImage} alt="" /><div><strong>MENU</strong><b>9,300</b></div></article><article className="admin-menu-card"><img src={ricottaImage} alt="" /><div><strong>MENU</strong><b>9,300</b></div></article><article className="admin-menu-card"><img src={ricottaImage} alt="" /><div><strong>MENU</strong><b>9,300</b></div></article><article className="admin-menu-card"><img src={ricottaImage} alt="" /><div><strong>MENU</strong><b>9,300</b></div></article><article className="admin-menu-card"><img src={ricottaImage} alt="" /><div><strong>MENU</strong><b>9,300</b></div></article><article className="admin-menu-card"><img src={ricottaImage} alt="" /><div><strong>MENU</strong><b>9,300</b></div></article><article className="admin-menu-card"><img src={ricottaImage} alt="" /><div><strong>MENU</strong><b>9,300</b></div></article><article className="admin-menu-card"><img src={ricottaImage} alt="" /><div><strong>MENU</strong><b>9,300</b></div></article>
         </div>
       </div>
 
@@ -136,11 +97,7 @@ export default function MenuManagePage() {
             <div className="menu-detail-ingredients__group">
               <p className="menu-detail-legend menu-detail-legend--plain">일반 기본 재료</p>
               <div className="menu-ingredient-chips">
-                {[["방울토마토", "30g"], ["옥수수", "30g"], ["크루통", "30g"]].map(([name, amount]) => (
-                  <span key={name}>
-                    {name} <i>{amount}</i>
-                  </span>
-                ))}
+                <span>방울토마토 <i>30g</i></span><span>옥수수 <i>30g</i></span><span>크루통 <i>30g</i></span>
               </div>
             </div>
           </section>
@@ -148,15 +105,7 @@ export default function MenuManagePage() {
           <section className="menu-detail-card menu-detail-options">
             <h3>옵션 그룹</h3>
             <div className="menu-detail-options__grid">
-              {optionGroups.map(([name, note]) => (
-                <article key={name}>
-                  <div>
-                    <strong>{name}</strong>
-                    <em>필수</em>
-                  </div>
-                  <p>{note}</p>
-                </article>
-              ))}
+              <article><div><strong>드레싱</strong><em>필수</em></div><p>추천 : 레몬허브 드레싱</p></article><article><div><strong>베이스</strong><em>필수</em></div><p>추천 : 레몬허브 드레싱</p></article><article><div><strong>토핑</strong><em>필수</em></div><p>추천 : 레몬허브 드레싱</p></article><article><div><strong>소스</strong><em>필수</em></div><p>추천 : 레몬허브 드레싱</p></article><article><div><strong>사이드</strong><em>필수</em></div><p>추천 : 레몬허브 드레싱</p></article><article><div><strong>음료</strong><em>필수</em></div><p>추천 : 레몬허브 드레싱</p></article>
             </div>
           </section>
 
@@ -166,12 +115,7 @@ export default function MenuManagePage() {
               <span>정량 기준 자동 분석</span>
             </header>
             <div className="menu-detail-nutrition__grid">
-              {nutrition.map(([label, value]) => (
-                <div key={label}>
-                  <span>{label}</span>
-                  <b>{value}</b>
-                </div>
-              ))}
+              <div><span>칼로리</span><b>320 kcal</b></div><div><span>단백질</span><b>18 g</b></div><div><span>탄수화물</span><b>25 g</b></div><div><span>지방</span><b>15 g</b></div><div><span>나트륨</span><b>580 mg</b></div>
             </div>
           </section>
 
@@ -179,9 +123,7 @@ export default function MenuManagePage() {
             <article>
               <h3>알레르기 정보</h3>
               <div>
-                {["갑각류", "우유", "대두", "밀"].map((tag) => (
-                  <span key={tag}>{tag}</span>
-                ))}
+                <span>갑각류</span><span>우유</span><span>대두</span><span>밀</span>
               </div>
             </article>
             <article>
