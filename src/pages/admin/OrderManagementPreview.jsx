@@ -1,3 +1,5 @@
+import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
+
 const orders = [
   ["#20250212-001", "2025.02.12 14:23", "포장", "오리엔탈 우삼겹 샐러드 외 1", "2", "15,800원", "접수", "결제완료"],
   ["#20250212-002", "2025.02.12 14:25", "매장", "연어 스테이크 샐러드", "1", "14,500원", "준비중", "결제완료"],
@@ -13,14 +15,20 @@ const orders = [
 
 const statusClass = { 접수: "received", 준비중: "preparing", 완료: "complete", 취소: "cancelled" };
 
+// Figma 134:10630은 환불 셀만 빨간 테두리 박스로 강조한다.
+const PAYMENT_STATUS_INDEX = 7;
+const ORDER_STATUS_INDEX = 6;
+
+const detailItems = [1, 2, 3];
+
 export default function OrderManagementPreview() {
   return (
     <section className="order-management">
-      <header className="order-management__header">
-        <small>Admin / 주문 관리</small>
-        <h1>주문 관리</h1>
-        <p>주문 원본 데이터 조회, 상태 변경, 결제 상태 확인을 관리하세요.</p>
-      </header>
+      <AdminTopHeader
+        crumb="Admin / 주문 관리"
+        title="주문 관리"
+        description="주문 원본 데이터 조회, 상태 변경, 결제 상태 확인을 관리하세요."
+      />
       <div className="order-management__filters">
         {["주문 상태", "결제 상태", "주문 유형"].map((label) => <button disabled key={label} type="button">{label}⌄</button>)}
         <button disabled type="button">날짜 선택</button>
@@ -31,14 +39,20 @@ export default function OrderManagementPreview() {
         <div className="order-management__table-wrap">
           <table className="order-management__table">
             <thead><tr>{["주문번호", "주문일시", "주문유형", "메뉴 요약", "총 수량", "주문금액", "주문상태", "결제상태"].map((label) => <th key={label}>{label}</th>)}</tr></thead>
-            <tbody>{orders.map((order) => <tr key={order[0]}>{order.map((cell, index) => <td key={`${order[0]}-${index}`}>{index === 6 ? <span className={`order-status order-status--${statusClass[cell]}`}>{cell}</span> : cell}</td>)}</tr>)}</tbody>
+            <tbody>{orders.map((order) => <tr key={order[0]}>{order.map((cell, index) => <td key={`${order[0]}-${index}`}>
+              {index === ORDER_STATUS_INDEX && <span className={`order-status order-status--${statusClass[cell]}`}>{cell}</span>}
+              {index === PAYMENT_STATUS_INDEX && cell === "환불" && <span className="order-refund">{cell}</span>}
+              {index !== ORDER_STATUS_INDEX && !(index === PAYMENT_STATUS_INDEX && cell === "환불") && cell}
+            </td>)}</tr>)}</tbody>
           </table>
           <div className="order-management__pagination" aria-label="페이지네이션">‹ <b>1</b> <span>2</span> <span>3</span> <span>4</span> <span>5</span> ›</div>
         </div>
         <aside className="order-management__detail">
           <h2>주문 상세</h2>
-          <dl><div><dt>주문번호</dt><dd>20250212-001</dd></div><div><dt>주문일시</dt><dd>2025.02.12 14:23</dd></div><div><dt>결제수단</dt><dd>신용카드 (현대 4421)</dd></div></dl>
-          {[1, 2, 3].map((item) => <div className="order-management__item" key={item}><strong>오리엔탈 우삼겹 샐러드</strong><span>1개　<b>12,800원</b></span><small>옵션: 베이스 추천, 드레싱 발사믹 | 제외: 글루텐, 토마토</small></div>)}
+          <dl><div><dt>주문번호</dt><dd>20250212-001</dd></div><div><dt>주문일시</dt><dd>2025.02.12 14:23:45</dd></div><div><dt>결제수단</dt><dd>신용카드 (현대 4421)</dd></div></dl>
+          <div className="order-management__items">
+            {detailItems.map((item) => <div className="order-management__item" key={item}><strong>오리엔탈 우삼겹 샐러드</strong><span>1개　<b>12,800원</b></span><small>옵션: 베이스 추천, 드레싱 발사믹 | 제외: 크루통, 토마토</small></div>)}
+          </div>
           <section><h3>요청사항</h3><p>요청사항 없음</p></section>
           <div className="order-management__total"><strong>총 결제 금액</strong><b>0원</b></div>
           <footer><button disabled type="button">닫기</button><button disabled type="button">환불</button><button disabled type="button">영수증 출력</button></footer>

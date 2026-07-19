@@ -1,36 +1,109 @@
 /*
  * SCR-018 / Payment Methods / Default (Figma node 134:11493)
- * 정렬·토글·수정은 의도적으로 비활성 표시만 한다. 실제 draft와 저장은 API 계약 후 분리한다.
+ *
+ * 정적 UI만 담는다. 순서 변경, 활성 토글, 정책 수정, 저장은 이후 결제수단 draft/mutation이 소유한다.
+ * 아이콘은 Figma(551:74301)와 동일하게 이모지를 쓴다. OS별 글리프 차이는 토큰 보고서에 기록했다.
  */
-import StaticToggle from "../../components/admin/StaticToggle.jsx";
+import arrowUpIcon from "../../assets/figma/icon-arrow-up.svg";
+import arrowDownIcon from "../../assets/figma/icon-arrow-down.svg";
+import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
 
 const methods = [
-  ["CARD", "카드 / 삼성페이 결제", "신용 · 체크카드", "payment-mark--card"],
-  ["K", "카카오페이 결제", "모바일 간편결제", "payment-mark--kakao"],
-  ["N", "네이버페이 결제", "모바일 간편결제", "payment-mark--naver"],
-  ["QR", "제로페이 결제", "QR 결제", "payment-mark--zero"],
+  ["💳", "카드 / 삼성페이 결제", "신용 · 체크카드"],
+  ["🟡", "카카오페이 결제", "모바일 간편결제"],
+  ["🟢", "네이버페이 결제", "모바일 간편결제"],
+  ["🔵", "제로페이 결제", "QR 결제"],
 ];
 
-function PaymentMethodRow({ method, compact = false }) {
-  const [mark, title, description, tone] = method;
-  return <article className={`payment-method-row${compact ? ' payment-method-row--compact' : ''}`}>
-    <span className={`payment-mark ${tone}`}>{mark}</span>
-    <div><strong>{title}</strong><small>{description}</small></div>
-    {!compact && <div className="payment-method-row__reorder"><button type="button" disabled aria-label={`${title} 위로 이동`}>↑</button><button type="button" disabled aria-label={`${title} 아래로 이동`}>↓</button></div>}
-    <StaticToggle label={`${title} 활성`} />
-  </article>;
+const policies = [
+  ["결제 실패 시 초기화 정책", "결제 실패 시 장바구니 데이터를 5분간 유지한 후 자동으로 초기화합니다"],
+  ["영수증 안내 문구", "주문해주셔서 감사합니다. 맛있게 드시고 리뷰 작성 시 서비스를 드립니다!"],
+];
+
+function Toggle() {
+  return (
+    <span className="payment-toggle" aria-hidden="true">
+      <i />
+    </span>
+  );
+}
+
+function MethodInfo({ name, desc }) {
+  return (
+    <div className="payment-method-row__info">
+      <strong>{name}</strong>
+      <span>{desc}</span>
+    </div>
+  );
 }
 
 export default function PaymentMethodPage() {
-  return <section className="payment-settings" aria-label="결제수단 정적 미리보기">
-    <header className="payment-settings__header"><div><h1>결제수단 설정</h1><p>키오스크 및 웹 결제 화면에 노출할 수단과 안내 문구를 확인합니다.</p></div></header>
-    <div className="payment-settings__content">
-      <div className="payment-settings__main">
-        <section><h2>결제수단 관리</h2><p className="payment-settings__guide">표시 순서는 정적 목업입니다. 실제 변경은 저장 기능 구현 단계에서 연결합니다.</p><div className="payment-method-list">{methods.map((method) => <PaymentMethodRow key={method[1]} method={method} />)}</div></section>
-        <section className="payment-policies"><h2>결제 정책 설정</h2><div>{[["결제 실패 시 초기화 정책", "결제 실패 시 장바구니 데이터를 5분간 유지한 후 자동으로 초기화합니다"], ["영수증 안내 문구", "주문해주셔서 감사합니다. 맛있게 드시고 리뷰 작성 시 서비스를 드립니다!"]].map(([title, text]) => <article key={title}><header><h3>{title}</h3><button type="button" disabled>수정</button></header><p>{text}</p></article>)}</div></section>
+  return (
+    <section className="payment-settings" aria-label="결제수단 정적 미리보기">
+      <AdminTopHeader
+        crumb="Admin / 결제수단 설정"
+        title="결제수단 설정"
+        description="변경 사항은 키오스크에 즉시 반영됩니다"
+      />
+
+      <div className="payment-settings__body">
+        <div className="payment-settings__main">
+          <h2>결제수단 목록</h2>
+          <div className="payment-method-list">
+            {methods.map(([glyph, name, desc]) => (
+              <article className="payment-method-row" key={name}>
+                <span className="payment-method-row__icon" aria-hidden="true">{glyph}</span>
+                <MethodInfo name={name} desc={desc} />
+                <div className="payment-method-row__reorder">
+                  <button type="button" disabled aria-label={`${name} 위로 이동`}>
+                    <img alt="" aria-hidden="true" src={arrowUpIcon} />
+                  </button>
+                  <button type="button" disabled aria-label={`${name} 아래로 이동`}>
+                    <img alt="" aria-hidden="true" src={arrowDownIcon} />
+                  </button>
+                </div>
+                <Toggle />
+              </article>
+            ))}
+          </div>
+
+          <h2 className="payment-settings__policies-title">결제 정책 설정</h2>
+          <div className="payment-policy-row">
+            {policies.map(([title, body]) => (
+              <article className="payment-policy-card" key={title}>
+                <div className="payment-policy-card__head">
+                  <strong>{title}</strong>
+                  <button type="button" disabled>수정</button>
+                </div>
+                <p>{body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="payment-settings__preview">
+          <div className="payment-settings__preview-head">
+            <h2>결제수단 목록</h2>
+            <p>설정한 결제수단 순서대로 키오스크/웹 결제 화면에 노출됩니다.</p>
+          </div>
+          <div className="payment-preview-card">
+            {methods.map(([glyph, name, desc]) => (
+              <div className="payment-preview-row" key={name}>
+                <span className="payment-method-row__icon" aria-hidden="true">{glyph}</span>
+                <MethodInfo name={name} desc={desc} />
+                <Toggle />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-      <aside className="payment-preview"><header><h2>결제수단 목록</h2><p>설정한 순서대로 결제 화면에 노출됩니다.</p></header><div>{methods.map((method) => <PaymentMethodRow compact key={method[1]} method={method} />)}</div></aside>
-    </div>
-    <footer className="payment-save-bar"><span>저장하지 않은 변경 사항이 있습니다</span><button type="button" disabled>저장하기</button></footer>
-  </section>;
+
+      <div className="payment-settings__footer">
+        <div className="payment-save-bar">
+          <p>저장하지 않은 변경 사항이 있습니다</p>
+          <button type="button" disabled>저장하기</button>
+        </div>
+      </div>
+    </section>
+  );
 }

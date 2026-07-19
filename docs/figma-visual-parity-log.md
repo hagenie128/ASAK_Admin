@@ -1,5 +1,38 @@
 # Admin Figma 시각 일치 기록
 
+> 화면 단위로 무엇을 고쳐야 하는지 찾고 있다면 먼저 워크스페이스 루트의 **[UI-INDEX.md](../../UI-INDEX.md)** 를 본다.
+> 화면명 → Figma 노드 → 코드 파일 → 에셋 → 스크린샷 → 미구현이 한 표에 정리되어 있다.
+
+## Navbar 재작성 — 2026-07-19
+
+Figma `Admin/Navbar` (`227:5009`, 240×1080)와 코드 사이드바가 구성 자체부터 달랐다. 모든 관리자 화면이
+이 instance를 공유하므로 화면별 대조보다 이것을 먼저 맞췄다.
+
+| 항목 | 이전 코드 | Figma 정본 |
+| --- | --- | --- |
+| 메뉴 | 실시간 주문 / 대시보드 / 주문 관리 / 품절 관리 / 메뉴 관리 / 결제 수단 / 매출 | Home / 주문 관리 / 매출 관리(▾ 일별·월별) / 메뉴 관리 / 항목 품절 관리 / 결제수단 설정 |
+| 매출 하위 메뉴 | 없음 | `pl-36` 들여쓰기 2개, 기본 펼침 |
+| 프로모 카드 | 없음 | 야채 일러스트 + 안내 문구 + 다크 `주문 현황` 버튼 (168px, `rgba(245,247,235,0.5)`) |
+| Logout | 없음 | `#f5f5f5` / radius 16 / SignOut 아이콘 |
+| 활성 표시 | `#c6e84a` | `#b5e30f` + inset shadow 4겹 |
+
+경로 매핑은 `Home → /dashboard`, `매출 관리 → /sales`(하위 메뉴는 유지한 채 매출 요약으로 이동),
+프로모 카드의 `주문 현황 → /`이다.
+
+새로 로컬화한 에셋: `icon-nav-caret-down.svg`, `icon-nav-signout.svg`, `promo-lettuce.png`, `promo-carrot.png`.
+
+같이 정리한 것:
+
+- `AdminApp.jsx`가 알 수 없는 경로에서 두 번째 사이드바 마크업을 직접 그리고 있었다. `AdminLayout`으로 통일했다.
+- 이전 다크 사이드바용 레거시 CSS(`.admin-sidebar nav a`, `.brand`)가 선택자 우선순위(0,1,2 vs 0,1,1)로
+  새 규칙을 덮어써서 padding·색·활성 배경이 Figma와 달라지고 있었다. 제거했다.
+- 프로모 카드의 내용 높이(183px)가 카드 높이(168px)보다 커서 위로 넘치는 것이 원본 의도다.
+  flex 축소를 막지 않으면 일러스트가 안내 문구를 덮으므로 자식들에 `flex: 0 0 <높이>`를 준다.
+- `SoldOutManagePage`가 자체 야채 장식(`.sold-out-promo`)을 `position: fixed; left: 38px; bottom: 98px`로
+  그리고 있었다. 사이드바에 프로모 카드가 없던 시절의 임시 대체물인데, 이제 정본 카드와 정확히 겹쳐서
+  `주문 현황` 버튼과 안내 문구를 가렸다. 페이지 쪽 마크업과 CSS를 제거했다.
+  화면 장식이 페이지에서 뷰포트 고정으로 그려지고 있으면 셸과 충돌하는지 먼저 확인한다.
+
 ## Login and menu-edit visual verification — 2026-07-19
 
 - Figma source: `Login / Default` (`134:12033`) in **ASAK — Design System Product UI 0718**.

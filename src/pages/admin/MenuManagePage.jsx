@@ -1,42 +1,201 @@
 /*
- * 화면: Menu Management 목록 SCR-016
- * 현재 Page 파일: MenuManagePage.jsx
- * 현재 Route: "/menus" → 아직 AdminScreen
- * 필요한 데이터: 메뉴 목록 (카테고리·이름·가격·판매상태)
- * 상태 소유 후보: 검색/카테고리 필터 = Page 또는 목록 Hook / 편집 Form은 MenuEditPage
- * API 호출 후보 위치: api (메뉴 API 계약 확정 후) — 목록 Hook
- * Adapter 필요 여부: 계약 확정 후 menuAdapter 후보 (아직 파일 미생성 — 추측 고정 금지)
- * Hook 분리 필요 여부: 목록과 편집 Form 상태 분리 필수
- * 공통 Component 후보: PageHeader, FilterBar, DataTable, Loading/Empty/Error
- * Figma Component 연결 후보: PageHeader, FilterBar, DataTable
- * 최종 명칭 확인 필요: MenuManage vs MenuList
- * Figma 승인 후 연결할 Props: rows, query, onCreate, onEdit
- * 이 파일이 직접 처리하면 안 되는 상태: 편집 Form 입력 전체, Validation 메시지 소유를 테이블에 넣기
- * 아직 구현하면 안 되는 부분: 완성 목록 JSX, 이미지 업로드 UI
+ * SCR-016 / Menu Management / Default (Figma node 134:12137)
  *
- * TODO 1: MenuEditPage로 등록/수정 진입 경로만 연결
- * TODO 2: API-011 필드 계약 확정 전 mock 필드 고정 금지
+ * 좌측 목록(980) + 우측 상세 패널(700)의 정적 UI만 담는다.
+ * 메뉴 조회, 검색, 카테고리 필터, 등록·수정·삭제는 이후 메뉴 query/mutation이 소유한다.
  */
-
-import chickenImage from "../../assets/figma/soldout-chicken.png";
-import pastaImage from "../../assets/figma/soldout-pasta.png";
 import ricottaImage from "../../assets/figma/soldout-ricotta.png";
-import salmonImage from "../../assets/figma/soldout-salmon.png";
-import sandwichImage from "../../assets/figma/soldout-sandwich.png";
-import tomatoImage from "../../assets/figma/soldout-tomato.png";
+import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
 
-// Static Figma preview data. Menu fetching, search, creation, and editing are deferred.
-const menus = [
-  ["리코타 샐러드", "9,300", "샐러드", ricottaImage], ["연어 포케볼", "12,900", "포케볼", salmonImage],
-  ["수비드 치킨 샐러드", "10,900", "샐러드", chickenImage], ["토마토 파스타", "11,500", "웜볼", tomatoImage],
-  ["트러플 버섯 파스타", "12,500", "웜볼", pastaImage], ["바질 치킨 샌드위치", "8,900", "샌드위치", sandwichImage],
-  ["연어 아보카도 랩", "9,900", "랩&롤", salmonImage], ["닭가슴살 또띠아 랩", "8,900", "랩&롤", chickenImage],
+const CATEGORY_TABS = ["전체", "샐러드", "포케볼", "랩&롤", "음료"];
+
+// Figma는 같은 카드를 8장 반복해 밀도만 보여 준다.
+const menus = Array.from({ length: 8 }, (_, index) => ({
+  id: index,
+  name: "MENU",
+  price: "9,300",
+  image: ricottaImage,
+}));
+
+const optionGroups = [
+  ["드레싱", "추천 : 레몬허브 드레싱"],
+  ["베이스", "추천 : 레몬허브 드레싱"],
+  ["토핑", "추천 : 레몬허브 드레싱"],
+  ["소스", "추천 : 레몬허브 드레싱"],
+  ["사이드", "추천 : 레몬허브 드레싱"],
+  ["음료", "추천 : 레몬허브 드레싱"],
+];
+
+const nutrition = [
+  ["칼로리", "320 kcal"],
+  ["단백질", "18 g"],
+  ["탄수화물", "25 g"],
+  ["지방", "15 g"],
+  ["나트륨", "580 mg"],
 ];
 
 export default function MenuManagePage() {
-  return <section className="menu-management">
-    <header className="menu-management__header"><h1>메뉴 관리</h1><p>상품 기본정보 / 가격 / 카테고리 / 옵션그룹 / 노출여부를 관리하세요.</p></header>
-    <div className="menu-management__toolbar"><div className="menu-management__tabs">{["전체", "샐러드", "포케볼", "랩&롤", "음료"].map((item, index) => <button type="button" disabled key={item} className={index === 0 ? "is-selected" : ""}>{item}</button>)}</div><label><span className="sr-only">메뉴명 검색</span><span aria-hidden="true">⌕</span><input value="" placeholder="메뉴명 검색" readOnly disabled /></label></div>
-    <div className="menu-management__grid">{menus.map(([name, price, category, image]) => <article key={name}><img src={image} alt="" /><div><strong>{name}</strong><b>{price}</b></div><span>{category}</span><button type="button" disabled aria-label={`${name} 편집`}>편집</button></article>)}</div>
-  </section>;
+  return (
+    <section className="menu-management">
+      <AdminTopHeader
+        crumb="Admin / 메뉴 관리"
+        title="메뉴 관리"
+        description="상품 기본정보 / 가격 / 카테고리 / 옵션그룹 / 노출여부를 관리하세요."
+      />
+
+      <div className="menu-management__workspace">
+      <div className="menu-management__list">
+        <div className="menu-management__toolbar">
+          <div className="menu-management__tabs">
+            {CATEGORY_TABS.map((item, index) => (
+              <button type="button" disabled key={item} className={index === 0 ? "is-selected" : ""}>
+                {item}
+              </button>
+            ))}
+          </div>
+          <label className="menu-management__search">
+            <span className="sr-only">메뉴명 검색</span>
+            <i aria-hidden="true" />
+            <input value="" placeholder="메뉴명 검색" readOnly disabled />
+          </label>
+        </div>
+
+        <div className="menu-management__grid">
+          {menus.map((menu) => (
+            <article className="admin-menu-card" key={menu.id}>
+              <img src={menu.image} alt="" />
+              <div>
+                <strong>{menu.name}</strong>
+                <b>{menu.price}</b>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      {/* Menu-Detail-Panel (134:12167) — 700 폭, 내부 스크롤 */}
+      <aside className="menu-detail-panel">
+        <div className="menu-detail-panel__scroll">
+          <header className="menu-detail__header">
+            <div>
+              <h2>기본 정보</h2>
+              <p>등록된 상품의 상세 정보 및 노출 설정을 보여줍니다.</p>
+            </div>
+            <div className="menu-detail__actions">
+              <button type="button" disabled className="is-delete">삭제</button>
+              <button type="button" disabled className="is-edit">수정</button>
+            </div>
+          </header>
+
+          <section className="menu-detail-card menu-detail-basic">
+            <div className="menu-detail-basic__top">
+              <img src={ricottaImage} alt="" />
+              <div className="menu-detail-basic__info">
+                <div className="menu-detail-basic__name">
+                  <strong>케이준 쉬림프 샐러드</strong>
+                  <span className="menu-detail-badge">판매중</span>
+                </div>
+                <p>
+                  <span>카테고리</span>
+                  <b>샐러드</b>
+                </p>
+                <p className="menu-detail-basic__price">
+                  <span>판매 가격</span>
+                  <b>9,900원</b>
+                </p>
+              </div>
+            </div>
+            <div className="menu-detail-basic__desc">
+              <span>메뉴 설명</span>
+              <p>탱글탱글한 새우와 바삭한 케이준 시즈닝이 어우러진 신선한 프리미엄 샐러드입니다.</p>
+            </div>
+          </section>
+
+          <section className="menu-detail-card menu-detail-ingredients">
+            <header>
+              <h3>기본 재료</h3>
+              <span>지정된 정량 정보</span>
+            </header>
+
+            <div className="menu-detail-ingredients__group">
+              <p className="menu-detail-legend menu-detail-legend--core">핵심 재료</p>
+              <div className="menu-ingredient-row menu-ingredient-row--core">
+                <strong>케이준 쉬림프</strong>
+                <b>5개 · 기본 포함 · 제거 불가</b>
+              </div>
+            </div>
+
+            <div className="menu-detail-ingredients__group">
+              <p className="menu-detail-legend menu-detail-legend--base">베이스 재료</p>
+              <div className="menu-ingredient-row menu-ingredient-row--base">
+                <strong>로메인</strong>
+                <b>80g · 기본 포함 · 제거 불가</b>
+              </div>
+            </div>
+
+            <div className="menu-detail-ingredients__group">
+              <p className="menu-detail-legend menu-detail-legend--plain">일반 기본 재료</p>
+              <div className="menu-ingredient-chips">
+                {[["방울토마토", "30g"], ["옥수수", "30g"], ["크루통", "30g"]].map(([name, amount]) => (
+                  <span key={name}>
+                    {name} <i>{amount}</i>
+                  </span>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="menu-detail-card menu-detail-options">
+            <h3>옵션 그룹</h3>
+            <div className="menu-detail-options__grid">
+              {optionGroups.map(([name, note]) => (
+                <article key={name}>
+                  <div>
+                    <strong>{name}</strong>
+                    <em>필수</em>
+                  </div>
+                  <p>{note}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="menu-detail-card menu-detail-nutrition">
+            <header>
+              <h3>영양 정보</h3>
+              <span>정량 기준 자동 분석</span>
+            </header>
+            <div className="menu-detail-nutrition__grid">
+              {nutrition.map(([label, value]) => (
+                <div key={label}>
+                  <span>{label}</span>
+                  <b>{value}</b>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="menu-detail-tags">
+            <article>
+              <h3>알레르기 정보</h3>
+              <div>
+                {["갑각류", "우유", "대두", "밀"].map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
+            </article>
+            <article>
+              <h3>태그 설정</h3>
+              <div>
+                <span className="menu-tag menu-tag--best">BEST</span>
+                <span className="menu-tag menu-tag--new">NEW</span>
+                <span className="menu-tag menu-tag--vegan">Vegan</span>
+              </div>
+            </article>
+          </section>
+        </div>
+      </aside>
+      </div>
+    </section>
+  );
 }

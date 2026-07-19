@@ -15,10 +15,10 @@
 
 import AdminSidebar from "../components/admin/AdminSidebar.jsx";
 
-export default function AdminLayout({ children, items }) {
+export default function AdminLayout({ children }) {
   return (
     <div className="admin-app">
-      <AdminSidebar items={items} />
+      <AdminSidebar />
       <main className="admin-main">{children}</main>
     </div>
   );

@@ -41,6 +41,19 @@ a {
   text-decoration: none;
 }
 
+/* 스크린리더 전용 텍스트. 정의가 없으면 숨김 라벨이 화면에 그대로 보인다. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
 .admin-app {
   display: grid;
   grid-template-columns: var(--admin-sidebar-width) minmax(0, 1fr);
@@ -49,45 +62,76 @@ a {
 
 .admin-sidebar {
   min-height: 100vh;
-  padding: 20px;
+  padding: 0 20px 28px;
   display: flex;
   flex-direction: column;
   gap: 28px;
   background: var(--admin-panel);
   color: #737373;
-  box-shadow: 2px 0 12px rgba(200, 241, 104, 0.18);
-}
-
-.brand {
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  font-size: 1.25rem;
-}
-
-.admin-sidebar nav {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 40px;
-}
-
-.admin-sidebar nav a {
-  padding: 12px 14px;
-  border-radius: 10px;
-  color: #c5d4c6;
-  font-weight: 600;
-}
-
-.admin-sidebar nav a.active {
-  background: var(--admin-lime);
-  color: var(--admin-text);
-  font-weight: 800;
+  box-shadow:
+    0.5px 0.5px 0.5px rgba(200, 241, 104, 0.25),
+    -0.5px -0.5px 0.5px rgba(200, 241, 104, 0.25),
+    -2px -4px 4px rgba(200, 241, 104, 0.25),
+    2px 4px 4px rgba(200, 241, 104, 0.25);
 }
 
 .admin-main {
   min-width: 0;
-  padding: 24px 32px;
+  min-height: 100vh;
+  padding: 40px;
   background: var(--admin-page-bg);
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+/* Figma MainContent top-header 241:14215 — 전 관리자 페이지 공통 */
+.admin-top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.admin-top-header__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+}
+
+.admin-top-header__crumb {
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.admin-top-header__text h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 700;
+  letter-spacing: -0.14px;
+  color: #111827;
+  white-space: nowrap;
+}
+
+.admin-top-header__desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.admin-top-header__aside {
+  flex: 0 0 auto;
 }
 
 .admin-screen {
@@ -128,27 +172,21 @@ a {
     grid-template-columns: 1fr;
   }
 
-  .admin-sidebar nav {
-    flex-direction: row;
-    overflow-x: auto;
-    margin-top: 20px;
-  }
-
   .admin-main {
     padding: 40px 24px;
   }
 }
 
-/* Figma 06-C / SCR-009 정적 프리뷰 — API·상태 전이 없이 레이아웃만 반영 */
+/* Figma SCR-009 / Live Order / Detail Open (235:6361) — 상단바 + 오더카드 */
 .live-order-preview {
   min-height: 100vh;
   background: #f7f7f7;
   color: #111827;
 }
 
+/* top-bar 235:6372 — Navbar(90) + content(pl 120 / pr 40 / py 16) */
 .live-order-preview__topbar {
-  display: grid;
-  grid-template-columns: 120px minmax(0, 1fr) auto;
+  display: flex;
   align-items: center;
   min-height: 72px;
   background: #fff;
@@ -157,10 +195,12 @@ a {
 
 .live-order-preview__logo {
   display: grid;
-  width: 50px;
-  height: 50px;
-  margin: 0 auto;
+  width: 90px;
+  height: 72px;
+  flex: 0 0 90px;
   place-items: center;
+  padding: 11px 20px;
+  box-sizing: border-box;
 }
 
 .live-order-preview__logo img {
@@ -171,50 +211,77 @@ a {
 
 .live-order-preview__heading {
   display: flex;
-  align-items: baseline;
-  gap: 28px;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+  padding: 16px 40px 16px 30px;
+  box-sizing: border-box;
 }
 
-.live-order-preview__heading h1 {
+.live-order-preview__title-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 407px;
+  max-width: 100%;
+  padding: 4px 0;
+  box-sizing: border-box;
+}
+
+.live-order-preview__title-group h1 {
   margin: 0;
-  font-size: 2rem;
-  line-height: 1.25;
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+  color: #111827;
+  white-space: nowrap;
 }
 
-.live-order-preview__heading p {
+.live-order-preview__title-group p {
   margin: 0;
   color: #f97316;
-  font-size: 1rem;
+  font-size: 16px;
+  line-height: 20px;
   font-weight: 500;
+  white-space: nowrap;
 }
 
-.live-order-preview__topbar time {
-  margin-right: 40px;
+.live-order-preview__heading > time {
+  margin: 0;
   color: #6b7280;
-  font-size: 1.25rem;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 400;
+  white-space: nowrap;
 }
 
 .live-order-preview__content {
   display: grid;
   grid-template-columns: 32px minmax(0, 1fr) 32px;
   align-items: start;
-  gap: 12px;
+  gap: 8px;
   min-height: calc(100vh - 72px);
-  padding: 46px 32px 24px;
+  padding: 24px 32px;
+  box-sizing: border-box;
 }
 
 .live-order-preview__board {
-  display: grid;
-  grid-template-columns: repeat(4, 380px);
-  gap: 16px;
-  align-self: start;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 32px;
+  align-items: flex-start;
+  overflow-x: auto;
+  padding: 20px 4px;
 }
 
 .live-order-preview__arrow {
+  align-self: center;
   border: 0;
   background: transparent;
   color: #9ca3af;
   font-size: 3rem;
+  line-height: 1;
 }
 
 .live-order-card {
@@ -298,16 +365,19 @@ a {
   font-weight: 800;
 }
 
-/* SCR-009 / Live Order / Default (Figma node 134:10607) */
+/* SCR-009 / Live Order OrderCard (3065:67541 / 3065:67544) */
 .figma-order-card {
   display: flex;
   width: 380px;
-  height: 821px;
+  min-height: 851px;
+  flex: 0 0 380px;
   flex-direction: column;
+  gap: 16px;
   padding: 20px;
-  overflow: hidden;
+  overflow: clip;
   border-radius: 16px;
   background: #fff;
+  box-sizing: border-box;
   box-shadow:
     1px -1px 2px rgba(18, 26, 0, 0.05),
     -1px -1px 2px rgba(18, 26, 0, 0.05),
@@ -315,18 +385,24 @@ a {
     0 8px 8px -4px rgba(18, 26, 0, 0.04);
 }
 
-.figma-order-card__header,
-.figma-order-card__footer > div:first-child,
-.figma-order-menu__title,
-.figma-order-card__actions {
+.figma-order-card--wide {
+  width: 728px;
+  flex-basis: 728px;
+  min-height: 652px;
+}
+
+.figma-order-card__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 }
 
 .figma-order-card__header strong {
   font-size: 32px;
   line-height: 40px;
+  font-weight: 700;
+  color: #111827;
 }
 
 .figma-order-card__header time {
@@ -340,59 +416,119 @@ a {
 }
 
 .figma-order-card__type {
-  width: fit-content;
-  margin-top: 8px;
-  padding: 3px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0 16px;
   border-radius: 999px;
   background: #b5e30f;
   color: #111827;
   font-size: 18px;
   font-weight: 700;
   line-height: 24px;
+  box-sizing: border-box;
 }
 
 .figma-order-card__type--takeout {
-  background: #111827;
+  background: #212121;
   color: #b5e30f;
 }
 
 .figma-order-card__menus {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
-  margin-top: 16px;
+  width: 100%;
+}
+
+.figma-order-card--wide .figma-order-card__menus {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .figma-order-menu {
-  height: 181px;
-  padding: 16px 12px 10px;
+  width: 310px;
+  max-width: 100%;
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   border: 1px solid #bfbfbf;
   border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+.figma-order-menu__header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 20px 10px 12px;
+  box-sizing: border-box;
 }
 
 .figma-order-menu__title {
-  margin-top: -10px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  width: 100%;
 }
+
 .figma-order-menu__title strong {
-  font-size: 22px;
-  line-height: 28px;
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 700;
+  color: #171717;
 }
+
 .figma-order-menu__title span {
   color: #737373;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 1;
+  font-weight: 700;
 }
-.figma-order-menu p {
-  margin: 4px 0 0;
-  color: #111827;
+
+.figma-order-menu__base,
+.figma-order-menu__dressing {
+  margin: 0;
+  display: flex;
+  gap: 8px;
   font-size: 14px;
-  line-height: 20px;
+  line-height: 1;
+  font-weight: 500;
+}
+
+.figma-order-menu__base {
+  color: #171717;
+}
+
+.figma-order-menu__dressing {
+  color: #525252;
+}
+
+.figma-order-menu__base b,
+.figma-order-menu__dressing b {
+  font-weight: 500;
 }
 
 .figma-order-menu__options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3px 8px;
-  margin-top: 5px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.figma-order-menu__options ul {
+  margin: 0;
+  padding: 0 16px 10px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .figma-order-option {
@@ -400,72 +536,105 @@ a {
   align-items: center;
   gap: 4px;
   font-size: 12px;
-  line-height: 16px;
+  line-height: 1;
+  color: #525252;
   white-space: nowrap;
 }
+
 .figma-order-option i {
   display: grid;
-  width: 40px;
-  height: 40px;
+  width: 16px;
+  height: 16px;
   place-items: center;
-  border: 2px solid #b5e30f;
+  border: 2px solid #5b8c2a;
   border-radius: 50%;
-  color: #b5e30f;
-  font-style: normal;
+  box-sizing: border-box;
+  overflow: hidden;
 }
+
 .figma-order-option i img {
   display: block;
   width: 9px;
   height: 9px;
 }
-.figma-order-option--2,
-.figma-order-option--3 {
-  margin-top: -6px;
+
+.figma-order-option--exclude i {
+  border-color: #e50004;
 }
-.figma-order-option--2 i,
-.figma-order-option--3 i {
-  width: 16px;
-  height: 16px;
+
+.figma-order-option--exclude i img {
+  transform: rotate(-45deg);
+}
+
+.figma-order-option--plus i {
+  border-color: #5b8c2a;
+}
+
+.figma-order-option--side i {
   border-color: #ff8d28;
-  color: #ff8d28;
+  padding: 2px;
 }
-.figma-order-option--2 i img,
-.figma-order-option--3 i img {
-  width: 8px;
-  height: 8px;
+
+.figma-order-option--side i img,
+.figma-order-option--drink i img {
+  width: 100%;
+  height: 100%;
 }
-.figma-order-option--3 i {
-  border-color: #b5e30f;
-  color: #b5e30f;
+
+.figma-order-option--drink i {
+  border-color: #0088ff;
+  padding: 2px;
 }
 
 .figma-order-card__footer {
   margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
 }
-.figma-order-card__footer > div:first-child {
+
+.figma-order-card__total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 0 16px;
   font-size: 18px;
   font-weight: 700;
   line-height: 24px;
+  color: #111827;
 }
+
+.figma-order-card__total em {
+  font-style: normal;
+}
+
 .figma-order-card__actions {
+  display: flex;
+  align-items: stretch;
   gap: 8px;
-  margin-top: 16px;
+  width: 100%;
 }
+
 .figma-order-card__actions button {
-  height: 80px;
   border: 0;
   font: inherit;
 }
+
 .figma-order-card__actions button:first-child {
   width: 80px;
+  height: 80px;
+  flex: 0 0 80px;
   background: transparent;
   color: #6b7280;
   font-size: 12px;
+  line-height: 16px;
   text-decoration: underline;
 }
+
 .figma-order-card__actions button:last-child {
-  flex: 1;
+  flex: 1 1 auto;
+  height: 80px;
   border-radius: 8px;
   background: #b5e30f;
   box-shadow:
@@ -477,18 +646,24 @@ a {
   font-size: 28px;
   font-weight: 700;
   line-height: 36px;
-  opacity: 1;
+  letter-spacing: -0.14px;
 }
 
 @media (max-width: 1280px) {
   .live-order-preview__board {
-    grid-template-columns: repeat(2, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .figma-order-card,
+  .figma-order-card--wide {
+    width: min(380px, 100%);
+    flex-basis: min(380px, 100%);
   }
 }
 
 /* Shared admin Figma UI -------------------------------------------------- */
 .admin-sidebar__brand {
-  height: 60px;
+  padding: 10px 0;
   display: grid;
   place-items: center;
 }
@@ -509,8 +684,12 @@ a {
   display: none !important;
 }
 
+/* Figma Admin/Navbar (227:5009): Menu Nav가 flex-1이라 프로모 카드와 Logout이 아래로 밀린다. */
 .admin-sidebar__nav {
-  display: grid;
+  flex: 1 0 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 
@@ -522,7 +701,9 @@ a {
   gap: 12px;
   border-radius: 8px;
   font-size: 14px;
+  line-height: 20px;
   font-weight: 500;
+  color: #737373;
 }
 
 .admin-sidebar__nav a img {
@@ -533,21 +714,159 @@ a {
 
 .admin-sidebar__nav a span {
   min-width: 0;
+  flex: 1 0 0;
+}
+
+/* 매출 관리는 화면 이동(NavLink)과 하위 메뉴 접기(캐럿 버튼)를 한 행에서 나눠 갖는다. */
+.admin-sidebar__group-row {
+  position: relative;
+}
+
+.admin-sidebar__group-row a {
+  padding-right: 36px;
+}
+
+.admin-sidebar__caret-button {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+}
+
+.admin-sidebar__caret {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.15s ease;
+}
+
+/* Figma 기본값은 펼쳐진 상태이고 캐럿이 아래를 향한다. 접을 때만 회전시킨다. */
+.admin-sidebar__caret:not(.is-open) {
+  transform: rotate(-90deg);
+}
+
+.admin-sidebar__group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 하위 항목은 아이콘 없이 36px 들여쓰기로만 위계를 표시한다 (Figma pl-36 / pr-12). */
+.admin-sidebar__nav a.admin-sidebar__subitem {
+  padding-left: 36px;
+  padding-right: 12px;
+  gap: 0;
 }
 
 .admin-sidebar__nav a.active {
   color: var(--admin-text-primary);
   background: var(--admin-brand-primary);
   box-shadow:
-    inset 0 -2px 4px rgba(152, 202, 34, 0.65),
-    inset 0 2px 8px rgba(255, 255, 255, 0.6);
+    inset 2px 4px 12px rgba(255, 255, 255, 0.65),
+    inset 0 -4px 12px rgba(152, 202, 34, 0.65),
+    inset 0 2px 8px rgba(255, 255, 255, 0.6),
+    inset 0 -2px 4px rgba(152, 202, 34, 0.75);
 }
 
-.admin-sidebar__footer {
-  margin-top: auto;
-  color: #9ca3af;
+/* Promotional Banner. overflow를 자르지 않아야 야채 일러스트가 카드 위로 넘친다. */
+.admin-sidebar__promo {
+  height: 168px;
+  padding: 24px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  border-radius: 10px;
+  background: rgba(245, 247, 235, 0.5);
+}
+
+/* Figma는 내용 높이(183px)가 카드 높이(168px)보다 커서 justify-end로 위쪽이 넘친다.
+   flex 축소를 막아야 일러스트가 문구를 덮지 않고 카드 위로 넘쳐 나온다. */
+.admin-sidebar__promo-art {
+  position: relative;
+  width: 100%;
+  height: 77px;
+  flex: 0 0 77px;
+}
+
+.admin-sidebar__promo-art img {
+  position: absolute;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.admin-sidebar__promo-lettuce {
+  width: 125.9px;
+  height: 125.9px;
+  left: 41.24px;
+  top: -31.88px;
+  transform: rotate(-163.72deg) scaleY(-1);
+}
+
+.admin-sidebar__promo-carrot {
+  width: 89.93px;
+  height: 78.57px;
+  left: -14px;
+  top: 2px;
+  transform: rotate(179.86deg) scaleY(-1);
+}
+
+.admin-sidebar__promo-text {
+  margin: 0;
+  width: 138px;
+  height: 36px;
+  flex: 0 0 36px;
   font-size: 12px;
-  line-height: 18px;
+  line-height: 16px;
+  font-weight: 500;
+  color: var(--admin-text-primary);
+}
+
+.admin-sidebar__promo-cta {
+  width: 100%;
+  height: 46px;
+  flex: 0 0 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #212121;
+  color: var(--admin-brand-primary);
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 700;
+}
+
+.admin-sidebar__logout {
+  width: 100%;
+  min-width: 177px;
+  padding: 10px 8px 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 16px;
+  background: #f5f5f5;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #888888;
+}
+
+.admin-sidebar__logout img {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
 }
 
 .admin-page {
@@ -887,76 +1206,166 @@ a {
   color: #6b7280;
 }
 
+/* SCR-015 / Login (Figma 134:12033) ---------------------------------------- */
 .admin-login-page {
+  position: relative;
   min-height: 100vh;
   padding: 48px 24px;
   display: grid;
   place-items: center;
-  background: linear-gradient(180deg, #fff 0%, rgba(181, 227, 15, 0.1) 100%);
+  overflow: hidden;
+  background: var(--admin-panel);
 }
 
+/* decoration-group (134:12034) */
+.admin-login-page__photo,
+.admin-login-page__veil,
+.admin-login-page__tint {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.admin-login-page__photo {
+  object-fit: cover;
+}
+
+/* Figma는 white→white20% 그라데이션 레이어를 두 겹 쌓는다.
+   두 겹의 합성 결과(하단 알파 1-0.8²=0.36)를 한 레이어로 계산해 넣었다. */
+.admin-login-page__veil {
+  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.36) 100%);
+}
+
+.admin-login-page__tint {
+  opacity: 0.5;
+  background: linear-gradient(180deg, rgba(181, 227, 15, 0.01) 0%, rgba(181, 227, 15, 0.04) 100%);
+}
+
+/* login-form (134:12049) — 480 폭, 패딩 48, 섹션 간격 40 */
 .admin-login-card {
+  position: relative;
+  z-index: 1;
   width: min(480px, 100%);
   padding: 48px;
-  display: grid;
-  gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
   border-radius: 12px;
-  background: #fff;
+  background: var(--admin-panel);
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.06);
 }
 
+.admin-login-card__head {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
 .admin-login-card__brand {
-  width: 177px;
-  height: 60px;
-  justify-self: center;
+  width: 186px;
+  height: 62px;
   object-fit: contain;
 }
+
 .admin-login-card h1 {
-  margin: -12px 0 0;
-  text-align: center;
+  margin: 0;
   font-size: 22px;
-}
-.admin-login-card label {
-  display: grid;
-  gap: 8px;
-  font-size: 14px;
+  line-height: 28px;
   font-weight: 700;
+  color: var(--admin-text-primary);
 }
-.admin-login-card input {
+
+.admin-login-card__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.admin-login-field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-login-field span {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+}
+
+.admin-login-field input {
   height: 48px;
   padding: 0 16px;
   border: 1px solid var(--admin-border);
   border-radius: 8px;
-  color: #6b7280;
-  background: #fff;
-  font: inherit;
+  background: var(--admin-panel);
+  color: var(--admin-text-secondary);
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 22px;
   font-weight: 400;
+  -webkit-text-security: none;
 }
+
 .admin-login-card__check {
-  display: flex !important;
+  display: flex;
   align-items: center;
   gap: 8px;
-  font-weight: 400 !important;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--admin-text-primary);
 }
+
+/* Figma 체크박스(134:12129): 20px, 라임 2px 테두리, 연한 라임 배경, 12px 체크 마크 */
 .admin-login-card__check input {
+  appearance: none;
   width: 20px;
   height: 20px;
-  accent-color: var(--admin-deep-green);
+  flex: 0 0 20px;
+  margin: 0;
+  border: 2px solid var(--admin-brand-primary);
+  border-radius: 4px;
+  background: #f1f9e8;
 }
-.admin-login-card > button {
+
+.admin-login-card__check input:checked {
+  background-image: url("../assets/figma/icon-check.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px 12px;
+}
+
+/* 정적 화면이라 비활성이지만 외형은 Figma의 활성 버튼을 따른다. */
+.admin-login-card__submit {
   height: 48px;
   border: 0;
   border-radius: 8px;
-  background: var(--admin-deep-green);
-  color: #fff;
-  font: inherit;
-  font-weight: 800;
-  opacity: 0.58;
+  background: var(--admin-brand-primary);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
 }
+
 .admin-login-card small {
-  color: #6b7280;
+  width: 100%;
   text-align: center;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  color: var(--admin-text-secondary);
 }
+
 
 /* Figma state preview routes ------------------------------------------------ */
 .admin-state-preview {
@@ -1067,27 +1476,13 @@ a {
 /* SCR-010 / Order management ------------------------------------------------ */
 .order-management {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   color: var(--admin-text-primary);
 }
 .order-management__header {
-  margin-bottom: 22px;
-}
-.order-management__header small {
-  color: var(--admin-text-secondary);
-  font-size: 14px;
-  line-height: 20px;
-}
-.order-management__header h1 {
-  margin: 6px 0 4px;
-  font-size: 32px;
-  line-height: 40px;
-  letter-spacing: -0.02em;
-}
-.order-management__header p {
-  margin: 0;
-  color: var(--admin-text-secondary);
-  font-size: 16px;
-  line-height: 24px;
+  display: none;
 }
 .order-management__filters {
   display: flex;
@@ -1205,20 +1600,19 @@ a {
   padding: 24px 28px;
 }
 .order-management__detail h2 {
-  margin: 0 0 20px;
+  margin: 0 0 14px;
   font-size: 20px;
   line-height: 28px;
 }
 .order-management__detail dl {
   margin: 0;
-  padding-bottom: 14px;
-  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 4px;
 }
 .order-management__detail dl div,
 .order-management__total {
   display: flex;
   justify-content: space-between;
-  margin: 10px 0;
+  margin: 9px 0;
   font-size: 14px;
   line-height: 20px;
 }
@@ -1229,9 +1623,30 @@ a {
   margin: 0;
   font-weight: 600;
 }
+/* Figma 134:10630의 상세 메뉴 행은 구분선 없이 48px 간격으로 촘촘하다. */
+.order-management__items {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+}
+
 .order-management__item {
-  padding: 16px 8px;
-  border-bottom: 1px solid #f3f4f6;
+  padding: 6px 8px;
+}
+
+/* 환불 결제상태만 빨간 테두리 박스로 강조한다. */
+.order-refund {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 84px;
+  padding: 4px 10px;
+  border: 1px solid #ef4444;
+  border-radius: 6px;
+  color: #ef4444;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
 }
 .order-management__item strong {
   font-size: 14px;
@@ -1314,10 +1729,22 @@ a {
     justify-content: center;
     padding: 10px;
   }
-  .admin-sidebar__nav a span {
+  .admin-sidebar__nav a span,
+  .admin-sidebar__caret-button {
     display: none;
   }
+  /* 아이콘 rail에서는 라벨이 없어 하위 항목을 구분할 수 없으므로 접는다. */
+  .admin-sidebar__subitem,
+  .admin-sidebar__promo,
   .admin-sidebar__footer {
+    display: none;
+  }
+  .admin-sidebar__logout {
+    min-width: 0;
+    justify-content: center;
+    padding: 10px;
+  }
+  .admin-sidebar__logout span {
     display: none;
   }
 }
@@ -1339,11 +1766,17 @@ a {
   }
   .admin-sidebar__nav {
     flex: 1;
-    display: flex;
+    flex-direction: row;
     overflow-x: auto;
   }
   .admin-sidebar__nav a {
     flex: 0 0 40px;
+  }
+  .admin-sidebar__group {
+    flex-direction: row;
+  }
+  .admin-sidebar__logout {
+    display: none;
   }
   .admin-main {
     padding: 28px 16px;
@@ -1370,1281 +1803,2525 @@ a {
   }
 }
 
-/* SCR-011 / Sold-out management ------------------------------------------- */
+/* SCR-011 / Sold-out management (Figma 134:11863) -------------------------- */
+/* MainContent 240 + 패딩 40. 좌 744 + 이동 80 + 우 744, 각 간격 16. */
 .sold-out-management {
-  position: relative;
   width: 100%;
-  min-height: 960px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: calc(100vh - 80px);
   color: var(--admin-text-primary);
 }
-.sold-out-management__header {
-  margin-bottom: 24px;
-}
-.sold-out-management__header small {
-  color: var(--admin-text-secondary);
-  font-size: 12px;
-  line-height: 16px;
-}
-.sold-out-management__header h1 {
-  margin: 6px 0 4px;
-  font-size: 28px;
-  line-height: 36px;
-  letter-spacing: -0.01em;
-}
-.sold-out-management__header p {
+
+.sold-out-management h1,
+.sold-out-management p {
   margin: 0;
-  color: var(--admin-text-secondary);
-  font-size: 14px;
-  line-height: 20px;
 }
+
 .sold-out-management__workspace {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 56px minmax(360px, 0.68fr);
+  display: flex;
+  flex: 1 1 auto;
+  align-items: stretch;
   gap: 16px;
-  min-height: 816px;
+  min-height: 0;
 }
-.sold-out-board {
+
+.sold-out-panel {
+  flex: 1 1 0;
   min-width: 0;
+  min-height: 0;
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  border: 1px solid var(--admin-border);
+  border: 1px solid #e5e7eb;
   border-radius: 12px;
   background: #fff;
+  overflow: clip;
 }
-.sold-out-board__controls {
+
+.sold-out-panel__controls {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 16px;
 }
+
 .sold-out-tabs {
   display: flex;
   gap: 12px;
-  flex-wrap: wrap;
 }
-.sold-out-tabs button,
-.sold-out-chips button,
-.sold-out-board__selected-heading button {
-  border: 1px solid #e5e7eb;
-  background: #fff;
-  color: var(--admin-text-secondary);
-  font: inherit;
-  cursor: default;
-}
+
 .sold-out-tabs button {
-  height: 44px;
+  height: 42px;
   padding: 0 24px;
-  border-radius: 8px;
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  background: var(--admin-panel);
+  color: var(--admin-text-primary);
+  font-family: inherit;
   font-size: 15px;
-  font-weight: 600;
-}
-.sold-out-tabs button.is-selected {
-  border: 1.5px solid var(--admin-brand-primary);
-  background: #f1f9e8;
-  color: #6c9700;
-  font-weight: 700;
-}
-.sold-out-search {
-  min-width: 160px;
-  height: 44px;
-  padding: 0 14px;
-  display: flex;
-  flex: 1;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  background: #f9fafb;
-  color: var(--admin-text-secondary);
-}
-.sold-out-search input {
-  width: 100%;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: var(--admin-text-secondary);
-  font: inherit;
-  font-size: 14px;
-}
-.sold-out-search input::placeholder {
-  color: var(--admin-text-secondary);
-  opacity: 1;
-}
-.sold-out-search span:last-child {
-  font-size: 23px;
-  line-height: 1;
-  transform: rotate(-18deg);
-}
-.sold-out-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.sold-out-chips button {
-  min-height: 28px;
-  padding: 0 14px;
-  border-radius: 999px;
-  background: #f3f4f6;
-  font-size: 12px;
+  line-height: 22px;
   font-weight: 500;
 }
-.sold-out-chips button.is-selected {
+
+.sold-out-tabs button.is-selected {
   border-color: var(--admin-brand-primary);
-  background: var(--admin-brand-primary);
-  color: #fff;
-  font-weight: 600;
+  background: #f5fbe0;
+  color: #4a7a00;
+  font-weight: 700;
 }
-.sold-out-board__title,
-.sold-out-board__selected-heading,
-.sold-out-board__selected-heading > div {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+
+.sold-out-search {
+  position: relative;
+  flex: 1 0 0;
+  min-width: 0;
+  height: 40px;
 }
-.sold-out-board__title strong,
-.sold-out-board__selected-heading strong {
+
+.sold-out-search input {
+  width: 100%;
+  height: 40px;
+  padding: 0 44px 0 14px;
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  background: var(--admin-page-bg);
+  font-family: inherit;
   font-size: 14px;
   line-height: 20px;
+  color: var(--admin-text-primary);
 }
-.sold-out-board__title span,
-.sold-out-board__selected-heading span {
+
+.sold-out-search i {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #9ca3af;
+  border-radius: 50%;
+}
+
+.sold-out-search i::after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 1.5px;
+  margin: 12px 0 0 9px;
+  background: #9ca3af;
+  transform: rotate(45deg);
+}
+
+.sold-out-chips {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sold-out-chips button {
+  height: 28px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--admin-page-bg);
   color: var(--admin-text-secondary);
-  font-size: 11px;
-  font-weight: 600;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
 }
+
+.sold-out-chips button.is-selected {
+  background: var(--admin-brand-primary);
+  color: var(--admin-text-primary);
+  font-weight: 700;
+}
+
+.sold-out-panel__title {
+  margin-top: 16px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.sold-out-panel__title strong {
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.sold-out-panel__title span {
+  font-size: 13px;
+  line-height: 14px;
+  color: var(--admin-text-secondary);
+}
+
+/* items-grid — overflow clip 유지 */
 .sold-out-grid {
+  margin-top: 0;
+  flex: 1 1 auto;
+  min-height: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(124px, 1fr));
-  align-content: start;
+  grid-template-columns: repeat(4, 134px);
   gap: 10px;
-  overflow: auto;
-  padding: 16px 0;
+  align-content: start;
+  overflow: clip;
+  padding: 16px 0 0;
 }
+
 .sold-out-card {
-  min-width: 0;
-  overflow: hidden;
-  border: 1px solid #e5e7eb;
+  width: 134px;
+  height: 144px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--admin-border);
   border-radius: 8px;
-  background: #fff;
+  background: var(--admin-panel);
+  overflow: hidden;
 }
-.sold-out-card--active {
-  border-color: #e2ff99;
+
+.sold-out-card.is-checked {
+  border: 2px solid var(--admin-brand-primary);
 }
+
 .sold-out-card__image {
   position: relative;
-  height: 88px;
-  overflow: hidden;
-  background: #f5f5f5;
+  height: 96px;
+  flex: 0 0 96px;
 }
-.sold-out-card__image > img {
+
+.sold-out-card__image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
+
 .sold-out-card__image input {
+  appearance: none;
   position: absolute;
   top: 8px;
   left: 8px;
-  width: 15px;
-  height: 15px;
-  accent-color: var(--admin-brand-primary);
-  opacity: 1;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 1px solid var(--admin-border);
+  border-radius: 4px;
+  background: var(--admin-panel);
 }
+
+.sold-out-card__image input:checked {
+  border-color: #1f2937;
+  background: #1f2937;
+}
+
+.sold-out-card__image input:checked::after {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 9px;
+  margin: 2px 0 0 6px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
 .sold-out-card__info {
-  min-height: 57px;
-  padding: 6px 8px 8px;
-  display: grid;
-  align-content: start;
+  flex: 1 0 0;
+  min-height: 0;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
   gap: 4px;
 }
+
 .sold-out-card__info strong {
-  overflow: hidden;
-  color: var(--admin-text-primary);
-  font-size: 13px;
+  font-size: 12px;
+  line-height: 16px;
   font-weight: 500;
-  line-height: 18px;
+  color: var(--admin-text-primary);
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.sold-out-card__info span {
-  width: max-content;
-  max-width: 100%;
+
+.sold-out-card__chips {
+  display: flex;
+  gap: 4px;
+}
+
+.sold-out-chip {
   padding: 2px 6px;
-  overflow: hidden;
   border-radius: 4px;
   background: #f5fbe0;
-  color: #243300;
-  font-size: 12px;
-  line-height: 16px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  color: #4a7a00;
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 500;
 }
-.sold-out-management__transfer {
-  display: grid;
-  align-content: center;
-  justify-items: center;
-  gap: 12px;
+
+.sold-out-chip--danger {
+  background: #fff0eb;
+  color: #ef4444;
 }
-.sold-out-management__transfer button {
-  width: 40px;
-  height: 40px;
-  border: 1px solid #e5e7eb;
+
+/* transfer-controls (134:11914) — 48px 원형 2개 */
+.sold-out-transfer {
+  width: 80px;
+  flex: 0 0 80px;
+  padding-top: 390px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.sold-out-transfer button {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--admin-brand-primary);
   border-radius: 50%;
-  background: #fff;
-  color: var(--admin-text-secondary);
-  font-size: 20px;
+  background: var(--admin-panel);
+  color: #4a7a00;
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 1;
 }
-.sold-out-board--selected {
-  position: relative;
+
+.sold-out-transfer .is-primary {
+  background: var(--admin-brand-primary);
+  color: #ffffff;
 }
-.sold-out-board__selected-heading {
+
+/* right-panel (134:11921) */
+.sold-out-panel__controls--selected {
   justify-content: space-between;
 }
-.sold-out-board__selected-heading button {
-  height: 32px;
-  padding: 0 12px;
-  border-radius: 8px;
-  font-size: 12px;
+
+.sold-out-panel__controls--selected .sold-out-panel__title {
+  margin-top: 0;
 }
-.sold-out-board__hint {
-  margin: -6px 0 0;
+
+.sold-out-clear {
+  height: 28px;
+  padding: 0 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: 6px;
+  background: var(--admin-panel);
   color: var(--admin-text-secondary);
+  font-family: inherit;
   font-size: 12px;
   line-height: 16px;
 }
-.sold-out-grid--selected {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  padding-bottom: 106px;
+
+.sold-out-panel--selected .sold-out-grid {
+  margin-top: 24px;
 }
-.sold-out-save-bar {
-  position: absolute;
-  right: 24px;
-  bottom: 24px;
-  left: 24px;
-  min-height: 56px;
-  padding: 8px 8px 8px 16px;
+
+.sold-out-save {
+  margin-top: auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  justify-content: center;
+  gap: 12px;
 }
-.sold-out-save-bar span {
-  color: var(--admin-text-secondary);
-  font-size: 13px;
+
+.sold-out-save__badge {
+  height: 32px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 16px;
+  background: #fff0eb;
+  color: #ef4444;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
 }
-.sold-out-save-bar b {
-  color: #6c9700;
-}
-.sold-out-save-bar button {
+
+.sold-out-save button {
   height: 40px;
-  min-width: 84px;
+  padding: 0 24px;
   border: 0;
-  border-radius: 8px;
-  background: var(--admin-brand-primary);
-  color: #243300;
-  font: inherit;
+  border-radius: 10px;
+  background: #1f7a3f;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 20px;
   font-weight: 700;
 }
-.sold-out-promo {
-  position: fixed;
-  left: 38px;
-  bottom: 98px;
-  width: 164px;
-  height: 94px;
-  overflow: hidden;
-  pointer-events: none;
-  opacity: 0.95;
-}
-.sold-out-promo img {
-  position: absolute;
-  object-fit: contain;
-}
-.sold-out-promo__lettuce {
-  width: 116px;
-  top: -30px;
-  right: -4px;
-  transform: rotate(-18deg);
-}
-.sold-out-promo__carrot {
-  width: 76px;
-  bottom: -16px;
-  left: -6px;
-  transform: rotate(180deg);
-}
-@media (max-width: 1280px) {
+
+/* Figma는 1920 고정폭만 정의한다. 아래는 좁은 화면 보정이다. */
+@media (max-width: 1500px) {
   .sold-out-management__workspace {
-    grid-template-columns: minmax(0, 1fr) 48px minmax(300px, 0.7fr);
-  }
-  .sold-out-board {
-    padding: 20px;
-  }
-  .sold-out-board__controls {
     flex-direction: column;
   }
-  .sold-out-search {
+  .sold-out-panel {
     width: 100%;
+    flex: 0 0 auto;
+    min-height: 0;
   }
-  .sold-out-promo {
-    display: none;
-  }
-}
-@media (max-width: 960px) {
-  .sold-out-management__workspace {
-    grid-template-columns: 1fr;
-  }
-  .sold-out-management__transfer {
-    grid-template-columns: repeat(2, 40px);
-  }
-  .sold-out-board {
-    min-height: 460px;
-  }
-  .sold-out-grid--selected {
-    grid-template-columns: repeat(auto-fill, minmax(124px, 1fr));
-  }
-  .sold-out-save-bar {
-    position: static;
-    margin-top: auto;
-  }
-  .sold-out-grid--selected {
-    padding-bottom: 0;
-  }
-}
-@media (max-width: 560px) {
-  .sold-out-board__controls {
-    gap: 10px;
-  }
-  .sold-out-tabs {
+  .sold-out-transfer {
     width: 100%;
-    gap: 6px;
-  }
-  .sold-out-tabs button {
-    flex: 1;
-    padding: 0 10px;
-    font-size: 13px;
+    flex: 0 0 auto;
+    padding-top: 0;
+    flex-direction: row;
+    justify-content: center;
   }
   .sold-out-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .sold-out-management__header h1 {
-    font-size: 24px;
-  }
-  .sold-out-board {
-    padding: 16px;
+    grid-template-columns: repeat(auto-fill, 134px);
   }
 }
 
-/* SCR-016 / Menu management ------------------------------------------------ */
+@media (max-width: 720px) {
+  .sold-out-panel__controls {
+    gap: 12px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .sold-out-tabs {
+    flex-wrap: wrap;
+  }
+}
+
+
+/* SCR-016 / Menu management (Figma 134:12137) ------------------------------ */
+/* MainContent 1680, 공통 padding 40. workspace = 목록 + 상세. */
 .menu-management {
-  width: min(980px, 100%);
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   color: var(--admin-text-primary);
 }
-.menu-management__header {
+
+.menu-management h1,
+.menu-management h2,
+.menu-management h3,
+.menu-management p {
+  margin: 0;
+}
+
+.menu-management__workspace {
   display: flex;
-  align-items: baseline;
-  gap: 8px;
-  margin-bottom: 24px;
+  flex: 1 1 auto;
+  align-items: stretch;
+  gap: 16px;
+  min-height: 0;
+  overflow: clip;
 }
-.menu-management__header h1 {
-  margin: 0;
-  font-size: 30px;
-  line-height: 38px;
+
+.menu-management__list {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: clip;
 }
-.menu-management__header p {
-  margin: 0;
-  color: var(--admin-text-secondary);
-  font-size: 14px;
-  line-height: 20px;
+
+/* legacy header kept for compatibility — pages now use AdminTopHeader */
+.menu-management__header {
+  display: none;
 }
+
+/* Search-Row — 흰 카드 툴바 */
 .menu-management__toolbar {
-  padding: 8px 16px;
+  height: 52px;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  border: 1px solid var(--admin-border);
+  border: 1px solid #e5e7eb;
   border-radius: 12px;
   background: #fff;
+  box-sizing: border-box;
 }
+
 .menu-management__tabs {
   display: flex;
+  align-items: center;
   gap: 16px;
 }
+
 .menu-management__tabs button {
-  height: 40px;
   border: 0;
-  background: transparent;
-  color: #888;
-  font: inherit;
+  background: none;
+  color: var(--admin-text-secondary);
+  font-family: inherit;
   font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
 }
+
 .menu-management__tabs button.is-selected {
   color: var(--admin-text-primary);
   font-weight: 700;
 }
-.menu-management__toolbar label {
-  height: 38px;
-  min-width: 180px;
-  padding: 0 12px;
+
+/* Figma는 113px 고정이지만 Pretendard의 한글 폭이 시안보다 넓어 문구가 잘린다.
+   높이·여백은 유지하고 폭만 내용에 맞춘다. */
+.menu-management__search {
+  height: 36px;
+  padding: 0 14px 0 12px;
   display: flex;
   align-items: center;
   gap: 8px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  color: #9ca3af;
+  border-radius: 18px;
+  background: var(--admin-page-bg);
 }
-.menu-management__toolbar input {
-  width: 100%;
+
+.menu-management__search i {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  border: 1.5px solid #9ca3af;
+  border-radius: 50%;
+}
+
+.menu-management__search i::after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 1.5px;
+  margin: 12px 0 0 9px;
+  background: #9ca3af;
+  transform: rotate(45deg);
+}
+
+.menu-management__search input {
+  width: 76px;
+  min-width: 0;
   border: 0;
-  outline: 0;
-  background: transparent;
-  color: #9ca3af;
-  font: inherit;
+  background: none;
+  font-family: inherit;
   font-size: 14px;
+  line-height: 20px;
+  color: var(--admin-text-primary);
 }
+
+/* Menu-Grid (134:12156) — 4열 × 196×234, 간격 16 */
 .menu-management__grid {
-  margin-top: 16px;
+  margin-top: 24px;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 196px));
   gap: 16px;
 }
-.menu-management__grid article {
-  position: relative;
-  min-width: 0;
+
+.admin-menu-card {
+  height: 234px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 12px;
+  background: var(--admin-panel);
   overflow: hidden;
-  border: 1px solid #e5e7eb;
-  border-radius: 24px;
-  background: #fff;
 }
-.menu-management__grid article > img {
+
+.admin-menu-card img {
   width: 100%;
-  aspect-ratio: 1;
-  padding: 16px 8px 0;
-  display: block;
+  height: 180px;
+  flex: 0 0 180px;
+  border-radius: 8px;
   object-fit: cover;
 }
-.menu-management__grid article > div {
-  padding: 8px 16px 4px;
+
+.admin-menu-card div {
+  padding: 0 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.admin-menu-card strong {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+}
+
+.admin-menu-card b {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  color: #6c9700;
+}
+
+/* Menu-Detail-Panel — 우측 상세, clip */
+.menu-detail-panel {
+  width: min(700px, 42%);
+  flex: 0 0 auto;
+  min-width: 320px;
+  min-height: 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  overflow: clip;
+}
+
+.menu-detail-panel__scroll {
+  height: 100%;
+  max-height: calc(100vh - 180px);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.menu-detail__header {
+  padding: 0 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.menu-detail__header h2 {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+}
+
+.menu-detail__header p {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--admin-text-secondary);
+}
+
+.menu-detail__actions {
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
-.menu-management__grid strong {
-  overflow: hidden;
-  font-size: 15px;
-  line-height: 22px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+
+.menu-detail__actions button {
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
 }
-.menu-management__grid b {
-  color: #6c9700;
+
+.menu-detail__actions .is-delete {
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid #fecaca;
+  background: var(--admin-panel);
+  color: #ef4444;
+}
+
+.menu-detail__actions .is-edit {
+  border: 0;
+  background: var(--admin-brand-primary);
+  color: var(--admin-text-primary);
+}
+
+.menu-detail-card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 12px;
+  background: var(--admin-panel);
+}
+
+.menu-detail-card header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.menu-detail-card h3 {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.menu-detail-card header span {
+  font-size: 14px;
+  line-height: 20px;
+  color: #9ca3af;
+}
+
+/* Basic-Info-Card (134:12188) */
+.menu-detail-basic__top {
+  display: flex;
+  gap: 20px;
+}
+
+.menu-detail-basic__top img {
+  width: 120px;
+  height: 120px;
+  flex: 0 0 120px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.menu-detail-basic__info {
+  flex: 1 0 0;
+  min-width: 0;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-detail-basic__name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.menu-detail-basic__name strong {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+}
+
+.menu-detail-badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--admin-brand-primary);
+  color: var(--admin-text-primary);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+}
+
+.menu-detail-basic__info p {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
   font-size: 14px;
   line-height: 20px;
 }
-.menu-management__grid article > span {
-  margin: 0 16px 16px;
-  padding: 2px 8px;
+
+.menu-detail-basic__info p span {
+  color: var(--admin-text-secondary);
+}
+
+.menu-detail-basic__info p b {
+  font-weight: 700;
+}
+
+.menu-detail-basic__price b {
+  color: #6c9700;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.menu-detail-basic__desc {
+  padding-top: 16px;
+  border-top: 1px solid #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu-detail-basic__desc span {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--admin-text-secondary);
+}
+
+.menu-detail-basic__desc p {
+  font-size: 15px;
+  line-height: 22px;
+}
+
+/* Ingredients-Section (134:12205) */
+.menu-detail-ingredients__group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-detail-legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.menu-detail-legend::before {
+  content: "";
+  width: 4px;
+  height: 14px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.menu-detail-legend--core {
+  color: #ef4444;
+}
+
+.menu-detail-legend--base {
+  color: #16a34a;
+}
+
+.menu-detail-legend--plain {
+  color: #9ca3af;
+}
+
+.menu-ingredient-row {
+  height: 88px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+}
+
+.menu-ingredient-row strong {
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+}
+
+.menu-ingredient-row b {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.menu-ingredient-row--core {
+  background: #fef2f2;
+}
+
+.menu-ingredient-row--core b {
+  color: #ef4444;
+}
+
+.menu-ingredient-row--base {
+  background: #f7fee7;
+}
+
+.menu-ingredient-row--base b {
+  color: #16a34a;
+}
+
+.menu-ingredient-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.menu-ingredient-chips span {
+  height: 40px;
+  padding: 0 10px;
   display: inline-flex;
-  border-radius: 4px;
-  background: #f5f5f5;
-  color: #6b7280;
+  align-items: center;
+  gap: 4px;
+  border-radius: 8px;
+  background: var(--admin-page-bg);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.menu-ingredient-chips i {
+  font-style: normal;
   font-size: 12px;
   line-height: 16px;
+  color: var(--admin-text-secondary);
 }
-.menu-management__grid button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 30px;
-  height: 30px;
-  border: 1px solid #e5e7eb;
+
+/* Options-Section (134:12238) — 2열 × 288×124 */
+.menu-detail-options__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.menu-detail-options__grid article {
+  height: 124px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid var(--admin-border);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.92);
-  color: #6b7280;
+}
+
+.menu-detail-options__grid article div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-detail-options__grid strong {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+}
+
+.menu-detail-options__grid em {
+  font-style: normal;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
+  color: #ef4444;
+}
+
+.menu-detail-options__grid p {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--admin-text-secondary);
+}
+
+/* Nutrition-Section (134:12287) — 5등분 */
+.menu-detail-nutrition__grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.menu-detail-nutrition__grid div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.menu-detail-nutrition__grid span {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--admin-text-secondary);
+}
+
+.menu-detail-nutrition__grid b {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+/* Allergies-Tags-Section (134:12307) — 306 카드 2장 */
+.menu-detail-tags {
+  display: flex;
+  gap: 16px;
+}
+
+.menu-detail-tags article {
+  flex: 1 0 0;
+  min-width: 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-radius: 12px;
+  background: var(--admin-panel);
+}
+
+.menu-detail-tags h3 {
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 700;
+}
+
+.menu-detail-tags div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.menu-detail-tags span {
+  height: 24px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 12px;
+  background: var(--admin-page-bg);
+  color: var(--admin-text-secondary);
   font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
 }
-.menu-management__grid button:disabled {
-  opacity: 1;
+
+.menu-tag--best {
+  background: #ffe6e7;
+  color: #ff0004;
 }
-@media (max-width: 1180px) {
-  .menu-management__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+
+.menu-tag--new {
+  background: #ffff80;
+  color: #0d0d0d;
 }
-@media (max-width: 760px) {
-  .menu-management__header {
-    display: block;
-  }
-  .menu-management__header p {
-    margin-top: 6px;
-  }
-  .menu-management__toolbar {
-    align-items: stretch;
+
+.menu-tag--vegan {
+  background: #ebf5eb;
+  color: #077e40;
+}
+
+/* Figma는 1920 고정폭만 정의한다. 아래는 좁은 화면 보정이다. */
+@media (max-width: 1500px) {
+  .menu-management {
     flex-direction: column;
   }
-  .menu-management__tabs {
-    gap: 4px;
-    overflow: auto;
-  }
-  .menu-management__tabs button {
+  .menu-management__list {
+    width: 100%;
     flex: 0 0 auto;
   }
-  .menu-management__toolbar label {
-    min-width: 0;
+  .menu-detail-panel {
+    width: 100%;
+    flex: 0 0 auto;
+    height: auto;
+    position: static;
+  }
+  .menu-detail-panel__scroll {
+    height: auto;
+    padding: 0 32px 40px;
+    overflow: visible;
   }
   .menu-management__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-  }
-  .menu-management__grid article {
-    border-radius: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
   }
 }
 
-/* SCR-019 / Sales summary -------------------------------------------------- */
+@media (max-width: 720px) {
+  .menu-management__toolbar {
+    height: auto;
+    padding: 12px 16px;
+    gap: 12px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .menu-management__search {
+    width: 100%;
+  }
+  .menu-detail-options__grid,
+  .menu-detail-tags {
+    grid-template-columns: minmax(0, 1fr);
+    flex-direction: column;
+  }
+  .menu-detail-nutrition__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+
+/* SCR-022 / Admin Dashboard (Figma 227:5008) ------------------------------- */
+/* Figma의 MainContent는 (301,16)에 놓여 있지만 폭이 1616 = 1920 - 240(navbar) - 32*2 이다.
+   즉 실제 의도는 navbar에 붙인 (240,0) + 32/24 패딩이고, .admin-main의 패딩이 그 값을 만든다.
+   섹션 폭은 시안 실측값을 그대로 쓴다: KPI 1008 / Middle 1080 / Bottom 1616. */
 .admin-dashboard {
   width: 100%;
-  max-width: 1680px;
-  margin: 0 auto;
-  color: var(--admin-text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  color: #404040;
 }
+
 .admin-dashboard h1,
 .admin-dashboard h2,
 .admin-dashboard p {
   margin: 0;
 }
+
+/* Header — pages use AdminTopHeader */
 .admin-dashboard__header {
-  min-height: 50px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 16px;
+  display: none;
 }
-.admin-dashboard__header h1 {
+
+.admin-dashboard__heading h1 {
   font-size: 22px;
   line-height: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
 }
-.admin-dashboard__header p {
-  margin-top: 4px;
-  color: #808080;
+
+.admin-dashboard__heading p {
+  margin-top: 6px;
   font-size: 12px;
   line-height: 16px;
+  font-weight: 500;
+  color: #808080;
 }
+
 .admin-dashboard__date {
   display: flex;
-  align-items: center;
-  gap: 16px;
-  color: #666;
-  font-family: Inter, var(--admin-font);
-  font-size: 13px;
+  align-items: flex-start;
+  gap: 11px;
+  padding-top: 4px;
 }
+
 .admin-dashboard__date b {
+  height: 30px;
   padding: 6px 14px;
-  border-radius: 999px;
-  background: #333;
-  color: #fff;
-  font-family: var(--admin-font);
-  font-size: 14px;
-  line-height: 18px;
-}
-.admin-dashboard__kpis {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  max-width: 1008px;
-  gap: 16px;
-}
-.admin-dashboard__kpis article,
-.dashboard-panel {
-  border: 1px solid var(--admin-border);
-  border-radius: 12px;
-  background: #fff;
-}
-.admin-dashboard__kpis article {
-  min-height: 120px;
-  padding: 20px;
-  display: grid;
-  align-content: start;
-  gap: 8px;
-}
-.admin-dashboard__kpis span {
-  color: #6b7280;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 15px;
+  background: #333333;
+  color: #ffffff;
   font-size: 14px;
   line-height: 20px;
+  font-weight: 500;
 }
+
+.admin-dashboard__date span {
+  padding-top: 6px;
+  font-size: 13px;
+  line-height: 18px;
+  color: #666666;
+}
+
+/* KPI Cards (227:5664) — 1008×120, gap 16 */
+.admin-dashboard__kpis {
+  width: 1008px;
+  max-width: 100%;
+  height: 120px;
+  margin-top: 16px;
+  display: flex;
+  gap: 16px;
+}
+
+.admin-dashboard__kpis article {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 120px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: var(--admin-panel);
+}
+
+.admin-dashboard__kpis span {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--admin-text-secondary);
+}
+
 .admin-dashboard__kpis strong {
   font-size: 22px;
   line-height: 28px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
 }
-.admin-dashboard__middle {
-  display: grid;
-  grid-template-columns: minmax(0, 1.32fr) minmax(340px, 0.68fr);
-  gap: 16px;
-  margin-top: 16px;
-}
+
+/* 공통 패널 표면 */
 .dashboard-panel {
   padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-panel);
+  overflow: hidden;
 }
+
 .dashboard-panel h2 {
   font-size: 14px;
   line-height: 20px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
 }
-.dashboard-panel__title {
+
+/* MiddleSection (227:7546) — 1080×394 */
+.admin-dashboard__middle {
+  width: 1080px;
+  max-width: 100%;
+  height: 394px;
+  margin-top: 20px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  gap: 16px;
 }
-.dashboard-panel__title button {
-  border: 0;
-  background: transparent;
-  color: #888;
-  font: inherit;
-  font-size: 12px;
+
+/* Dashboard Recent Orders Panel (551:74447) — 544×394 */
+.dashboard-orders {
+  width: 544px;
+  flex: 0 1 544px;
+  min-width: 0;
+  height: 394px;
+  gap: 16px;
 }
+
+.dashboard-orders__table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .dashboard-orders__head,
 .dashboard-orders__row {
-  display: grid;
-  grid-template-columns: 110px minmax(0, 1fr) 64px 64px;
+  display: flex;
   align-items: center;
-  column-gap: 12px;
+  gap: 4px;
+  font-size: 12px;
+  line-height: 16px;
 }
+
 .dashboard-orders__head {
-  height: 40px;
-  margin-top: 12px;
-  padding: 0 12px;
-  border-radius: 6px;
+  height: 36px;
+  padding: 8px 16px;
+  border-radius: 4px;
   background: #f7f7f7;
   color: #737373;
-  font-size: 12px;
+  font-weight: 500;
 }
+
 .dashboard-orders__row {
-  min-height: 56px;
-  padding: 0 12px;
+  height: 40px;
+  padding: 10px 16px;
   border-bottom: 1px solid #f2f2f2;
-  font-size: 13px;
+  color: #404040;
+  font-weight: 500;
 }
-.dashboard-orders__row > span {
+
+/* 열 너비: 주문번호 64 / 유형 40 / 메뉴 fill / 금액 60 / 상태 44 / 시간 60 */
+.dashboard-orders__head > :nth-child(1),
+.dashboard-orders__row > :nth-child(1) {
+  flex: 0 0 64px;
+}
+.dashboard-orders__head > :nth-child(2),
+.dashboard-orders__row > :nth-child(2) {
+  flex: 0 0 40px;
+}
+.dashboard-orders__head > :nth-child(3),
+.dashboard-orders__row > :nth-child(3) {
+  flex: 1 0 0;
+  min-width: 0;
+}
+.dashboard-orders__head > :nth-child(4),
+.dashboard-orders__row > :nth-child(4) {
+  flex: 0 0 60px;
+  text-align: right;
+}
+.dashboard-orders__head > :nth-child(5),
+.dashboard-orders__row > :nth-child(5) {
+  flex: 0 0 44px;
+}
+.dashboard-orders__head > :nth-child(6),
+.dashboard-orders__row > :nth-child(6) {
+  flex: 0 0 60px;
+}
+
+.dashboard-orders__head > *,
+.dashboard-orders__row > * {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.dashboard-orders__row time {
-  color: #737373;
-  font-size: 12px;
+
+.dashboard-orders__row b {
+  font-weight: 700;
 }
+
 .dashboard-status {
-  width: max-content;
-  padding: 4px 8px;
-  border-radius: 999px;
-  font-size: 12px;
   font-style: normal;
-  line-height: 16px;
 }
-.dashboard-status--waiting {
-  background: #edf3ff;
+
+.dashboard-status--waiting,
+.dashboard-status--preparing {
+  color: #f28c0d;
+}
+
+.dashboard-status--complete {
   color: #6699ff;
 }
-.dashboard-status--preparing {
-  background: #fff6e8;
-  color: #b27009;
-}
-.dashboard-status--complete {
-  background: #f5fbe0;
-  color: #6c9700;
-}
-.dashboard-status-summary__rows {
-  display: grid;
+
+/* Dashboard Status Summary Panel (551:74526) — 520×394 */
+.dashboard-status-summary {
+  width: 520px;
+  flex: 0 1 520px;
+  min-width: 0;
+  height: 394px;
   gap: 16px;
-  margin-top: 24px;
 }
-.dashboard-status-summary__rows p {
+
+.dashboard-status-summary__row {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  color: #4d4d4d;
-  font-size: 14px;
+  flex-direction: column;
+  gap: 6px;
 }
-.dashboard-status-summary__rows i {
+
+.dashboard-status-summary__row p {
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.dashboard-status-summary__row p span {
+  font-weight: 500;
+  color: #4d4d4d;
+}
+
+.dashboard-status-summary__row p b {
+  font-weight: 700;
+  color: #404040;
+}
+
+.dashboard-status-summary__row i {
+  display: block;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: #f0f0f0;
+  overflow: hidden;
+}
+
+.dashboard-status-fill {
   display: block;
   height: 8px;
-  margin-top: 6px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: #f0f0f0;
+  border-radius: 4px;
 }
-.dashboard-status-summary__rows em {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: var(--status-color);
+
+.dashboard-status-fill--waiting {
+  background: #6699ff;
 }
+
+.dashboard-status-fill--preparing {
+  background: #f28c0d;
+}
+
+.dashboard-status-fill--complete {
+  background: var(--admin-brand-primary);
+}
+
 .dashboard-order-type {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 20px;
+  width: 100%;
+  height: 60px;
   padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   border-radius: 8px;
   background: #f7f7f7;
 }
+
 .dashboard-order-type div {
-  display: grid;
-  justify-items: center;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 4px;
 }
+
 .dashboard-order-type span {
-  color: #737373;
   font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: #737373;
 }
+
 .dashboard-order-type b {
   font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  color: #262626;
 }
+
+/* BottomSection (227:7632) — 1616×400 */
 .admin-dashboard__bottom {
-  display: grid;
-  grid-template-columns: minmax(340px, 0.48fr) minmax(0, 1fr);
+  width: 1616px;
+  max-width: 100%;
+  height: 400px;
+  margin-top: 24px;
+  display: flex;
   gap: 16px;
-  margin-top: 16px;
 }
+
+/* Dashboard Inventory Alert Panel (551:74570) — 520×400 */
 .dashboard-inventory {
-  min-height: 320px;
+  width: 520px;
+  flex: 0 0 520px;
+  height: 400px;
+  gap: 12px;
 }
+
 .dashboard-inventory__row {
-  min-height: 48px;
+  width: 100%;
+  height: 48px;
   padding: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #f2f2f2;
-  color: #404040;
-  font-size: 14px;
 }
+
+.dashboard-inventory__row span {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #404040;
+}
+
 .dashboard-badge {
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: 100px;
   font-size: 12px;
   line-height: 16px;
+  font-weight: 500;
 }
+
 .dashboard-badge--danger {
   background: #fff0eb;
   color: #ef4444;
 }
+
 .dashboard-badge--normal {
   background: #ebf5eb;
-  color: #6c9700;
+  color: var(--admin-brand-primary);
 }
-.dashboard-inventory > p {
-  margin-top: 14px;
-  padding: 12px;
+
+.dashboard-inventory__note {
+  width: 100%;
+  height: 40px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
   border-radius: 6px;
   background: #fffaf0;
   color: #b2801a;
   font-size: 12px;
   line-height: 16px;
+  font-weight: 500;
 }
+
+/* Dashboard Sales Trend Panel (551:74615) — 1080×400 */
 .dashboard-trend {
-  min-height: 320px;
+  flex: 1 0 0;
+  min-width: 0;
+  height: 400px;
+  gap: 16px;
 }
+
 .dashboard-trend__chart {
-  height: 164px;
-  margin-top: 16px;
-  padding: 16px 20px;
+  width: 100%;
+  height: 200px;
+  padding: 20px;
   display: flex;
-  align-items: end;
-  justify-content: space-around;
   gap: 24px;
+  align-items: flex-end;
   border-radius: 8px;
   background: #fafafa;
 }
+
 .dashboard-trend__chart div {
-  height: 100%;
-  flex: 1;
-  display: grid;
-  align-content: end;
-  justify-items: center;
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 6px;
 }
+
 .dashboard-trend__chart i {
-  display: block;
   width: 40px;
-  max-width: 100%;
+  flex-shrink: 0;
   border-radius: 4px;
   background: #bfd99e;
 }
+
 .dashboard-trend__chart i.is-current {
   background: #6ba629;
 }
+
 .dashboard-trend__chart span {
-  color: #737373;
   font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: #737373;
 }
+
 .dashboard-trend__stats {
+  width: 100%;
+  height: 50px;
   display: flex;
+  align-items: center;
   gap: 32px;
-  margin-top: 18px;
 }
+
 .dashboard-trend__stats div {
-  display: grid;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
   gap: 4px;
 }
+
 .dashboard-trend__stats span {
-  color: #888;
   font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: #888888;
 }
+
 .dashboard-trend__stats b {
   font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  color: #262626;
 }
+
 .dashboard-trend__stats .is-down {
   color: #ef4444;
 }
+
+/* Figma는 1920 고정폭만 정의한다. 아래는 좁은 화면에서 겹치지 않게 하는 구현상 보정이다. */
+@media (max-width: 1400px) {
+  .admin-dashboard__middle,
+  .admin-dashboard__bottom {
+    width: 100%;
+    height: auto;
+  }
+  .dashboard-orders,
+  .dashboard-status-summary,
+  .dashboard-inventory,
+  .dashboard-trend {
+    flex: 1 1 0;
+  }
+}
+
 @media (max-width: 1120px) {
   .admin-dashboard__middle,
   .admin-dashboard__bottom {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
-  .admin-dashboard__kpis {
-    max-width: none;
+  .dashboard-orders,
+  .dashboard-status-summary,
+  .dashboard-inventory,
+  .dashboard-trend {
+    width: 100%;
+    flex: 0 0 auto;
   }
 }
+
 @media (max-width: 720px) {
   .admin-dashboard__header {
     gap: 12px;
+    height: auto;
     flex-direction: column;
   }
   .admin-dashboard__kpis {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    height: auto;
+    flex-wrap: wrap;
   }
-  .dashboard-orders__head,
-  .dashboard-orders__row {
-    grid-template-columns: 88px minmax(0, 1fr) 58px;
+  .admin-dashboard__kpis article {
+    flex: 1 0 40%;
   }
-  .dashboard-orders__head span:nth-child(3),
-  .dashboard-orders__row time {
+  .dashboard-orders__head > :nth-child(4),
+  .dashboard-orders__row > :nth-child(4),
+  .dashboard-orders__head > :nth-child(6),
+  .dashboard-orders__row > :nth-child(6) {
     display: none;
   }
   .dashboard-trend__stats {
     gap: 16px;
     flex-wrap: wrap;
   }
-  .dashboard-panel {
-    padding: 18px 16px;
-  }
 }
+
+/* SCR-019 / Sales summary (Figma 134:10661) -------------------------------- */
+/* MainContent는 navbar 바로 옆(240)이고 내부 패딩 32다. .admin-main이 좌우 32를 만들고
+   Figma의 header top=32는 .admin-main의 24에 8을 더해 맞춘다. */
 .sales-summary {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
   color: var(--admin-text-primary);
 }
-.sales-summary > header {
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+
 .sales-summary h1,
 .sales-summary h2,
 .sales-summary p {
   margin: 0;
 }
-.sales-summary h1 {
-  font-size: 30px;
-  line-height: 38px;
+
+/* Header (174:6667) — 1616×56 */
+.sales-summary__header {
+  width: 100%;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.sales-summary header p {
-  margin-top: 4px;
-  color: var(--admin-text-secondary);
+
+.sales-summary__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sales-summary__heading h1 {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+}
+
+.sales-summary__heading p {
   font-size: 14px;
-}
-.sales-summary header button {
-  height: 38px;
-  padding: 0 14px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  background: #fff;
+  line-height: 20px;
+  font-weight: 400;
   color: var(--admin-text-secondary);
-  font: inherit;
 }
+
+.sales-summary__filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sales-summary__filters button,
+.sales-summary__range {
+  height: 36px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-panel);
+  color: var(--admin-text-primary);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+.sales-summary__filters button.is-selected {
+  border-color: transparent;
+  background: var(--admin-brand-primary);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.sales-summary__range {
+  gap: 12px;
+}
+
+.sales-summary__range img {
+  width: 16px;
+  height: 16px;
+}
+
+/* KPI Cards (174:6682) — 1616×146, 3장 × 528 */
 .sales-summary__kpis {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+  height: 146px;
+  margin-top: 24px;
+  display: flex;
   gap: 16px;
 }
-.sales-summary__kpis article,
-.sales-chart,
-.sales-share-card {
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  background: #fff;
-}
+
 .sales-summary__kpis article {
-  min-height: 146px;
+  flex: 1 0 0;
+  min-width: 0;
   padding: 24px;
-  display: grid;
-  align-content: start;
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-panel);
 }
+
 .sales-summary__kpis span {
   font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--admin-text-secondary);
 }
+
 .sales-summary__kpis strong {
   font-size: 28px;
   line-height: 36px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
 }
-.sales-summary__kpis small {
+
+.sales-summary__kpis p {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.sales-summary__kpis p b {
+  font-weight: 700;
+  color: #ef4444;
+}
+
+.sales-summary__kpis p small {
+  font-size: 13px;
+  font-weight: 400;
   color: var(--admin-text-secondary);
-  font-size: 12px;
 }
-.sales-summary__body {
+
+/* MiddleSection (174:6701) — 1616×416 */
+.sales-summary__middle {
+  width: 100%;
   margin-top: 24px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 440px;
+  display: flex;
+  align-items: flex-start;
   gap: 16px;
 }
+
+/* Admin/HourlySalesChart (534:20933) — 1160×320 */
 .sales-chart {
-  min-height: 416px;
+  flex: 1 0 0;
+  min-width: 0;
+  height: 320px;
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-panel);
 }
-.sales-chart h2,
-.sales-share-card h2 {
+
+.sales-chart h2 {
   font-size: 16px;
   line-height: 24px;
+  font-weight: 600;
+  color: var(--admin-text-primary);
 }
-.sales-chart__bars {
-  height: 190px;
-  margin-top: 28px;
+
+.sales-chart__body {
+  flex: 1 0 0;
+  min-height: 0;
+  width: 100%;
   display: flex;
-  align-items: end;
-  gap: 4px;
-  border-bottom: 1px solid #e5e7eb;
+  flex-direction: column;
+  gap: 12px;
 }
+
+.sales-chart__bars {
+  flex: 1 0 0;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+}
+
 .sales-chart__bars i {
-  flex: 1;
-  min-width: 6px;
+  flex: 1 0 0;
+  min-width: 0;
   border-radius: 4px 4px 0 0;
   background: #c8f064;
 }
-.sales-chart__bars i:nth-child(4) {
+
+.sales-chart__bars i.is-peak {
   background: var(--admin-brand-primary);
 }
+
 .sales-chart__ticks {
-  margin-top: 10px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  color: var(--admin-text-secondary);
   font-size: 12px;
-}
-.sales-chart > p {
-  margin-top: 28px;
+  line-height: 16px;
+  font-weight: 400;
   color: var(--admin-text-secondary);
+}
+
+.sales-chart__peak {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 13px;
+  line-height: 18px;
 }
-.sales-chart > p b {
-  margin-right: 8px;
-  color: #6c9700;
+
+.sales-chart__peak b {
+  font-weight: 700;
+  color: var(--admin-brand-primary);
 }
-.sales-summary__body aside {
-  display: grid;
+
+.sales-chart__peak span {
+  font-weight: 400;
+  color: var(--admin-text-secondary);
+}
+
+/* RightColumn (174:6729) — 440, 200 카드 2장 */
+.sales-summary__right {
+  width: 440px;
+  flex: 0 0 440px;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
 }
+
+/* Admin/AnalyticsBreakdownCard (551:19921) — 440×200 */
 .sales-share-card {
+  height: 200px;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-panel);
 }
-.sales-share-card > div {
-  margin-top: 16px;
+
+.sales-share-card h2 {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--admin-text-secondary);
 }
-.sales-share-card p {
+
+.sales-share-card__rows {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sales-share-card__row {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sales-share-card__row p {
   display: flex;
   justify-content: space-between;
-  color: var(--admin-text-secondary);
   font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
 }
-.sales-share-card p b {
+
+.sales-share-card__row p span {
+  color: var(--admin-text-secondary);
+}
+
+.sales-share-card__row p b {
+  font-weight: 400;
   color: var(--admin-text-primary);
 }
-.sales-share-card i {
+
+.sales-share-card__row i {
+  display: block;
+  width: 100%;
   height: 8px;
-  margin-top: 6px;
-  display: block;
+  border-radius: 4px;
+  background: var(--admin-border);
   overflow: hidden;
-  border-radius: 999px;
-  background: #f3f4f6;
 }
-.sales-share-card em {
-  height: 100%;
+
+.sales-share-card__row em {
   display: block;
-  border-radius: inherit;
+  height: 100%;
+  background: var(--admin-border);
+}
+
+.sales-share-card__row em.is-primary {
   background: var(--admin-brand-primary);
 }
-@media (max-width: 1100px) {
-  .sales-summary__kpis {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .sales-summary__body {
-    grid-template-columns: 1fr;
-  }
-  .sales-summary__body aside {
-    grid-template-columns: 1fr 1fr;
-  }
+
+/* BottomSection (174:6772) — 1616×320 */
+.sales-summary__bottom {
+  width: 100%;
+  margin-top: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
 }
-@media (max-width: 620px) {
-  .sales-summary > header {
-    align-items: start;
-    gap: 12px;
+
+/* Analytics Detail Table (551:74015) — 1160×320 */
+.sales-table {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 320px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-panel);
+  overflow: hidden;
+}
+
+.sales-table h2,
+.sales-ranking h2 {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--admin-text-secondary);
+}
+
+.sales-table__grid {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sales-table__head,
+.sales-table__row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.sales-table__head {
+  height: 36px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  background: #f9fafb;
+  color: var(--admin-text-secondary);
+  font-weight: 400;
+}
+
+.sales-table__row {
+  height: 52px;
+  padding: 0 16px;
+  border-bottom: 1px solid #f2f2f2;
+  color: var(--admin-text-primary);
+  font-weight: 400;
+}
+
+.sales-table__head > :nth-child(1),
+.sales-table__row > :nth-child(1) {
+  flex: 0 0 84px;
+}
+
+.sales-table__head > :nth-child(2),
+.sales-table__row > :nth-child(2) {
+  flex: 0 0 64px;
+}
+
+.sales-table__head > :nth-child(3),
+.sales-table__row > :nth-child(3) {
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.sales-table__head > :nth-child(4),
+.sales-table__row > :nth-child(4) {
+  flex: 0 0 84px;
+  text-align: right;
+}
+
+/* Admin/RankingCard (551:74185) — 440×320 */
+.sales-ranking {
+  width: 440px;
+  flex: 0 0 440px;
+  height: 320px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-panel);
+  overflow: hidden;
+}
+
+.sales-ranking__rows {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sales-ranking__row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sales-ranking__rank {
+  flex: 0 0 auto;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 700;
+  color: var(--admin-brand-primary);
+}
+
+.sales-ranking__name {
+  flex: 1 0 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--admin-text-secondary);
+}
+
+.sales-ranking__count {
+  flex: 0 0 auto;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+  color: var(--admin-text-primary);
+}
+
+.sales-ranking__amount {
+  flex: 0 0 auto;
+  text-align: right;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+}
+
+/* Figma는 1920 고정폭만 정의한다. 아래는 좁은 화면 보정이다. */
+@media (max-width: 1280px) {
+  .sales-summary__header {
+    height: auto;
+    gap: 16px;
     flex-direction: column;
+    align-items: flex-start;
   }
-  .sales-summary__kpis,
-  .sales-summary__body aside {
-    grid-template-columns: 1fr;
+  .sales-summary__filters {
+    flex-wrap: wrap;
+  }
+  .sales-summary__kpis {
+    height: auto;
+    flex-wrap: wrap;
   }
   .sales-summary__kpis article {
-    min-height: 120px;
+    flex: 1 0 240px;
+  }
+  .sales-summary__middle,
+  .sales-summary__bottom {
+    flex-direction: column;
+  }
+  .sales-summary__right,
+  .sales-ranking {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+  .sales-chart,
+  .sales-table {
+    width: 100%;
   }
 }
 
-/* SCR-018 / Payment methods ------------------------------------------------ */
+
+/* SCR-018 / Payment methods (Figma 134:11493) ------------------------------ */
+/* MainContent 240 + 패딩 32 = 좌측 272. 좌열 898 + 간격 16 + 우열 686 = 1600. */
 .payment-settings {
-  width: min(1260px, 100%);
-  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
   color: var(--admin-text-primary);
 }
+
 .payment-settings h1,
 .payment-settings h2,
-.payment-settings h3,
 .payment-settings p {
   margin: 0;
 }
+
 .payment-settings__header {
-  margin-bottom: 28px;
+  display: none;
 }
+
 .payment-settings__header h1 {
-  font-size: 28px;
-  line-height: 36px;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 700;
 }
+
 .payment-settings__header p {
-  margin-top: 6px;
-  color: var(--admin-text-secondary);
   font-size: 14px;
   line-height: 20px;
-}
-.payment-settings__content {
-  display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(420px, 0.7fr);
-  gap: 40px;
-}
-.payment-settings__main {
-  display: grid;
-  gap: 32px;
-}
-.payment-settings h2 {
-  font-size: 18px;
-  line-height: 24px;
-}
-.payment-settings__guide {
-  margin: 6px 0 16px;
+  font-weight: 400;
   color: var(--admin-text-secondary);
-  font-size: 13px;
-  line-height: 20px;
 }
+
+.payment-settings__body {
+  width: 100%;
+  max-width: 1600px;
+  margin-top: 32px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.payment-settings h2 {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--admin-text-primary);
+}
+
+.payment-settings__main {
+  width: 898px;
+  flex: 1 1 898px;
+  min-width: 0;
+}
+
+/* Admin/PaymentMethodRow (551:74314) — 898×88 */
 .payment-method-list {
-  display: grid;
-  gap: 12px;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
+
 .payment-method-row {
-  min-height: 88px;
+  height: 88px;
   padding: 20px 24px;
   display: flex;
   align-items: center;
   gap: 16px;
   border: 1px solid var(--admin-border);
   border-radius: 12px;
-  background: #fff;
+  background: var(--admin-panel);
 }
-.payment-mark {
+
+.payment-method-row__icon {
   width: 40px;
   height: 40px;
   flex: 0 0 40px;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 8px;
   background: #f2f5f5;
-  color: #111827;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: -0.04em;
+  font-size: 18px;
+  line-height: 24px;
 }
-.payment-mark--kakao {
-  background: #fee500;
-}
-.payment-mark--naver {
-  background: #03c75a;
-  color: #fff;
-}
-.payment-mark--zero {
-  background: #eaf1ff;
-  color: #2769c9;
-}
-.payment-method-row > div:first-of-type {
+
+.payment-method-row__info {
+  flex: 1 0 0;
   min-width: 0;
-  flex: 1;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 2px;
+  overflow: hidden;
 }
-.payment-method-row strong {
+
+.payment-method-row__info strong {
   font-size: 15px;
   line-height: 22px;
+  font-weight: 500;
+  color: var(--admin-text-primary);
 }
-.payment-method-row small {
-  color: var(--admin-text-secondary);
+
+.payment-method-row__info span {
   font-size: 14px;
   line-height: 20px;
+  font-weight: 400;
+  color: var(--admin-text-secondary);
 }
+
 .payment-method-row__reorder {
-  flex: 0 0 auto !important;
-  display: flex !important;
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
+
 .payment-method-row__reorder button {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-panel);
+}
+
+.payment-method-row__reorder img {
+  width: 14px;
+  height: 14px;
+}
+
+/* Admin/Toggle/on (452:103492) — 48×28, knob 20 */
+.payment-toggle {
+  width: 48px;
+  height: 28px;
+  flex: 0 0 48px;
+  padding: 4px 4px 4px 24px;
+  display: flex;
+  align-items: center;
+  border-radius: 14px;
+  background: #6c9700;
+}
+
+.payment-toggle i {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+/* PoliciesSection (134:11563) */
+.payment-settings__policies-title {
+  margin-top: 32px;
+}
+
+.payment-policy-row {
+  margin-top: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.payment-policy-card {
+  width: 441px;
+  flex: 1 1 441px;
+  min-width: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: var(--admin-panel);
+}
+
+.payment-policy-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.payment-policy-card__head strong {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.payment-policy-card__head button {
+  border: 0;
+  background: none;
+  color: var(--admin-text-secondary);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.payment-policy-card p {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--admin-text-secondary);
+}
+
+/* PaymentMethodPreview (134:11582) — 686 폭, 안쪽 638 행 4개 */
+.payment-settings__preview {
+  width: 686px;
+  flex: 0 1 686px;
+  min-width: 0;
+}
+
+.payment-settings__preview-head {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  gap: 42px;
+}
+
+.payment-settings__preview-head p {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--admin-text-secondary);
+}
+
+.payment-preview-card {
+  height: 591px;
+  margin-top: 16px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: var(--admin-panel);
+}
+
+.payment-preview-row {
+  height: 84px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Admin/PaymentSaveBar / dirty (638:20860) — 560×72, MainContent 가운데 정렬 */
+.payment-settings__footer {
+  width: 100%;
+  max-width: 1600px;
+  margin-top: 70px;
+  display: flex;
+  justify-content: center;
+}
+
+.payment-save-bar {
+  width: 560px;
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 12px;
+  background: #fffbeb;
+}
+
+.payment-save-bar p {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #92400e;
+}
+
+.payment-save-bar button {
+  padding: 10px 24px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--admin-brand-primary);
+  color: var(--admin-text-primary);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+/* Figma는 1920 고정폭만 정의한다. 아래는 좁은 화면 보정이다. */
+@media (max-width: 1400px) {
+  .payment-settings__body {
+    flex-direction: column;
+  }
+  .payment-settings__main,
+  .payment-settings__preview {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+  .payment-preview-card {
+    height: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .payment-policy-row {
+    flex-direction: column;
+  }
+  .payment-policy-card {
+    width: 100%;
+  }
+  .payment-settings__preview-head {
+    height: auto;
+    gap: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .payment-save-bar {
+    width: 100%;
+  }
+}
+
+
+/* ----------------------- Daily / Monthly sales ----------------------- */
+.sales-daily,
+.sales-monthly {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  min-height: 100%;
+}
+.sales-daily__header,
+.sales-monthly__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.sales-daily__header h1,
+.sales-monthly__header h1 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #111827;
+}
+.sales-daily__header p,
+.sales-monthly__header p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: #6b7280;
+}
+.sales-daily__date,
+.sales-monthly__year {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sales-daily__date button,
+.sales-monthly__year button {
   width: 32px;
   height: 32px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   background: #fff;
-  color: #737373;
-  font: inherit;
+  color: #111827;
+  font-size: 18px;
+  line-height: 1;
+}
+.sales-daily__date span,
+.sales-monthly__year span {
+  padding: 8px 12px;
+  border-radius: 100px;
+  background: #b5e30f;
   font-size: 16px;
+  line-height: 22px;
+  font-weight: 700;
+  color: #111827;
 }
-.payment-method-row--compact {
-  min-height: 0;
-  padding: 18px 20px;
-  border: 0;
-  border-radius: 0;
-}
-.payment-method-row--compact + .payment-method-row--compact {
-  border-top: 1px solid #f2f2f2;
-}
-.payment-policies > div {
-  margin-top: 16px;
+.sales-daily__kpis,
+.sales-monthly__kpis {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
-.payment-policies article {
-  min-height: 144px;
+.sales-daily__kpis {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.sales-monthly__kpis {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.sales-daily__kpis article,
+.sales-monthly__kpis article {
   padding: 24px;
-  display: grid;
-  align-content: start;
-  gap: 8px;
-  border: 1px solid var(--admin-border);
+  border: 1px solid #e5e7eb;
   border-radius: 12px;
   background: #fff;
-}
-.payment-policies article header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   gap: 12px;
 }
-.payment-policies h3 {
-  font-size: 18px;
-  line-height: 24px;
-}
-.payment-policies button {
-  border: 0;
-  background: transparent;
-  color: #737373;
-  font: inherit;
-  font-size: 14px;
-}
-.payment-policies article p {
-  color: #6b7280;
+.sales-daily__kpis span,
+.sales-monthly__kpis span {
   font-size: 14px;
   line-height: 20px;
+  color: #6b7280;
 }
-.payment-preview {
-  min-width: 0;
+.sales-daily__kpis strong,
+.sales-monthly__kpis strong {
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 700;
+  color: #111827;
 }
-.payment-preview > header {
+.sales-daily__kpis p,
+.sales-monthly__kpis p {
+  margin: 0;
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 16px;
-}
-.payment-preview > header p {
-  color: #6b7280;
+  gap: 4px;
+  align-items: center;
   font-size: 13px;
-  line-height: 20px;
-  text-align: right;
+  line-height: 18px;
+  color: #6b7280;
 }
-.payment-preview > div {
-  overflow: hidden;
-  border: 1px solid var(--admin-border);
-  border-radius: 12px;
+.sales-daily__kpis p b {
+  color: #ef4444;
+}
+.sales-daily__kpis p.is-peak b,
+.sales-monthly__kpis p.is-ok small {
+  color: #b5e30f;
+  font-weight: 700;
+}
+.sales-daily__middle,
+.sales-monthly__middle,
+.sales-monthly__bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 16px;
+  align-items: start;
+}
+.sales-daily__right,
+.sales-monthly__right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.sales-compare-card {
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
   background: #fff;
 }
-.payment-preview .payment-method-row {
-  padding-right: 20px;
-}
-.payment-save-bar {
-  width: min(560px, 100%);
-  margin: 32px 0 0 auto;
-  padding: 16px 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  border-radius: 12px;
-  background: #fffbeb;
-  color: #92400e;
-  font-size: 14px;
-  line-height: 20px;
-}
-.payment-save-bar button {
-  min-height: 40px;
-  padding: 10px 24px;
-  border: 0;
-  border-radius: 12px;
-  background: var(--admin-brand-primary);
+.sales-compare-card h2 {
+  margin: 0 0 16px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
   color: #111827;
-  font: inherit;
-  font-weight: 700;
-  opacity: 0.58;
 }
-@media (max-width: 1080px) {
-  .payment-settings__content {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-  .payment-preview {
-    max-width: 760px;
-  }
-  .payment-preview > header {
-    justify-content: flex-start;
-    align-items: baseline;
-  }
-  .payment-preview > header p {
-    text-align: left;
-  }
+.sales-compare-card__row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
 }
-@media (max-width: 620px) {
-  .payment-policies > div {
-    grid-template-columns: 1fr;
-  }
-  .payment-method-row {
-    padding: 16px;
-    gap: 12px;
-  }
-  .payment-method-row__reorder {
-    display: none !important;
-  }
-  .payment-method-row strong {
-    font-size: 14px;
-  }
-  .payment-method-row small {
-    font-size: 12px;
-  }
-  .payment-preview > header {
-    display: block;
-  }
-  .payment-preview > header p {
-    margin-top: 4px;
-  }
+.sales-compare-card__row p {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #6b7280;
+}
+.sales-compare-card__row b {
+  color: #111827;
+}
+.sales-compare-card__row i {
+  display: block;
+  height: 8px;
+  border-radius: 999px;
+  background: #f3f4f6;
+  overflow: hidden;
+}
+.sales-compare-card__row em {
+  display: block;
+  height: 100%;
+  background: #c8f064;
+}
+.sales-compare-card__row em.is-primary {
+  background: #b5e30f;
+}
+.sales-compare-card__note {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+.sales-chart--compact {
+  min-height: 180px;
+}
+.sales-table__grid--hourly .sales-table__head,
+.sales-table__grid--hourly .sales-table__row,
+.sales-table__grid--monthly .sales-table__head,
+.sales-table__grid--monthly .sales-table__row {
+  grid-template-columns: 1.4fr 0.8fr 1fr 1fr;
+}
+.sales-table__grid--monthly .sales-table__head,
+.sales-table__grid--monthly .sales-table__row {
+  grid-template-columns: 0.9fr 0.6fr 0.8fr 1.1fr 1fr;
 }
