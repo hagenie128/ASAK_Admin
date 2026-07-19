@@ -1,22 +1,26 @@
 # 관리자 UI 구현 맵
 
-> 화면 단위 진입점은 워크스페이스 루트의 **[UI-INDEX.md](../../UI-INDEX.md)** 다.
-> 사이드바 메뉴 ↔ 경로 매핑도 그 문서의 "공통 사이드바" 절에 정리되어 있다.
+> 화면 단위 진입점: 워크스페이스 **[UI-INDEX.md](../../UI-INDEX.md)**  
+> 구조: [`src/STRUCTURE_GUIDE.md`](../src/STRUCTURE_GUIDE.md) · 계획: [`IMPLEMENTATION_PLAN.md`](../IMPLEMENTATION_PLAN.md)  
+> **2026-07-20:** 정적 UI는 연결됨. `adminMockRepository`는 READY, **Page 연동 0**.
 
-기준 파일은 `ASAK — Design System Product UI 0718` (`yHhvn5RKjBd91U8BJUQz7F`)이다. 이 문서는 정적 UI 단계의 경계와, 이후 데이터 구현자가 이어받을 위치를 기록한다. Figma를 수정하지 않았고 Figma URL을 런타임에서 참조하지 않는다.
+기준 Figma: `ASAK — Design System Product UI 0718` (`yHhvn5RKjBd91U8BJUQz7F`). Figma URL을 런타임에서 참조하지 않는다.
 
-## 라우트와 정적 UI 범위
+## 라우트와 데이터 경계
 
-| 경로 | 화면 파일 | Figma 기준 노드 | 현재 범위 | 이후 연결 지점 |
-| --- | --- | --- | --- | --- |
-| `/` | `pages/admin/OrderListPage.jsx` | `134:10607` | 실시간 주문 레이아웃 미리보기 | 주문 목록·상태 전이 query |
-| `/dashboard` | `pages/admin/DashboardPage.jsx` | `227:5008` | KPI, 최근 주문, 상태/재고/매출 요약 상수 | dashboard adapter로 각 패널별 데이터 주입 |
-| `/orders` | `pages/admin/OrderManagementPreview.jsx` | `134:10630` | 필터, 테이블, 상세 패널 | 주문 목록·상세 query |
-| `/sold-out` | `pages/admin/SoldOutManagePage.jsx` | `134:11863` | 두 보드와 저장 affordance | 재고/품절 draft store와 저장 mutation |
-| `/menus` | `pages/admin/MenuManagePage.jsx` | `134:12137` | 카테고리/검색/카드 표시 | 메뉴 조회·편집 화면 |
-| `/payment-methods` | `pages/admin/PaymentMethodPage.jsx` | `134:11493` | 수단 4개, 정책 카드, 미리보기 | 결제수단 draft, 정렬·활성·정책 저장 |
-| `/sales`, `/sales/daily`, `/sales/monthly` | `pages/admin/SalesSummaryPage.jsx` | `134:10661` | KPI·차트·비율 표시 | 기간 필터와 sales adapter |
-| `/login` | `pages/admin/LoginPage.jsx` | `134:12033` | 로그인 폼 외형 | 인증 API·세션 처리 |
+| 경로 | 화면 파일 | Figma | UI | 데이터 (2026-07-20) | 다음 연결 |
+| --- | --- | --- | --- | --- | --- |
+| `/` | `OrderListPage.jsx` | `134:10607` | 정적 Live | 하드코딩 | `getLiveOrders` |
+| `/dashboard` | `DashboardPage.jsx` | `227:5008` | 정적 KPI | 하드코딩 | dashboard getter |
+| `/orders` | `OrderManagementPreview.jsx` | `134:10630` | 정적 테이블 | 하드코딩 | `getAdminOrders` |
+| `/sold-out` | `SoldOutManagePage.jsx` | `134:11863` | 정적 보드 | 하드코딩 | soldOut draft/save |
+| `/menus` | `MenuManagePage.jsx` | `134:12137` | 정적 카드 | 하드코딩 | menus mock |
+| `/menus/new\|edit` | `MenuEditPage.jsx` | — | placeholder | — | 폼 mock 저장 |
+| `/payment-methods` | `PaymentMethodPage.jsx` | `134:11493` | 정적·disabled | 하드코딩 | 토글·저장 |
+| `/sales` | `SalesSummaryPage.jsx` | `134:10661` | 정적 | 하드코딩 | `getSalesSummary` |
+| `/sales/daily` | `DailySalesPage.jsx` | `134:11150` | 정적 | 하드코딩 | `getDailySales` |
+| `/sales/monthly` | `MonthlySalesPage.jsx` | `134:10957` | 정적 | 하드코딩 | `getMonthlySales` |
+| `/login` | `LoginPage.jsx` | `134:12033` | 정적 | — | mock 세션(선택) |
 
 ## 코드 읽기 안내
 

@@ -1,0 +1,383 @@
+/* SCR-011 / Sold-out management (Figma 134:11863) -------------------------- */
+/* MainContent 240 + 패딩 40. 좌 744 + 이동 80 + 우 744, 각 간격 16. */
+.sold-out-management {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: calc(100vh - 80px);
+  color: var(--admin-text-primary);
+}
+
+.sold-out-management h1,
+.sold-out-management p {
+  margin: 0;
+}
+
+.sold-out-management__workspace {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: stretch;
+  gap: 16px;
+  min-height: 0;
+}
+
+.sold-out-panel {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  overflow: clip;
+}
+
+.sold-out-panel__controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sold-out-tabs {
+  display: flex;
+  gap: 12px;
+}
+
+.sold-out-tabs button {
+  height: 42px;
+  padding: 0 24px;
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  background: var(--admin-panel);
+  color: var(--admin-text-primary);
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 500;
+}
+
+.sold-out-tabs button.is-selected {
+  border-color: var(--admin-brand-primary);
+  background: #f5fbe0;
+  color: #4a7a00;
+  font-weight: 700;
+}
+
+.sold-out-search {
+  position: relative;
+  flex: 1 0 0;
+  min-width: 0;
+  height: 40px;
+}
+
+.sold-out-search input {
+  width: 100%;
+  height: 40px;
+  padding: 0 44px 0 14px;
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  background: var(--admin-page-bg);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--admin-text-primary);
+}
+
+.sold-out-search i {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #9ca3af;
+  border-radius: 50%;
+}
+
+.sold-out-search i::after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 1.5px;
+  margin: 12px 0 0 9px;
+  background: #9ca3af;
+  transform: rotate(45deg);
+}
+
+.sold-out-chips {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sold-out-chips button {
+  height: 28px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--admin-page-bg);
+  color: var(--admin-text-secondary);
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+.sold-out-chips button.is-selected {
+  background: var(--admin-brand-primary);
+  color: var(--admin-text-primary);
+  font-weight: 700;
+}
+
+.sold-out-panel__title {
+  margin-top: 16px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.sold-out-panel__title strong {
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.sold-out-panel__title span {
+  font-size: 13px;
+  line-height: 14px;
+  color: var(--admin-text-secondary);
+}
+
+/* items-grid — overflow clip 유지 */
+.sold-out-grid {
+  margin-top: 0;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 134px);
+  gap: 10px;
+  align-content: start;
+  overflow: clip;
+  padding: 16px 0 0;
+}
+
+.sold-out-card {
+  width: 134px;
+  height: 144px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-panel);
+  overflow: hidden;
+}
+
+.sold-out-card.is-checked {
+  border: 2px solid var(--admin-brand-primary);
+}
+
+.sold-out-card__image {
+  position: relative;
+  height: 96px;
+  flex: 0 0 96px;
+}
+
+.sold-out-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sold-out-card__image input {
+  appearance: none;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 1px solid var(--admin-border);
+  border-radius: 4px;
+  background: var(--admin-panel);
+}
+
+.sold-out-card__image input:checked {
+  border-color: #1f2937;
+  background: #1f2937;
+}
+
+.sold-out-card__image input:checked::after {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 9px;
+  margin: 2px 0 0 6px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.sold-out-card__info {
+  flex: 1 0 0;
+  min-height: 0;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sold-out-card__info strong {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: var(--admin-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sold-out-card__chips {
+  display: flex;
+  gap: 4px;
+}
+
+.sold-out-chip {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #f5fbe0;
+  color: #4a7a00;
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 500;
+}
+
+.sold-out-chip--danger {
+  background: #fff0eb;
+  color: #ef4444;
+}
+
+/* transfer-controls (134:11914) — 48px 원형 2개 */
+.sold-out-transfer {
+  width: 80px;
+  flex: 0 0 80px;
+  padding-top: 390px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.sold-out-transfer button {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--admin-brand-primary);
+  border-radius: 50%;
+  background: var(--admin-panel);
+  color: #4a7a00;
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.sold-out-transfer .is-primary {
+  background: var(--admin-brand-primary);
+  color: #ffffff;
+}
+
+/* right-panel (134:11921) */
+.sold-out-panel__controls--selected {
+  justify-content: space-between;
+}
+
+.sold-out-panel__controls--selected .sold-out-panel__title {
+  margin-top: 0;
+}
+
+.sold-out-clear {
+  height: 28px;
+  padding: 0 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: 6px;
+  background: var(--admin-panel);
+  color: var(--admin-text-secondary);
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.sold-out-panel--selected .sold-out-grid {
+  margin-top: 24px;
+}
+
+.sold-out-save {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.sold-out-save__badge {
+  height: 32px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 16px;
+  background: #fff0eb;
+  color: #ef4444;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.sold-out-save button {
+  height: 40px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 10px;
+  background: #1f7a3f;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+/* Figma는 1920 고정폭만 정의한다. 아래는 좁은 화면 보정이다. */
+@media (max-width: 1500px) {
+  .sold-out-management__workspace {
+    flex-direction: column;
+  }
+  .sold-out-panel {
+    width: 100%;
+    flex: 0 0 auto;
+    min-height: 0;
+  }
+  .sold-out-transfer {
+    width: 100%;
+    flex: 0 0 auto;
+    padding-top: 0;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .sold-out-grid {
+    grid-template-columns: repeat(auto-fill, 134px);
+  }
+}
+
+@media (max-width: 720px) {
+  .sold-out-panel__controls {
+    gap: 12px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .sold-out-tabs {
+    flex-wrap: wrap;
+  }
+}
+
+

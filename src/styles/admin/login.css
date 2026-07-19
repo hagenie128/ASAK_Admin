@@ -1,0 +1,161 @@
+/* SCR-015 / Login (Figma 134:12033) ---------------------------------------- */
+.admin-login-page {
+  position: relative;
+  min-height: 100vh;
+  padding: 48px 24px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--admin-panel);
+}
+
+/* decoration-group (134:12034) */
+.admin-login-page__photo,
+.admin-login-page__veil,
+.admin-login-page__tint {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.admin-login-page__photo {
+  object-fit: cover;
+}
+
+/* Figma는 white→white20% 그라데이션 레이어를 두 겹 쌓는다.
+   두 겹의 합성 결과(하단 알파 1-0.8²=0.36)를 한 레이어로 계산해 넣었다. */
+.admin-login-page__veil {
+  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.36) 100%);
+}
+
+.admin-login-page__tint {
+  opacity: 0.5;
+  background: linear-gradient(180deg, rgba(181, 227, 15, 0.01) 0%, rgba(181, 227, 15, 0.04) 100%);
+}
+
+/* login-form (134:12049) — 480 폭, 패딩 48, 섹션 간격 40 */
+.admin-login-card {
+  position: relative;
+  z-index: 1;
+  width: min(480px, 100%);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  border-radius: 12px;
+  background: var(--admin-panel);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.06);
+}
+
+.admin-login-card__head {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-login-card__brand {
+  width: 186px;
+  height: 62px;
+  object-fit: contain;
+}
+
+.admin-login-card h1 {
+  margin: 0;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+}
+
+.admin-login-card__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.admin-login-field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-login-field span {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+}
+
+.admin-login-field input {
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-panel);
+  color: var(--admin-text-secondary);
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 400;
+  -webkit-text-security: none;
+}
+
+.admin-login-card__check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--admin-text-primary);
+}
+
+/* Figma 체크박스(134:12129): 20px, 라임 2px 테두리, 연한 라임 배경, 12px 체크 마크 */
+.admin-login-card__check input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  margin: 0;
+  border: 2px solid var(--admin-brand-primary);
+  border-radius: 4px;
+  background: #f1f9e8;
+}
+
+.admin-login-card__check input:checked {
+  background-image: url("../../assets/figma/icon-check.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px 12px;
+}
+
+/* 정적 화면이라 비활성이지만 외형은 Figma의 활성 버튼을 따른다. */
+.admin-login-card__submit {
+  height: 48px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--admin-brand-primary);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.admin-login-card small {
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  color: var(--admin-text-secondary);
+}
+
+

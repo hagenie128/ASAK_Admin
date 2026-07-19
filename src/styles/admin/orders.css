@@ -1,0 +1,330 @@
+/* SCR-010 / Order management ------------------------------------------------ */
+.order-management {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: var(--admin-text-primary);
+}
+.order-management__header {
+  display: none;
+}
+.order-management__filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: #fff;
+}
+.order-management__filters button,
+.order-management__filters input {
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--admin-text-secondary);
+  font: inherit;
+  font-size: 14px;
+}
+.order-management__filters input {
+  width: 220px;
+}
+.order-management__filters .order-management__search {
+  border-color: var(--admin-brand-primary);
+  background: var(--admin-brand-primary);
+  color: #0d0d0d;
+  font-weight: 700;
+}
+.order-management__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 460px;
+  gap: 20px;
+  margin-top: 20px;
+}
+.order-management__table-wrap,
+.order-management__detail {
+  min-height: 844px;
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+.order-management__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.order-management__table th {
+  height: 40px;
+  background: #f5f5f5;
+  color: var(--admin-text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+}
+.order-management__table td {
+  height: 48px;
+  padding: 0 14px;
+  border-top: 1px solid #f3f4f6;
+  white-space: nowrap;
+}
+.order-management__table td:nth-child(2) {
+  color: var(--admin-text-secondary);
+}
+.order-status {
+  display: inline-flex;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 16px;
+}
+.order-status--received {
+  background: #f5fbe0;
+  color: #6c9700;
+}
+
+.order-status--preparing {
+  background: #fff8e6;
+  color: #a06400;
+}
+
+.order-status--complete {
+  background: #f5f5f5;
+  color: #6b7280;
+}
+
+.order-status--cancelled {
+  background: #fff0eb;
+  color: #ef4444;
+}
+.order-management__pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  color: var(--admin-text-secondary);
+}
+.order-management__pagination b,
+.order-management__pagination span {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.order-management__pagination b {
+  border-color: transparent;
+  background: var(--admin-brand-subtle);
+  color: var(--admin-text-primary);
+}
+.order-management__detail {
+  padding: 24px 28px;
+}
+.order-management__detail h2 {
+  margin: 0 0 14px;
+  font-size: 20px;
+  line-height: 28px;
+}
+.order-management__detail dl {
+  margin: 0;
+  padding-bottom: 4px;
+}
+.order-management__detail dl div,
+.order-management__total {
+  display: flex;
+  justify-content: space-between;
+  margin: 9px 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+.order-management__detail dt {
+  color: var(--admin-text-secondary);
+}
+.order-management__detail dd {
+  margin: 0;
+  font-weight: 600;
+}
+/* Figma 134:10630의 상세 메뉴 행은 구분선 없이 48px 간격으로 촘촘하다. */
+.order-management__items {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.order-management__item {
+  padding: 6px 8px;
+}
+
+/* 환불 결제상태만 빨간 테두리 박스로 강조한다. */
+.order-refund {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 84px;
+  padding: 4px 10px;
+  border: 1px solid #ef4444;
+  border-radius: 6px;
+  color: #ef4444;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
+}
+.order-management__item strong {
+  font-size: 14px;
+}
+.order-management__item span {
+  float: right;
+  font-size: 13px;
+  color: var(--admin-text-secondary);
+}
+.order-management__item small {
+  display: block;
+  margin-top: 6px;
+  color: var(--admin-text-secondary);
+  font-size: 12px;
+  line-height: 16px;
+}
+.order-management__detail section {
+  padding: 16px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+.order-management__detail h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+}
+.order-management__detail section p {
+  margin: 0;
+  padding: 14px;
+  border-radius: 8px;
+  background: #f5f5f5;
+  color: var(--admin-text-secondary);
+  font-size: 13px;
+}
+.order-management__total {
+  margin-top: 28px;
+  font-size: 16px;
+}
+.order-management__total b {
+  color: #6c9700;
+  font-size: 24px;
+}
+.order-management__detail footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.5fr;
+  gap: 8px;
+  margin-top: 28px;
+}
+.order-management__detail footer button {
+  height: 40px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--admin-text-secondary);
+  font: inherit;
+}
+.order-management__detail footer button:nth-child(2) {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+.order-management__detail footer button:last-child {
+  border-color: var(--admin-brand-primary);
+  background: var(--admin-brand-primary);
+  color: #0d0d0d;
+  font-weight: 700;
+}
+
+@media (max-width: 1280px) {
+  .admin-app {
+    grid-template-columns: var(--admin-sidebar-compact-width) minmax(0, 1fr);
+  }
+  .admin-sidebar {
+    padding: 14px;
+  }
+  .admin-sidebar__brand-full {
+    display: none !important;
+  }
+  .admin-sidebar__brand-mark {
+    display: block !important;
+  }
+  .admin-sidebar__nav a {
+    justify-content: center;
+    padding: 10px;
+  }
+  .admin-sidebar__nav a span,
+  .admin-sidebar__caret-button {
+    display: none;
+  }
+  /* 아이콘 rail에서는 라벨이 없어 하위 항목을 구분할 수 없으므로 접는다. */
+  .admin-sidebar__subitem,
+  .admin-sidebar__promo,
+  .admin-sidebar__footer {
+    display: none;
+  }
+  .admin-sidebar__logout {
+    min-width: 0;
+    justify-content: center;
+    padding: 10px;
+  }
+  .admin-sidebar__logout span {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .admin-app {
+    grid-template-columns: 1fr;
+  }
+  .admin-sidebar {
+    min-height: auto;
+    padding: 8px 16px;
+    flex-direction: row;
+    align-items: center;
+  }
+  .admin-sidebar__brand {
+    width: 72px;
+    height: 40px;
+    font-size: 22px;
+  }
+  .admin-sidebar__nav {
+    flex: 1;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+  .admin-sidebar__nav a {
+    flex: 0 0 40px;
+  }
+  .admin-sidebar__group {
+    flex-direction: row;
+  }
+  .admin-sidebar__logout {
+    display: none;
+  }
+  .admin-main {
+    padding: 28px 16px;
+  }
+  .admin-page__header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .admin-filter-bar input {
+    width: 100%;
+    min-width: 0;
+    margin-left: 0;
+  }
+  .admin-kpi-grid,
+  .admin-form,
+  .admin-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  .admin-method-row {
+    padding: 16px;
+  }
+  .admin-method-row__controls button {
+    display: none;
+  }
+}
+

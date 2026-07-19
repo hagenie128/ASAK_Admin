@@ -1,0 +1,519 @@
+/* SCR-022 / Admin Dashboard (Figma 227:5008) ------------------------------- */
+/* Figma의 MainContent는 (301,16)에 놓여 있지만 폭이 1616 = 1920 - 240(navbar) - 32*2 이다.
+   즉 실제 의도는 navbar에 붙인 (240,0) + 32/24 패딩이고, .admin-main의 패딩이 그 값을 만든다.
+   섹션 폭은 시안 실측값을 그대로 쓴다: KPI 1008 / Middle 1080 / Bottom 1616. */
+.admin-dashboard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  color: #404040;
+}
+
+.admin-dashboard h1,
+.admin-dashboard h2,
+.admin-dashboard p {
+  margin: 0;
+}
+
+/* Header — pages use AdminTopHeader */
+.admin-dashboard__header {
+  display: none;
+}
+
+.admin-dashboard__heading h1 {
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.admin-dashboard__heading p {
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: #808080;
+}
+
+.admin-dashboard__date {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding-top: 4px;
+}
+
+.admin-dashboard__date b {
+  height: 30px;
+  padding: 6px 14px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 15px;
+  background: #333333;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.admin-dashboard__date span {
+  padding-top: 6px;
+  font-size: 13px;
+  line-height: 18px;
+  color: #666666;
+}
+
+/* KPI Cards (227:5664) — 1008×120, gap 16 */
+.admin-dashboard__kpis {
+  width: 1008px;
+  max-width: 100%;
+  height: 120px;
+  margin-top: 16px;
+  display: flex;
+  gap: 16px;
+}
+
+.admin-dashboard__kpis article {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 120px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: var(--admin-panel);
+}
+
+.admin-dashboard__kpis span {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--admin-text-secondary);
+}
+
+.admin-dashboard__kpis strong {
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+}
+
+/* 공통 패널 표면 */
+.dashboard-panel {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-panel);
+  overflow: hidden;
+}
+
+.dashboard-panel h2 {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+}
+
+/* MiddleSection (227:7546) — 1080×394 */
+.admin-dashboard__middle {
+  width: 1080px;
+  max-width: 100%;
+  height: 394px;
+  margin-top: 20px;
+  display: flex;
+  gap: 16px;
+}
+
+/* Dashboard Recent Orders Panel (551:74447) — 544×394 */
+.dashboard-orders {
+  width: 544px;
+  flex: 0 1 544px;
+  min-width: 0;
+  height: 394px;
+  gap: 16px;
+}
+
+.dashboard-orders__table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-orders__head,
+.dashboard-orders__row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.dashboard-orders__head {
+  height: 36px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  background: #f7f7f7;
+  color: #737373;
+  font-weight: 500;
+}
+
+.dashboard-orders__row {
+  height: 40px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #f2f2f2;
+  color: #404040;
+  font-weight: 500;
+}
+
+/* 열 너비: 주문번호 64 / 유형 40 / 메뉴 fill / 금액 60 / 상태 44 / 시간 60 */
+.dashboard-orders__head > :nth-child(1),
+.dashboard-orders__row > :nth-child(1) {
+  flex: 0 0 64px;
+}
+.dashboard-orders__head > :nth-child(2),
+.dashboard-orders__row > :nth-child(2) {
+  flex: 0 0 40px;
+}
+.dashboard-orders__head > :nth-child(3),
+.dashboard-orders__row > :nth-child(3) {
+  flex: 1 0 0;
+  min-width: 0;
+}
+.dashboard-orders__head > :nth-child(4),
+.dashboard-orders__row > :nth-child(4) {
+  flex: 0 0 60px;
+  text-align: right;
+}
+.dashboard-orders__head > :nth-child(5),
+.dashboard-orders__row > :nth-child(5) {
+  flex: 0 0 44px;
+}
+.dashboard-orders__head > :nth-child(6),
+.dashboard-orders__row > :nth-child(6) {
+  flex: 0 0 60px;
+}
+
+.dashboard-orders__head > *,
+.dashboard-orders__row > * {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dashboard-orders__row b {
+  font-weight: 700;
+}
+
+.dashboard-status {
+  font-style: normal;
+}
+
+.dashboard-status--waiting,
+.dashboard-status--preparing {
+  color: #f28c0d;
+}
+
+.dashboard-status--complete {
+  color: #6699ff;
+}
+
+/* Dashboard Status Summary Panel (551:74526) — 520×394 */
+.dashboard-status-summary {
+  width: 520px;
+  flex: 0 1 520px;
+  min-width: 0;
+  height: 394px;
+  gap: 16px;
+}
+
+.dashboard-status-summary__row {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dashboard-status-summary__row p {
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.dashboard-status-summary__row p span {
+  font-weight: 500;
+  color: #4d4d4d;
+}
+
+.dashboard-status-summary__row p b {
+  font-weight: 700;
+  color: #404040;
+}
+
+.dashboard-status-summary__row i {
+  display: block;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: #f0f0f0;
+  overflow: hidden;
+}
+
+.dashboard-status-fill {
+  display: block;
+  height: 8px;
+  border-radius: 4px;
+}
+
+.dashboard-status-fill--waiting {
+  background: #6699ff;
+}
+
+.dashboard-status-fill--preparing {
+  background: #f28c0d;
+}
+
+.dashboard-status-fill--complete {
+  background: var(--admin-brand-primary);
+}
+
+.dashboard-order-type {
+  width: 100%;
+  height: 60px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  background: #f7f7f7;
+}
+
+.dashboard-order-type div {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.dashboard-order-type span {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: #737373;
+}
+
+.dashboard-order-type b {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  color: #262626;
+}
+
+/* BottomSection (227:7632) — 1616×400 */
+.admin-dashboard__bottom {
+  width: 1616px;
+  max-width: 100%;
+  height: 400px;
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+}
+
+/* Dashboard Inventory Alert Panel (551:74570) — 520×400 */
+.dashboard-inventory {
+  width: 520px;
+  flex: 0 0 520px;
+  height: 400px;
+  gap: 12px;
+}
+
+.dashboard-inventory__row {
+  width: 100%;
+  height: 48px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.dashboard-inventory__row span {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #404040;
+}
+
+.dashboard-badge {
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+.dashboard-badge--danger {
+  background: #fff0eb;
+  color: #ef4444;
+}
+
+.dashboard-badge--normal {
+  background: #ebf5eb;
+  color: var(--admin-brand-primary);
+}
+
+.dashboard-inventory__note {
+  width: 100%;
+  height: 40px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  background: #fffaf0;
+  color: #b2801a;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+/* Dashboard Sales Trend Panel (551:74615) — 1080×400 */
+.dashboard-trend {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 400px;
+  gap: 16px;
+}
+
+.dashboard-trend__chart {
+  width: 100%;
+  height: 200px;
+  padding: 20px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-end;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.dashboard-trend__chart div {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.dashboard-trend__chart i {
+  width: 40px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  background: #bfd99e;
+}
+
+.dashboard-trend__chart i.is-current {
+  background: #6ba629;
+}
+
+.dashboard-trend__chart span {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: #737373;
+}
+
+.dashboard-trend__stats {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.dashboard-trend__stats div {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dashboard-trend__stats span {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: #888888;
+}
+
+.dashboard-trend__stats b {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  color: #262626;
+}
+
+.dashboard-trend__stats .is-down {
+  color: #ef4444;
+}
+
+/* Figma는 1920 고정폭만 정의한다. 아래는 좁은 화면에서 겹치지 않게 하는 구현상 보정이다. */
+@media (max-width: 1400px) {
+  .admin-dashboard__middle,
+  .admin-dashboard__bottom {
+    width: 100%;
+    height: auto;
+  }
+  .dashboard-orders,
+  .dashboard-status-summary,
+  .dashboard-inventory,
+  .dashboard-trend {
+    flex: 1 1 0;
+  }
+}
+
+@media (max-width: 1120px) {
+  .admin-dashboard__middle,
+  .admin-dashboard__bottom {
+    flex-direction: column;
+  }
+  .dashboard-orders,
+  .dashboard-status-summary,
+  .dashboard-inventory,
+  .dashboard-trend {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .admin-dashboard__header {
+    gap: 12px;
+    height: auto;
+    flex-direction: column;
+  }
+  .admin-dashboard__kpis {
+    height: auto;
+    flex-wrap: wrap;
+  }
+  .admin-dashboard__kpis article {
+    flex: 1 0 40%;
+  }
+  .dashboard-orders__head > :nth-child(4),
+  .dashboard-orders__row > :nth-child(4),
+  .dashboard-orders__head > :nth-child(6),
+  .dashboard-orders__row > :nth-child(6) {
+    display: none;
+  }
+  .dashboard-trend__stats {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+}
+

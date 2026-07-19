@@ -1,0 +1,545 @@
+/* Shared admin Figma UI -------------------------------------------------- */
+.admin-sidebar__brand {
+  padding: 10px 0;
+  display: grid;
+  place-items: center;
+}
+
+.admin-sidebar__brand img {
+  display: block;
+  object-fit: contain;
+}
+
+.admin-sidebar__brand-full {
+  width: 177px;
+  height: 60px;
+}
+
+.admin-sidebar__brand-mark {
+  width: 50px;
+  height: 50px;
+  display: none !important;
+}
+
+/* Figma Admin/Navbar (227:5009): Menu Nav가 flex-1이라 프로모 카드와 Logout이 아래로 밀린다. */
+.admin-sidebar__nav {
+  flex: 1 0 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-sidebar__nav a {
+  min-height: 40px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #737373;
+}
+
+.admin-sidebar__nav a img {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+}
+
+.admin-sidebar__nav a span {
+  min-width: 0;
+  flex: 1 0 0;
+}
+
+/* 매출 관리는 화면 이동(NavLink)과 하위 메뉴 접기(캐럿 버튼)를 한 행에서 나눠 갖는다. */
+.admin-sidebar__group-row {
+  position: relative;
+}
+
+.admin-sidebar__group-row a {
+  padding-right: 36px;
+}
+
+.admin-sidebar__caret-button {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+}
+
+.admin-sidebar__caret {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.15s ease;
+}
+
+/* Figma 기본값은 펼쳐진 상태이고 캐럿이 아래를 향한다. 접을 때만 회전시킨다. */
+.admin-sidebar__caret:not(.is-open) {
+  transform: rotate(-90deg);
+}
+
+.admin-sidebar__group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 하위 항목은 아이콘 없이 36px 들여쓰기로만 위계를 표시한다 (Figma pl-36 / pr-12). */
+.admin-sidebar__nav a.admin-sidebar__subitem {
+  padding-left: 36px;
+  padding-right: 12px;
+  gap: 0;
+}
+
+.admin-sidebar__nav a.active {
+  color: var(--admin-text-primary);
+  background: var(--admin-brand-primary);
+  box-shadow:
+    inset 2px 4px 12px rgba(255, 255, 255, 0.65),
+    inset 0 -4px 12px rgba(152, 202, 34, 0.65),
+    inset 0 2px 8px rgba(255, 255, 255, 0.6),
+    inset 0 -2px 4px rgba(152, 202, 34, 0.75);
+}
+
+/* Promotional Banner. overflow를 자르지 않아야 야채 일러스트가 카드 위로 넘친다. */
+.admin-sidebar__promo {
+  height: 168px;
+  padding: 24px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  border-radius: 10px;
+  background: rgba(245, 247, 235, 0.5);
+}
+
+/* Figma는 내용 높이(183px)가 카드 높이(168px)보다 커서 justify-end로 위쪽이 넘친다.
+   flex 축소를 막아야 일러스트가 문구를 덮지 않고 카드 위로 넘쳐 나온다. */
+.admin-sidebar__promo-art {
+  position: relative;
+  width: 100%;
+  height: 77px;
+  flex: 0 0 77px;
+}
+
+.admin-sidebar__promo-art img {
+  position: absolute;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.admin-sidebar__promo-lettuce {
+  width: 125.9px;
+  height: 125.9px;
+  left: 41.24px;
+  top: -31.88px;
+  transform: rotate(-163.72deg) scaleY(-1);
+}
+
+.admin-sidebar__promo-carrot {
+  width: 89.93px;
+  height: 78.57px;
+  left: -14px;
+  top: 2px;
+  transform: rotate(179.86deg) scaleY(-1);
+}
+
+.admin-sidebar__promo-text {
+  margin: 0;
+  width: 138px;
+  height: 36px;
+  flex: 0 0 36px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: var(--admin-text-primary);
+}
+
+.admin-sidebar__promo-cta {
+  width: 100%;
+  height: 46px;
+  flex: 0 0 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #212121;
+  color: var(--admin-brand-primary);
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 700;
+}
+
+.admin-sidebar__logout {
+  width: 100%;
+  min-width: 177px;
+  padding: 10px 8px 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 16px;
+  background: #f5f5f5;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #888888;
+}
+
+.admin-sidebar__logout img {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+}
+
+.admin-page {
+  width: min(1160px, 100%);
+  margin: 0 auto;
+}
+
+.admin-page--narrow {
+  width: min(900px, 100%);
+}
+
+.admin-page__header {
+  min-height: 64px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.admin-page__header h1 {
+  margin: 0;
+  color: #111827;
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: -0.03em;
+}
+
+.admin-page__header p {
+  margin: 8px 0 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.admin-page__header > button,
+.admin-save-bar button {
+  min-height: 40px;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 8px;
+  background: #b5e30f;
+  color: #111827;
+  font: inherit;
+  font-weight: 700;
+  opacity: 0.58;
+}
+
+.admin-filter-bar {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.admin-filter-bar button,
+.admin-filter-bar input {
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: var(--admin-panel);
+  color: #6b7280;
+  font: inherit;
+  font-size: 14px;
+}
+
+.admin-filter-bar input {
+  min-width: 240px;
+  margin-left: auto;
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  background: var(--admin-panel);
+}
+
+.admin-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  color: #374151;
+  font-size: 14px;
+}
+
+.admin-table th,
+.admin-table td {
+  height: 48px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f3f4f6;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.admin-table th {
+  color: #6b7280;
+  background: #fafafa;
+  font-weight: 600;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.admin-static-toggle {
+  width: 48px;
+  height: 28px;
+  padding: 4px;
+  border: 0;
+  border-radius: 999px;
+  background: #6c9700;
+}
+
+.admin-static-toggle::after {
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin-left: auto;
+  border-radius: 50%;
+  background: #fff;
+  content: "";
+}
+
+.admin-detail-panel {
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: var(--admin-panel);
+}
+
+.admin-detail-panel > div {
+  display: flex;
+  justify-content: space-between;
+  color: #111827;
+}
+
+.admin-detail-panel p {
+  color: #6b7280;
+}
+
+.admin-detail-panel button {
+  min-height: 40px;
+  padding: 10px 16px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: #f3f4f6;
+  color: #9ca3af;
+}
+
+.admin-save-bar {
+  width: min(560px, 100%);
+  margin: 24px 0 0 auto;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-radius: 12px;
+  background: #fffbeb;
+  color: #92400e;
+  font-size: 14px;
+}
+
+.admin-form {
+  padding: 28px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: var(--admin-panel);
+}
+
+.admin-form label,
+.admin-form section {
+  display: grid;
+  gap: 8px;
+  color: #111827;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: #fafafa;
+  color: #9ca3af;
+  font: inherit;
+  font-weight: 400;
+}
+
+.admin-form textarea {
+  min-height: 100px;
+  resize: none;
+}
+.admin-form section {
+  padding: 16px;
+  border-radius: 8px;
+  background: #f7f7f7;
+}
+.admin-form section p {
+  margin: 0;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+.admin-method-list {
+  display: grid;
+  gap: 16px;
+}
+
+.admin-method-row {
+  min-height: 88px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid var(--admin-border);
+  border-radius: 12px;
+  background: var(--admin-panel);
+}
+
+.admin-method-row__icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #f2f5f5;
+  font-weight: 700;
+}
+
+.admin-method-row > div:nth-child(2) {
+  display: grid;
+  gap: 2px;
+}
+.admin-method-row small {
+  color: #6b7280;
+}
+.admin-method-row__controls {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.admin-method-row__controls button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: #fff;
+  color: #9ca3af;
+}
+
+.admin-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.admin-kpi-grid article {
+  padding: 24px;
+  display: grid;
+  gap: 8px;
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  background: var(--admin-panel);
+}
+.admin-kpi-grid span {
+  color: #6b7280;
+  font-size: 14px;
+}
+.admin-kpi-grid strong {
+  color: #111827;
+  font-size: 28px;
+}
+
+.admin-chart-card {
+  margin-bottom: 20px;
+  padding: 24px;
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  background: var(--admin-panel);
+}
+.admin-chart-card h2 {
+  margin: 0;
+  font-size: 16px;
+}
+.admin-chart-card p {
+  margin: 12px 0 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+.admin-chart-bars {
+  height: 220px;
+  margin-top: 20px;
+  padding-top: 12px;
+  display: flex;
+  align-items: end;
+  gap: 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.admin-chart-bars span {
+  flex: 1;
+  min-width: 8px;
+  border-radius: 4px 4px 0 0;
+  background: #c8f064;
+}
+.admin-chart-bars span:nth-child(4n) {
+  background: #4caf50;
+}
+
+.admin-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.admin-dashboard-grid section {
+  min-height: 220px;
+  padding: 24px;
+  border: 1px solid var(--admin-border);
+  border-radius: 10px;
+  background: var(--admin-panel);
+}
+.admin-dashboard-grid h2 {
+  margin: 0;
+  font-size: 16px;
+}
+.admin-dashboard-grid p {
+  margin: 16px 0 0;
+  color: #6b7280;
+}
+

@@ -40,32 +40,31 @@ npm run dev
 
 ## 문서
 
-- [작업공간·Git 저장소 안내](../README.md)
-- [문서 목차](docs/README.md)
-- [개발 환경과 온보딩](docs/01-onboarding.md)
-- [프론트 구조와 책임 경계](docs/02-architecture.md)
-- [개발 규칙과 구현 가이드](docs/03-development-guide.md)
-- [상세 구현 계획](IMPLEMENTATION_PLAN.md)
-- [Git 브랜치·PR 운영 계획](docs/05-git-workflow.md)
-- [API 연동 기준](docs/06-api-integration.md)
+- [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) ← **실행 계획 (2026-07-20)**
+- [src/STRUCTURE_GUIDE.md](src/STRUCTURE_GUIDE.md)
+- [docs/ui-implementation-map.md](docs/ui-implementation-map.md)
+- [UI-INDEX.md](../UI-INDEX.md)
+- [Current Implementation Map](../ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md)
+- [작업공간 안내](../README.md)
 
 ## 디렉터리
 
 ```text
 src/
-  apps/       관리자 앱의 화면·라우팅
-  api/        Axios 클라이언트 및 관리자 API 모듈
-  styles/     관리자 전용 전역/레이아웃 스타일
-docs/         교육, 일정, Git 및 API 연동 문서
+  apps/       AdminApp 라우트
+  pages/      정적 UI 화면
+  components/ Sidebar 등
+  mocks/      adminMockRepository (READY, Page 미연결)
+  api/hooks/adapters/  placeholder
+docs/         UI 맵·Figma 로그
+public/mocks/ asak-admin-data.json
 ```
 
-`src/`의 화면·컴포넌트 파일은 현재 구현 전 단계의 힌트 파일입니다. 상세 역할은 [src 안내](src/README.md)와 [요구사항·화면 매핑](src/contracts/requirements-screen-map.md)을 참고합니다.
+## 현재 구현 기준 (2026-07-20)
 
-이 저장소의 화면 범위와 구현 순서는 `IMPLEMENTATION_PLAN.md`를 기준으로 합니다. 공통 API 계약이 변경되면 영향 화면을 먼저 확인합니다.
-
-## 현재 구현 기준
-
-- 화면·상태 정본: [06-C Admin](https://www.figma.com/design/JSrjOy668zhfkiLplCkreh/ASAK-%E2%80%94-Design-System---Product-UI-0715?node-id=134-10606), [07-C State Matrix](https://www.figma.com/design/JSrjOy668zhfkiLplCkreh/ASAK-%E2%80%94-Design-System---Product-UI-0715?node-id=190-2)
-- 정본 route: `/`, `/orders/live`, `/orders`, `/soldOut`, `/menus`, `/paymentMethods`, `/sales`, `/sales/monthly`, `/sales/daily`
-- 관리자 구현의 정본 위치는 이 저장소다. Kiosk 안의 Admin scaffold는 Legacy Reference이므로 새 관리자 기능을 그곳에 구현하지 않는다.
-- API 계약은 목표 상태이며, Backend endpoint/DTO가 구현되기 전에는 mock UI와 실제 연동 완료를 구분한다.
+- **Figma 정적 UI:** 라우트 연결됨 (`/`, `/dashboard`, `/orders`, `/sold-out`, `/menus`, `/payment-methods`, `/sales*`)
+- **Mock:** repository READY · **페이지 연동 0**
+- **코드 경로(실행):** kebab-case · Canonical(`/soldOut` 등)과 CONFLICT → WBS2-033
+- Figma **0718** (`yHhvn5RKjBd91U8BJUQz7F`) — 0715 키 사용 금지
+- Admin 정본은 이 저장소. Kiosk 안 Admin scaffold에 새 기능 넣지 말 것.
+- Backend API 없음 → mock UI와 실연동을 구분할 것.

@@ -1,0 +1,627 @@
+/* SCR-016 / Menu management (Figma 134:12137) ------------------------------ */
+/* MainContent 1680, 공통 padding 40. workspace = 목록 + 상세. */
+.menu-management {
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: var(--admin-text-primary);
+}
+
+.menu-management h1,
+.menu-management h2,
+.menu-management h3,
+.menu-management p {
+  margin: 0;
+}
+
+.menu-management__workspace {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: stretch;
+  gap: 16px;
+  min-height: 0;
+  overflow: clip;
+}
+
+.menu-management__list {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: clip;
+}
+
+/* legacy header kept for compatibility — pages now use AdminTopHeader */
+.menu-management__header {
+  display: none;
+}
+
+/* Search-Row — 흰 카드 툴바 */
+.menu-management__toolbar {
+  height: 52px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.menu-management__tabs {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.menu-management__tabs button {
+  border: 0;
+  background: none;
+  color: var(--admin-text-secondary);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.menu-management__tabs button.is-selected {
+  color: var(--admin-text-primary);
+  font-weight: 700;
+}
+
+/* Figma는 113px 고정이지만 Pretendard의 한글 폭이 시안보다 넓어 문구가 잘린다.
+   높이·여백은 유지하고 폭만 내용에 맞춘다. */
+.menu-management__search {
+  height: 36px;
+  padding: 0 14px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 18px;
+  background: var(--admin-page-bg);
+}
+
+.menu-management__search i {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  border: 1.5px solid #9ca3af;
+  border-radius: 50%;
+}
+
+.menu-management__search i::after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 1.5px;
+  margin: 12px 0 0 9px;
+  background: #9ca3af;
+  transform: rotate(45deg);
+}
+
+.menu-management__search input {
+  width: 76px;
+  min-width: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--admin-text-primary);
+}
+
+/* Menu-Grid (134:12156) — 4열 × 196×234, 간격 16 */
+.menu-management__grid {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 196px));
+  gap: 16px;
+}
+
+.admin-menu-card {
+  height: 234px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 12px;
+  background: var(--admin-panel);
+  overflow: hidden;
+}
+
+.admin-menu-card img {
+  width: 100%;
+  height: 180px;
+  flex: 0 0 180px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.admin-menu-card div {
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-menu-card strong {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+}
+
+.admin-menu-card b {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  color: #6c9700;
+}
+
+/* Menu-Detail-Panel — 우측 상세, clip */
+.menu-detail-panel {
+  width: min(700px, 42%);
+  flex: 0 0 auto;
+  min-width: 320px;
+  min-height: 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  overflow: clip;
+}
+
+.menu-detail-panel__scroll {
+  height: 100%;
+  max-height: calc(100vh - 180px);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.menu-detail__header {
+  padding: 0 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.menu-detail__header h2 {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+}
+
+.menu-detail__header p {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--admin-text-secondary);
+}
+
+.menu-detail__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.menu-detail__actions button {
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.menu-detail__actions .is-delete {
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid #fecaca;
+  background: var(--admin-panel);
+  color: #ef4444;
+}
+
+.menu-detail__actions .is-edit {
+  border: 0;
+  background: var(--admin-brand-primary);
+  color: var(--admin-text-primary);
+}
+
+.menu-detail-card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 12px;
+  background: var(--admin-panel);
+}
+
+.menu-detail-card header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.menu-detail-card h3 {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.menu-detail-card header span {
+  font-size: 14px;
+  line-height: 20px;
+  color: #9ca3af;
+}
+
+/* Basic-Info-Card (134:12188) */
+.menu-detail-basic__top {
+  display: flex;
+  gap: 20px;
+}
+
+.menu-detail-basic__top img {
+  width: 120px;
+  height: 120px;
+  flex: 0 0 120px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.menu-detail-basic__info {
+  flex: 1 0 0;
+  min-width: 0;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-detail-basic__name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.menu-detail-basic__name strong {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+}
+
+.menu-detail-badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--admin-brand-primary);
+  color: var(--admin-text-primary);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+}
+
+.menu-detail-basic__info p {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.menu-detail-basic__info p span {
+  color: var(--admin-text-secondary);
+}
+
+.menu-detail-basic__info p b {
+  font-weight: 700;
+}
+
+.menu-detail-basic__price b {
+  color: #6c9700;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.menu-detail-basic__desc {
+  padding-top: 16px;
+  border-top: 1px solid #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu-detail-basic__desc span {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--admin-text-secondary);
+}
+
+.menu-detail-basic__desc p {
+  font-size: 15px;
+  line-height: 22px;
+}
+
+/* Ingredients-Section (134:12205) */
+.menu-detail-ingredients__group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-detail-legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.menu-detail-legend::before {
+  content: "";
+  width: 4px;
+  height: 14px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.menu-detail-legend--core {
+  color: #ef4444;
+}
+
+.menu-detail-legend--base {
+  color: #16a34a;
+}
+
+.menu-detail-legend--plain {
+  color: #9ca3af;
+}
+
+.menu-ingredient-row {
+  height: 88px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+}
+
+.menu-ingredient-row strong {
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+}
+
+.menu-ingredient-row b {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.menu-ingredient-row--core {
+  background: #fef2f2;
+}
+
+.menu-ingredient-row--core b {
+  color: #ef4444;
+}
+
+.menu-ingredient-row--base {
+  background: #f7fee7;
+}
+
+.menu-ingredient-row--base b {
+  color: #16a34a;
+}
+
+.menu-ingredient-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.menu-ingredient-chips span {
+  height: 40px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 8px;
+  background: var(--admin-page-bg);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.menu-ingredient-chips i {
+  font-style: normal;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--admin-text-secondary);
+}
+
+/* Options-Section (134:12238) — 2열 × 288×124 */
+.menu-detail-options__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.menu-detail-options__grid article {
+  height: 124px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+}
+
+.menu-detail-options__grid article div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-detail-options__grid strong {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+}
+
+.menu-detail-options__grid em {
+  font-style: normal;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
+  color: #ef4444;
+}
+
+.menu-detail-options__grid p {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--admin-text-secondary);
+}
+
+/* Nutrition-Section (134:12287) — 5등분 */
+.menu-detail-nutrition__grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.menu-detail-nutrition__grid div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.menu-detail-nutrition__grid span {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--admin-text-secondary);
+}
+
+.menu-detail-nutrition__grid b {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+/* Allergies-Tags-Section (134:12307) — 306 카드 2장 */
+.menu-detail-tags {
+  display: flex;
+  gap: 16px;
+}
+
+.menu-detail-tags article {
+  flex: 1 0 0;
+  min-width: 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-radius: 12px;
+  background: var(--admin-panel);
+}
+
+.menu-detail-tags h3 {
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 700;
+}
+
+.menu-detail-tags div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.menu-detail-tags span {
+  height: 24px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 12px;
+  background: var(--admin-page-bg);
+  color: var(--admin-text-secondary);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+.menu-tag--best {
+  background: #ffe6e7;
+  color: #ff0004;
+}
+
+.menu-tag--new {
+  background: #ffff80;
+  color: #0d0d0d;
+}
+
+.menu-tag--vegan {
+  background: #ebf5eb;
+  color: #077e40;
+}
+
+/* Figma는 1920 고정폭만 정의한다. 아래는 좁은 화면 보정이다. */
+@media (max-width: 1500px) {
+  .menu-management {
+    flex-direction: column;
+  }
+  .menu-management__list {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+  .menu-detail-panel {
+    width: 100%;
+    flex: 0 0 auto;
+    height: auto;
+    position: static;
+  }
+  .menu-detail-panel__scroll {
+    height: auto;
+    padding: 0 32px 40px;
+    overflow: visible;
+  }
+  .menu-management__grid {
+    grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .menu-management__toolbar {
+    height: auto;
+    padding: 12px 16px;
+    gap: 12px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .menu-management__search {
+    width: 100%;
+  }
+  .menu-detail-options__grid,
+  .menu-detail-tags {
+    grid-template-columns: minmax(0, 1fr);
+    flex-direction: column;
+  }
+  .menu-detail-nutrition__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+

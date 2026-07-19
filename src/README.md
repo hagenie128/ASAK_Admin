@@ -1,17 +1,18 @@
-# src 폴더 안내
+# src 폴더 안내 (Admin)
 
-이 폴더의 빈 `.jsx`/`.js` 파일은 구현 지시가 아닌 **작업 위치 안내용 자리표시자**입니다. 기능을 맡은 사람이 해당 파일에 실제 코드를 작성합니다.
+> 기준일: **2026-07-20**  
+> 처음이면 [STRUCTURE_GUIDE.md](STRUCTURE_GUIDE.md) → [IMPLEMENTATION_PLAN.md](../IMPLEMENTATION_PLAN.md) → [docs/ui-implementation-map.md](../docs/ui-implementation-map.md).
 
-| 폴더 | 역할 |
-| --- | --- |
-| `api/` | 서버 요청 함수만 둡니다. |
-| `components/admin/` | 여러 관리자 화면에서 재사용할 UI입니다. |
-| `pages/admin/` | 화면 ID(SCR)별 페이지입니다. |
-| `layouts/` | 관리자 사이드바 등 공통 외곽 레이아웃입니다. |
-| `store/` | 주문 초안, 로그인 세션과 공통 화면 상태입니다. |
-| `hooks/` | 인증 확인 등 재사용 로직입니다. |
-| `constants/` | API 경로와 상태값 같은 고정 값입니다. |
-| `contracts/` | 화면과 API 계약을 연결한 문서입니다. |
-| `mocks/` | 백엔드 연결 전 mock 데이터 안내입니다. |
+| 폴더 | 역할 | 현재 |
+| --- | --- | --- |
+| `apps/AdminApp.jsx` | URL ↔ 페이지 | 정적 화면 라우트 연결됨 |
+| `pages/admin/` | SCR별 화면 | Figma 정적 UI · 하드코딩 데이터 |
+| `components/admin/` | 재사용 UI | Sidebar 등 실사용 · 일부 placeholder |
+| `layouts/` | 셸 | AdminLayout |
+| `mocks/adminMockRepository.js` | mock **유일한** 입구 | READY · **Page 미연결** |
+| `api/`, `hooks/`, `adapters/` | 서버·draft·DTO | placeholder |
+| `contracts/` | API 계약 초안 | 백엔드 전 |
+| `store/` | 세션 등 | 최소/placeholder |
 
-새 기능을 만들 때는 `pages → components → api → store` 순서로 필요한 위치를 먼저 정한 뒤 구현합니다.
+다음 작업: Page가 하드코딩 대신 `adminMockRepository`를 쓰도록 연결 (WBS2-034~043).  
+키오스크 화면은 `ASAK-Kiosk` 책임입니다.

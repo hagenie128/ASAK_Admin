@@ -1,0 +1,186 @@
+/* ----------------------- Daily / Monthly sales ----------------------- */
+.sales-daily,
+.sales-monthly {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  min-height: 100%;
+}
+.sales-daily__header,
+.sales-monthly__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.sales-daily__header h1,
+.sales-monthly__header h1 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #111827;
+}
+.sales-daily__header p,
+.sales-monthly__header p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: #6b7280;
+}
+.sales-daily__date,
+.sales-monthly__year {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sales-daily__date button,
+.sales-monthly__year button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  color: #111827;
+  font-size: 18px;
+  line-height: 1;
+}
+.sales-daily__date span,
+.sales-monthly__year span {
+  padding: 8px 12px;
+  border-radius: 100px;
+  background: #b5e30f;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 700;
+  color: #111827;
+}
+.sales-daily__kpis,
+.sales-monthly__kpis {
+  display: grid;
+  gap: 16px;
+}
+.sales-daily__kpis {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.sales-monthly__kpis {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.sales-daily__kpis article,
+.sales-monthly__kpis article {
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sales-daily__kpis span,
+.sales-monthly__kpis span {
+  font-size: 14px;
+  line-height: 20px;
+  color: #6b7280;
+}
+.sales-daily__kpis strong,
+.sales-monthly__kpis strong {
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 700;
+  color: #111827;
+}
+.sales-daily__kpis p,
+.sales-monthly__kpis p {
+  margin: 0;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 13px;
+  line-height: 18px;
+  color: #6b7280;
+}
+.sales-daily__kpis p b {
+  color: #ef4444;
+}
+.sales-daily__kpis p.is-peak b,
+.sales-monthly__kpis p.is-ok small {
+  color: #b5e30f;
+  font-weight: 700;
+}
+.sales-daily__middle,
+.sales-monthly__middle,
+.sales-monthly__bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 16px;
+  align-items: start;
+}
+.sales-daily__right,
+.sales-monthly__right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.sales-compare-card {
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+}
+.sales-compare-card h2 {
+  margin: 0 0 16px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: #111827;
+}
+.sales-compare-card__row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.sales-compare-card__row p {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #6b7280;
+}
+.sales-compare-card__row b {
+  color: #111827;
+}
+.sales-compare-card__row i {
+  display: block;
+  height: 8px;
+  border-radius: 999px;
+  background: #f3f4f6;
+  overflow: hidden;
+}
+.sales-compare-card__row em {
+  display: block;
+  height: 100%;
+  background: #c8f064;
+}
+.sales-compare-card__row em.is-primary {
+  background: #b5e30f;
+}
+.sales-compare-card__note {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+.sales-chart--compact {
+  min-height: 180px;
+}
+.sales-table__grid--hourly .sales-table__head,
+.sales-table__grid--hourly .sales-table__row,
+.sales-table__grid--monthly .sales-table__head,
+.sales-table__grid--monthly .sales-table__row {
+  grid-template-columns: 1.4fr 0.8fr 1fr 1fr;
+}
+.sales-table__grid--monthly .sales-table__head,
+.sales-table__grid--monthly .sales-table__row {
+  grid-template-columns: 0.9fr 0.6fr 0.8fr 1.1fr 1fr;
+}

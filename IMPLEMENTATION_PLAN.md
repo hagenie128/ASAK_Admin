@@ -1,45 +1,108 @@
-# ASAK Admin React Mock 구현 상세 계획 (2026-07-14 ~ 2026-07-22)
+# ASAK Admin 구현 계획
 
-> 목적: 실제 인증·서버·결제 연동 없이 관리자 운영 화면을 React와 mock 데이터로 시연 가능하게 만든다. 화면과 데이터의 기준은 [src/contracts/requirements-screen-map.md](src/contracts/requirements-screen-map.md), API envelope와 오류 규칙은 [docs/06-api-integration.md](docs/06-api-integration.md)를 따른다.
+> 기준일: **2026-07-20** · **코드 실측** 반영 (정적 UI · mock READY · Page 연동 0).  
+> 담당 영역: **P4 관리자**. **Admin 기능의 정본은 이 저장소(`ASAK-Admin`)뿐이며**, `ASAK-Kiosk`는 Admin 화면/로직을 소유하지 않는다 ([`ASAK-Kiosk/IMPLEMENTATION_PLAN.md`](../ASAK-Kiosk/IMPLEMENTATION_PLAN.md)는 P3 키오스크 전용).  
+> 문서 입구: [`ASAK/docs/START_HERE.md`](../ASAK/docs/START_HERE.md)  
+> 정본 WBS: [`ASAK/docs/wiki/wbs-v2.md`](../ASAK/docs/wiki/wbs-v2.md) **P4 관리자 · WBS2-033 ~ WBS2-045** (Kiosk는 P3 · WBS2-017~032)  
+> 구조: [`src/STRUCTURE_GUIDE.md`](src/STRUCTURE_GUIDE.md)  
+> UI 맵: [`docs/ui-implementation-map.md`](docs/ui-implementation-map.md)  
+> 구현 맵: [`ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md`](../ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md)  
+> Canonical: [`ASAK/docs/governance/CANONICAL_CONTRACT_DECISIONS.md`](../ASAK/docs/governance/CANONICAL_CONTRACT_DECISIONS.md)  
+> 이 문서는 **2026-07-14 최초 상세 계획**(화면 계약·일정·fixture·테스트·브랜치 규칙)을 복원하고, **2026-07-20 코드 실측**(현재 상태)을 함께 담은 통합본이다. 두 기준이 다를 때는 **0~1번(코드 실측)이 우선**이며, 나머지는 참고용 계약·이력이다.
 
-## 0. 범위와 완료 기준
+## 0. 한눈에 보는 현재 상태
 
-### 7월 22일까지 구현할 범위
-
-| 구분 | 화면 | mock 연동 범위 |
+| 층 | 상태 | 의미 |
 | --- | --- | --- |
-| 로그인 | `SCR-015` | 성공·실패, mock 세션, 보호 라우트 |
-| 주문 운영 | `SCR-009`, `SCR-010` | 목록·필터·상세, 상태 변경과 충돌 안내 |
-| 품절 운영 | `SCR-011` | 메뉴·재료·옵션 필터, 품절 토글과 실패 복구 |
-| 메뉴 운영 | `SCR-016`, `SCR-017` | 목록·검색, 등록/수정 폼, 저장·검증 상태 |
-| 결제수단 운영 | `SCR-018` | 목록, 활성화, 노출 순서 변경 mock |
-| 매출 조회 | `SCR-019` | 기간 선택, 일별 매출, 메뉴별 판매 요약 |
+| Figma 정적 UI | **연결됨** | 사이드바·10+ 페이지 라우트 |
+| Mock JSON / repository | **준비됨** | `public/mocks/asak-admin-data.json`, `src/mocks/adminMockRepository.js` |
+| Page ↔ mock 바인딩 | **없음 (0)** | 페이지는 하드코딩 상수 |
+| api / hooks / adapters | **placeholder** | 파일만 존재 |
+| Backend 연동 (P6) | **BLOCKED** | business API 없음 |
 
-### 이번 범위에서 하지 않는 것
+### 라우트 실측 (`apps/AdminApp.jsx`)
 
-- 실제 계정 인증·토큰 갱신, 권한 서버, 실제 백엔드·결제 연동
-- 실시간 주문 알림, 다중 운영자 동시 편집, 실제 매출 집계
-- 키오스크 주문 화면(`SCR-001`~`008`, `SCR-012`): `ASAK-Kiosk` 저장소 책임
+| 코드 경로 | SCR | 화면 | WBS | 데이터 |
+| --- | --- | --- | --- | --- |
+| `/` | SCR-009 | Live 주문 현황 | WBS2-035 | 하드코딩 |
+| `/dashboard` | SCR-022 | 대시보드 | WBS2-034 | 하드코딩 |
+| `/orders` | SCR-010 | 주문 관리 | WBS2-036 | 하드코딩 |
+| `/sold-out` | SCR-011 | 품절 | WBS2-038 | 하드코딩 |
+| `/menus` | SCR-016 | 메뉴 목록 | WBS2-039 | 하드코딩 |
+| `/menus/new`, `/menus/edit` | SCR-017 | 메뉴 편집 | WBS2-039 | placeholder |
+| `/payment-methods` | SCR-018 | 결제수단 | WBS2-040 | disabled |
+| `/sales` | SCR-019 | 매출 요약 | WBS2-041 | 하드코딩 |
+| `/sales/monthly` | SCR-020 | 월별 매출 | WBS2-042 | 하드코딩 |
+| `/sales/daily` | SCR-021 | 일별 매출 | WBS2-043 | 하드코딩 |
+| `/login` | SCR-015 | 로그인 | (EXCLUDED 요구) | 정적 |
+| *(미연결)* | — | `OrderDetailPage` | WBS2-036 | 라우트 없음 |
 
-### 완료 기준
+> Canonical 문서 경로(`/orders/live`, `/soldOut`, `/paymentMethods`)와 **코드 kebab-case 불일치** → WBS2-033.  
+> 당분간 **코드 경로를 실행 정본**으로 쓰고, Canonical 정렬은 별도 작업.
 
-1. 로그인부터 주문, 품절, 메뉴, 결제수단, 매출의 핵심 흐름을 mock으로 시연한다.
-2. 각 화면은 loading, empty, error, success 상태와 재시도 또는 복구 행동을 제공한다.
-3. 401/403/409/5xx와 저장 실패가 화면별로 구분되어 표시된다.
-4. `npm run lint`, `npm run build`가 통과하며 `TC-A01`~`TC-A06`을 실행한다.
+## 1. 이번 스프린트(7/20~7/22) 목표
 
-## 1. 공통 계약: 첫날 확정할 것
+**화면을 다시 그리지 않는다.** mock repository → 페이지 연결만 한다.
+
+| 우선 | 작업 | WBS | 완료 조건 |
+| --- | --- | --- | --- |
+| P0 | Live/주문 목록 mock 바인딩 | WBS2-035~036 | `getLiveOrders` / `getAdminOrders` 사용 |
+| P0 | 품절 draft·저장 mock | WBS2-038 | `useSoldOutDraft` + repository |
+| P0 | 결제수단 토글·저장 mock | WBS2-040 | 토글 활성 + 실패 롤백 |
+| P1 | 대시보드 KPI mock | WBS2-034 | dashboard getter 연결 |
+| P1 | 매출 3화면 기간 필터 | WBS2-041~043 | summary/monthly/daily + empty/partial |
+| P1 | 주문 상태 변경 stub | WBS2-037 | mock PATCH + 목록/상세 동기 |
+| P2 | loading/empty/error·내비 | WBS2-044~045 | `AdminAsyncState` 등 |
+| P2 | 라우트 Canonical 정렬 | WBS2-033 | 문서/사이드바/코드 일치 |
+
+### 하지 않는 것
+
+- 실인증·실서버·WebSocket·외부 TTS
+- CSS/시안 통째 교체
+- Kiosk 저장소에 Admin 기능 추가
+- Backend 실연동 (WBS2-059 BLOCKED)
+
+## 2. 권장 연결 패턴
+
+```text
+Page
+  → hooks (useOrdersQuery, useSoldOutDraft, …)
+    → api/* 또는 mocks/adminMockRepository
+      → adapters/* (화면 view-model만)
+```
+
+- Page에서 axios/`asak-admin-data.json`을 **직접 import하지 않는다**.
+- Envelope unwrap은 `api/client.js`만.
+- 금액·날짜 표시는 유틸에서만 포맷.
+
+### Mock 사용 예
+
+```js
+import {
+  getAdminOrders,
+  getLiveOrders,
+  getSalesSummary,
+  getDailySales,
+  getMonthlySales,
+} from "@/mocks/adminMockRepository";
+```
+
+상세: `public/mocks/README.md`
+
+## 3. 공통 계약
 
 | 항목 | 결정 |
 | --- | --- |
-| API 응답 | 모든 mock 응답은 `{ success, status, code, message, data }` envelope를 사용한다. envelope 해제는 `api/client.js`의 `unwrapResponse`만 담당한다. |
-| 세션 | `adminSessionStore`는 mock 세션과 인증 여부만 보관한다. 로그인 폼의 입력값·오류 문구는 페이지 로컬 상태로 둔다. |
-| 식별자 | `orderId`, `menuId`, `categoryId`, `targetId`, `paymentMethodId`를 사용한다. 화면 전용 별칭을 만들지 않는다. |
-| 상태값 | 주문은 `RECEIVED`, `PREPARING`, `COMPLETED`, 결제는 `READY`, `APPROVED`, `FAILED`를 사용한다. |
-| 금액·날짜 | 저장·계산은 숫자와 ISO 날짜를 사용하고, 표시 단계에서만 통화·날짜 유틸로 포맷한다. |
-| 낙관적 변경 | 품절·상태·활성화 토글은 요청 중 중복 실행을 막고, 실패하면 이전 값을 복구한다. |
+| Envelope | `{ success, status, code, message, data }` |
+| 주문 상태 | `RECEIVED` → `PREPARING` → `COMPLETED` (+ `CANCELLED` mock 가능) |
+| 결제 상태 (정본 목표) | `READY` / `APPROVED` / `FAILED` — mock에 `PAID` 등이 있으면 adapter에서 정규화 |
+| 금액 정본 | `totalAmount` (mock에 `totalPrice` 있으면 adapter) |
+| Canonical 품절 API | `PATCH /api/admin/soldOut` |
+| 로그인 SCR-015 | Future/EXCLUDED 성격 — 데모는 mock 세션 최소만 |
+| 식별자 (2026-07-14 최초 계약) | `orderId`, `menuId`, `categoryId`, `targetId`, `paymentMethodId`. 화면 전용 별칭을 만들지 않는다 |
+| 낙관적 변경 (2026-07-14 최초 계약) | 품절·상태·활성화 토글은 요청 중 중복 실행을 막고, 실패하면 이전 값을 복구한다 |
 
-### 오류 처리 기준
+### 오류 처리 기준 (2026-07-14 최초 계약, 참고)
 
 | 코드 | 화면 행동 |
 | --- | --- |
@@ -48,7 +111,20 @@
 | 409 | 최신 목록 또는 상세를 다시 조회한 뒤 상태 충돌 안내를 보인다. |
 | 5xx/네트워크 | 현재 입력·필터를 보존하고 사용자가 누를 수 있는 재시도 UI를 보인다. |
 
-## 2. 화면별 구현 계약
+## 4. 구현 순서 (남은 일)
+
+1. **WBS2-033** — 사이드바·문서·Canonical 경로 표 정리 (코드 변경 최소)
+2. **WBS2-035~036** — Live + Orders mock 바인딩, 상세 선택
+3. **WBS2-038** — 품절 draft/save
+4. **WBS2-040** — 결제수단
+5. **WBS2-034, 041~043** — Dashboard + Sales
+6. **WBS2-037** — 상태 변경 stub
+7. **WBS2-039** — 메뉴 목록/편집 mock 저장
+8. **WBS2-044~045** — 상태 UI·QA
+
+## 5. 화면별 구현 계약 (2026-07-14 최초 계약, 참고)
+
+> SCR 번호와 세부 규칙은 최초 계획 문서 기준이며, 실제 구현 진행도는 0·1번 표를 따른다. mock 바인딩 작업 시 이 표의 규칙을 어기지 않았는지 확인한다.
 
 ### 인증·주문 운영: `SCR-015`, `SCR-009`, `SCR-010`
 
@@ -73,7 +149,9 @@
 | --- | --- | --- | --- |
 | `SCR-019` 매출 조회 | 시작일·종료일 → 일별 매출·메뉴 요약 | `API-015` | `from <= to`를 검증하고 미래 날짜를 막는다. 잘못된 기간은 요청하지 않는다. 기간 내 데이터 없음은 오류가 아닌 empty 상태로, API 실패는 재시도 가능한 error로 보인다. |
 
-## 3. 상태 전이와 mock fixture
+## 6. 상태 전이와 mock fixture (2026-07-14 최초 계약, 참고)
+
+> 아래 `API-007`~`API-015` ID는 최초 설계 시 문서 표기이며, 현재 Canonical 경로는 위 3번 표(`PATCH /api/admin/soldOut` 등)를 따른다.
 
 ### 주문 상태 전이
 
@@ -107,7 +185,9 @@ RECEIVED → PREPARING → COMPLETED
 - mock fixture 변경 시 목록·상세·차트가 같은 필드명과 상태값을 보는지 확인한다.
 - 페이지·컴포넌트에서 `response.data.data`를 직접 다루지 않는다.
 
-## 4. 일별 실행 순서
+## 7. 일별 실행 순서 (계획(이력) — 2026-07-14~2026-07-22 최초 계획)
+
+> **이력 표**: 아래 날짜 계획은 2026-07-14 최초 작성 시점 기준이다. 7/20 코드 실측(0·1번 표) 결과 Page↔mock 바인딩이 계획보다 늦어져 있다. 지금 해야 할 일은 1·4번을 따른다.
 
 | 날짜 | 주문 담당 | 운영 설정 담당 | 분석·통합 담당 | 당일 완료 조건 |
 | --- | --- | --- | --- | --- |
@@ -117,22 +197,22 @@ RECEIVED → PREPARING → COMPLETED
 | 7/17 | 상태 전이 예외·401/403 안내 | `SCR-016` 메뉴 목록 | `SCR-019` 기간·매출 fixture | 주문·메뉴 목록의 네 상태 완료 |
 | 7/18 | 주문 운영 smoke·결함 수정 | `SCR-017` 폼 검증, `SCR-018` 설정 | `SCR-019` 카드·차트·빈 데이터 | 저장 실패·기간 검증 시연 |
 | 7/19 | 로그인·주문 회귀 테스트 | 메뉴·결제수단 회귀 테스트 | 접근성·반응형 점검 | `TC-A01`~`TC-A05` 초안 완료 |
-| 7/20 | 401/403/409/5xx UI 정리 | 품절·폼·정렬 경계 수정 | fixture 일관성, lint/build | 알려진 결함 우선순위 확정 |
+| 7/20 (**오늘**) | 401/403/409/5xx UI 정리 | 품절·폼·정렬 경계 수정 | fixture 일관성, lint/build | 알려진 결함 우선순위 확정 — **실측 결과 위 1번 표로 대체** |
 | 7/21 | 주문·로그인 PR 정리 | 운영 화면 PR 정리 | 전체 mock smoke와 데모 순서 | 모든 필수 화면 연결 완료 |
 | 7/22 | 최종 bug fix | 최종 bug fix | 빌드 산출물, worklog, 데모 | `TC-A01`~`TC-A06` 통과 |
 
-## 5. 테스트 체크리스트
+## 8. 테스트 체크리스트
 
 | ID | 시나리오 | 기대 결과 |
 | --- | --- | --- |
 | `TC-A01` 주문 상태 변경 | 주문을 상세에서 다음 상태로 변경 | 목록과 상세의 상태·배지가 일치하고 요청 중 중복 변경이 불가능하다. |
 | `TC-A02` 품절 토글 실패 | 메뉴·재료·옵션 각각에 실패 mock 적용 | 이전 값으로 복구되고 대상 이름·오류가 표시된다. |
-| `TC-A03` 비인증·권한 없음 | 세션 없이 보호 라우트 접근, 403 mock | 보호 화면이 차단되고 권한 없음 안내가 보인다. |
+| `TC-A03` 비인증·권한 없음 / 매출 empty·partial | 세션 없이 보호 라우트 접근(403 mock), 매출 데이터 없음 | 보호 화면 차단·권한 안내가 보이고, 데이터 없음은 오류가 아닌 empty로 처리되며 합계가 일치한다. |
 | `TC-A04` 메뉴 폼 오류 | 이름 누락, 0 이하 가격, 저장 실패 | 각 검증 오류가 구분되고 실패 뒤 입력값이 보존된다. |
-| `TC-A05` 매출 기간 조회 | 역전 기간, 미래 날짜, 데이터 없는 유효 기간 | 잘못된 기간은 요청하지 않으며 빈 데이터는 오류 화면이 아니다. |
+| `TC-A05` 결제수단 저장 실패 / 매출 기간 조회 | 저장 실패 mock, 역전 기간·미래 날짜 조회 | 결제수단은 이전 값으로 롤백되고, 잘못된 매출 기간은 요청하지 않는다. |
 | `TC-A06` 최종 mock 데모 | 로그인 → 주문 → 품절 → 메뉴 → 결제수단 → 매출 | 주요 흐름이 끊기지 않고 loading/error 상태도 재현된다. |
 
-## 6. 브랜치·커밋·일일 작업 규칙
+## 9. 브랜치·커밋·일일 작업 규칙 (2026-07-14 최초 계약, 참고)
 
 ```text
 main
@@ -157,11 +237,20 @@ docs(admin): align order mock fields with API-007
 
 매일 종료 전 worklog에 `완료 화면 / 변경한 fixture·API 필드 / 실행한 TC / 다음 작업 / 공통 파일 변경 여부`를 기록한다. 구현 시작 전에는 해당 `SCR`, `API`, `TC`를 계약 문서에서 확인한다.
 
-## Documentation status (2026-07-16)
+## 10. 관련 문서
 
-- Status: Needs Review
-- Written-at context: pre-canonical Admin mock implementation plan.
-- Product Bible relationship: [Pack 12](../ASAK/docs/product_bible/12_Frontend_Implementation/README.md).
-- Latest implementation baseline: [Current Implementation Map](../ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md).
-- Central canonical contract: [Canonical Contract Decisions](../ASAK/docs/governance/CANONICAL_CONTRACT_DECISIONS.md).
-- Potential conflict: route/API assumptions may differ from canonical camelCase paths; source remains unchanged.
+| 문서 | 경로 |
+| --- | --- |
+| STRUCTURE_GUIDE | [`src/STRUCTURE_GUIDE.md`](src/STRUCTURE_GUIDE.md) |
+| UI 구현 맵 | [`docs/ui-implementation-map.md`](docs/ui-implementation-map.md) |
+| admin-api-contract | [`src/contracts/admin-api-contract.md`](src/contracts/admin-api-contract.md) |
+| WBS 상태 메모 | [`ASAK/docs/wiki/wbs-status-notes.md`](../ASAK/docs/wiki/wbs-status-notes.md) |
+| 구현 맵 | [`ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md`](../ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md) |
+| Kiosk 구현 계획 (별도 정본, Admin 범위 없음) | [`ASAK-Kiosk/IMPLEMENTATION_PLAN.md`](../ASAK-Kiosk/IMPLEMENTATION_PLAN.md) |
+
+## Documentation status
+
+- Status: **Current (2026-07-20 code audit) + 2026-07-14 최초 계약 복원본**
+- 이전 07-14 계획은 Admin을 "placeholder만"으로 적어 **과소평가** → 0·1번 표는 실측으로 대체.
+- 단, 07-14 계획의 화면 계약(5번)·상태전이·fixture(6번)·일정(7번, 이력)·테스트(8번)·브랜치 규칙(9번)은 **삭제하지 않고 이 문서에 유지**한다 (2026-07-20 사용자 피드백: "기존에 있던 내용이 빠졌다" 반영).
+- LMIS 요구사항은 DevCopilot에서 **IN_PROGRESS** (정적 UI, DONE 아님).
