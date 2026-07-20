@@ -2,7 +2,7 @@
 
 > 기준일: **2026-07-20** · 코드 실측 (정적 UI + `adminMockRepository` READY · **Page 연동 0**).  
 > 문서 입구: `ASAK/docs/START_HERE.md`  
-> WBS: `ASAK/docs/wiki/wbs-v2.md` **WBS2-033 ~ WBS2-045**  
+> WBS: `ASAK/docs/wiki/wbs-v2-2026-07-16.md` **WBS2-033 ~ WBS2-045**  
 > 구현 계획: [`../IMPLEMENTATION_PLAN.md`](../IMPLEMENTATION_PLAN.md)  
 > UI 맵: [`../docs/ui-implementation-map-2026-07-18.md`](../docs/ui-implementation-map-2026-07-18.md)
 
@@ -75,6 +75,6 @@ Canonical 문서 경로(`/orders/live`, `/soldOut`…)와 다르면 **코드 경
 ## 관련 문서
 
 - `ASAK/docs/START_HERE.md`
-- `ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md`
+- `ASAK/docs/planning/current-implementation-map-2026-07-16.md`
 - `ASAK/docs/wiki/wbs-status-notes.md`
 - `public/mocks/README.md`

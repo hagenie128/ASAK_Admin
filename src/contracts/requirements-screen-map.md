@@ -13,6 +13,6 @@
 ## Canonical contract relationship
 
 - Status: Needs Review — current Admin Frontend expected shape.
-- Canonical routes and API decisions: [ASAK docs](../../../ASAK/docs/README.md) and [Canonical Contract Decisions](../../../ASAK/docs/governance/CANONICAL_CONTRACT_DECISIONS.md).
+- Canonical routes and API decisions: [ASAK docs](../../../ASAK/docs/README.md) and [Canonical Contract Decisions](../../../ASAK/docs/governance/canonical-contract-decisions-2026-07-16.md).
 - Canonical Admin routes use `/orders/live`, `/soldOut`, and `/paymentMethods`; existing assumptions are not changed here.
 - Adapter/Backend DTO confirmation is required before implementation.

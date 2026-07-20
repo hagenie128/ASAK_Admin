@@ -7,8 +7,8 @@
 - [ASAK docs index](../ASAK/docs/README.md)
 - [Product Bible Pack 12 — Frontend Implementation](../ASAK/docs/product_bible/12_Frontend_Implementation/README.md)
 - [Product Bible Pack 11 — Backend Implementation](../ASAK/docs/product_bible/11_Backend_Implementation/README.md)
-- [Current Implementation Map](../ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md)
-- [Implementation Priority](../ASAK/docs/planning/IMPLEMENTATION_PRIORITY.md)
+- [Current Implementation Map](../ASAK/docs/planning/current-implementation-map-2026-07-16.md)
+- [Implementation Priority](../ASAK/docs/planning/implementation-priority-2026-07-16.md)
 - [Implementation Guide Start](../ASAK/docs/implementation_guide/00_START_HERE.md)
 - [Admin Implementation Guide](../ASAK/docs/implementation_guide/03_ADMIN_IMPLEMENTATION.md)
 - [API·Response Guide](../ASAK/docs/implementation_guide/04_API_DB_IMPLEMENTATION.md)
@@ -44,7 +44,7 @@ npm run dev
 - [src/STRUCTURE_GUIDE.md](src/STRUCTURE_GUIDE.md)
 - [docs/ui-implementation-map-2026-07-18.md](docs/ui-implementation-map-2026-07-18.md)
 - [UI-INDEX.md](../UI-INDEX.md)
-- [Current Implementation Map](../ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md)
+- [Current Implementation Map](../ASAK/docs/planning/current-implementation-map-2026-07-16.md)
 - [작업공간 안내](../README.md)
 
 ## 디렉터리

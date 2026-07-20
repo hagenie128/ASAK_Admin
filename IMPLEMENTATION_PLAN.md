@@ -3,11 +3,11 @@
 > 기준일: **2026-07-20** · **코드 실측** 반영 (정적 UI · mock READY · Page 연동 0).  
 > 담당 영역: **P4 관리자**. **Admin 기능의 정본은 이 저장소(`ASAK-Admin`)뿐이며**, `ASAK-Kiosk`는 Admin 화면/로직을 소유하지 않는다 ([`ASAK-Kiosk/IMPLEMENTATION_PLAN.md`](../ASAK-Kiosk/IMPLEMENTATION_PLAN.md)는 P3 키오스크 전용).  
 > 문서 입구: [`ASAK/docs/START_HERE.md`](../ASAK/docs/START_HERE.md)  
-> 정본 WBS: [`ASAK/docs/wiki/wbs-v2.md`](../ASAK/docs/wiki/wbs-v2.md) **P4 관리자 · WBS2-033 ~ WBS2-045** (Kiosk는 P3 · WBS2-017~032)  
+> 정본 WBS: [`ASAK/docs/wiki/wbs-v2-2026-07-16.md`](../ASAK/docs/wiki/wbs-v2-2026-07-16.md) **P4 관리자 · WBS2-033 ~ WBS2-045** (Kiosk는 P3 · WBS2-017~032)  
 > 구조: [`src/STRUCTURE_GUIDE.md`](src/STRUCTURE_GUIDE.md)  
 > UI 맵: [`docs/ui-implementation-map-2026-07-18.md`](docs/ui-implementation-map-2026-07-18.md)
-> 구현 맵: [`ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md`](../ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md)  
-> Canonical: [`ASAK/docs/governance/CANONICAL_CONTRACT_DECISIONS.md`](../ASAK/docs/governance/CANONICAL_CONTRACT_DECISIONS.md)  
+> 구현 맵: [`ASAK/docs/planning/current-implementation-map-2026-07-16.md`](../ASAK/docs/planning/current-implementation-map-2026-07-16.md)  
+> Canonical: [`ASAK/docs/governance/canonical-contract-decisions-2026-07-16.md`](../ASAK/docs/governance/canonical-contract-decisions-2026-07-16.md)  
 > 이 문서는 **2026-07-14 최초 상세 계획**(화면 계약·일정·fixture·테스트·브랜치 규칙)을 복원하고, **2026-07-20 코드 실측**(현재 상태)을 함께 담은 통합본이다. 두 기준이 다를 때는 **0~1번(코드 실측)이 우선**이며, 나머지는 참고용 계약·이력이다.
 
 ## 0. 한눈에 보는 현재 상태
@@ -245,7 +245,7 @@ docs(admin): align order mock fields with API-007
 | UI 구현 맵 | [`docs/ui-implementation-map-2026-07-18.md`](docs/ui-implementation-map-2026-07-18.md) |
 | admin-api-contract | [`src/contracts/admin-api-contract.md`](src/contracts/admin-api-contract.md) |
 | WBS 상태 메모 | [`ASAK/docs/wiki/wbs-status-notes.md`](../ASAK/docs/wiki/wbs-status-notes.md) |
-| 구현 맵 | [`ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md`](../ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md) |
+| 구현 맵 | [`ASAK/docs/planning/current-implementation-map-2026-07-16.md`](../ASAK/docs/planning/current-implementation-map-2026-07-16.md) |
 | Kiosk 구현 계획 (별도 정본, Admin 범위 없음) | [`ASAK-Kiosk/IMPLEMENTATION_PLAN.md`](../ASAK-Kiosk/IMPLEMENTATION_PLAN.md) |
 
 ## Documentation status
