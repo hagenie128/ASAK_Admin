@@ -1,9 +1,10 @@
+import { useState } from "react";
 import asakSLogo from "../../assets/svg/logo-S.svg";
 import plusIcon from "../../assets/figma/icon-order-plus.svg";
 import excludeIcon from "../../assets/figma/icon-order-exclude.svg";
 import chipBagIcon from "../../assets/figma/icon-order-side.svg";
 import drinkIcon from "../../assets/figma/icon-order-drink.svg";
-import { getLiveOrders } from "../../mocks/adminMockRepository.js";
+import { getLiveOrders, completeOrder, cancelOrder } from "../../mocks/adminMockRepository.js";
 
 /* SCR-009 / Live Order / Default
  * mock props: getLiveOrders().data.content[]
@@ -65,7 +66,7 @@ function StaticMenuCard({ menu }) {
   );
 }
 
-function StaticOrderCard({ order }) {
+function StaticOrderCard({ order, onAction }) {
   const number = order.orderNo;
   const type = order.orderTypeLabel;
   const wide = Boolean(order.wide);
@@ -99,10 +100,10 @@ function StaticOrderCard({ order }) {
           </strong>
         </div>
         <div className="figma-order-card__actions">
-          <button disabled type="button">
+          <button type="button" onClick={() => onAction(order.orderId, "cancel")}>
             취소
           </button>
-          <button disabled type="button">
+          <button type="button" onClick={() => onAction(order.orderId, "complete")}>
             완료 처리
           </button>
         </div>
@@ -112,7 +113,20 @@ function StaticOrderCard({ order }) {
 }
 
 export default function LiveOrderPreview() {
-  const orders = getLiveOrders().data.content;
+  const [orders, setOrders] = useState(getLiveOrders().data.content);
+
+  const handleOrder = (orderId, action) => {
+    if (action === "complete") {
+      completeOrder(orderId);
+    } else if (action === "cancel") {
+      cancelOrder(orderId);
+    }
+    setOrders(getLiveOrders().data.content);
+  };
+
+  const visibleOrders = orders.filter(
+    (order) => order.orderStatus !== "COMPLETED" && order.orderStatus !== "CANCELLED",
+  );
 
   return (
     <section
@@ -137,8 +151,8 @@ export default function LiveOrderPreview() {
           ‹
         </button>
         <div className="live-order-preview__board">
-          {orders.map((order) => (
-            <StaticOrderCard key={order.orderId} order={order} />
+          {visibleOrders.map((order) => (
+            <StaticOrderCard key={order.orderId} order={order} onAction={handleOrder} />
           ))}
         </div>
         <button type="button" className="live-order-preview__arrow" disabled aria-label="다음 주문">
