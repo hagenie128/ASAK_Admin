@@ -1,4 +1,4 @@
-import asakSLogo from "../../assets/figma/asak-s-logo.svg";
+import asakSLogo from "../../assets/svg/logo-S.svg";
 import plusIcon from "../../assets/figma/icon-order-plus.svg";
 import excludeIcon from "../../assets/figma/icon-order-exclude.svg";
 import chipBagIcon from "../../assets/figma/icon-order-side.svg";

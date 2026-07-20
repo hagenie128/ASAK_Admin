@@ -23,10 +23,12 @@ main.jsx
 
 ## 현재 라우트
 
-| 경로 | 페이지 | SCR | 데이터 |
+| 경로 | 페이지 | SCR | 비고 |
 | --- | --- | --- | --- |
-| `/` | OrderListPage (Live) | SCR-009 | 하드코딩 |
-| `/dashboard` | DashboardPage | SCR-022 | 하드코딩 |
+| `/` (비로그인) | LoginPage | SCR-015 | **앱 진입점** — 로그인 화면 |
+| `/` (로그인 후) | OrderListPage (Live) | SCR-009 | **운영 홈 = 주문 현황** |
+| `/login` | LoginPage | SCR-015 | 이미 로그인 시 `/`로 이동 |
+| `/dashboard` | DashboardPage | SCR-022 | 사이드바 라벨 "Home" |
 | `/orders` | OrderManagementPreview | SCR-010 | 하드코딩 |
 | `/sold-out` | SoldOutManagePage | SCR-011 | 하드코딩 |
 | `/menus` | MenuManagePage | SCR-016 | 하드코딩 |
@@ -35,11 +37,12 @@ main.jsx
 | `/sales` | SalesSummaryPage | SCR-019 | 하드코딩 |
 | `/sales/monthly` | MonthlySalesPage | SCR-020 | 하드코딩 |
 | `/sales/daily` | DailySalesPage | SCR-021 | 하드코딩 |
-| `/login` | LoginPage | SCR-015 | 정적 |
 | `/ui-preview/...` | UiStatePreviewPage | — | 상태 시안 (개발용) |
 
-`OrderDetailPage`는 import되어 있으나 **라우트 미연결** (WBS2-036).  
-Canonical 문서 경로(`/orders/live`, `/soldOut`…)와 다르면 **코드 경로를 실행 기준으로** 보고 WBS2-033에서 정리합니다.
+세션: `src/auth/adminSession.js` (localStorage mock). 보호 경로는 비로그인 시 `/login`으로 보낸다.  
+Canonical 문서의 `/orders/live`와 코드 `/`(현황)는 아직 불일치 → WBS2-033. **실행 정본은 코드 `/` = 현황**.
+
+`OrderDetailPage`는 import되어 있으나 **라우트 미연결** (WBS2-036).
 
 ## 폴더 역할
 

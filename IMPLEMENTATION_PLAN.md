@@ -24,7 +24,8 @@
 
 | 코드 경로 | SCR | 화면 | WBS | 데이터 |
 | --- | --- | --- | --- | --- |
-| `/` | SCR-009 | Live 주문 현황 | WBS2-035 | 하드코딩 |
+| `/` (비로그인) · `/login` | SCR-015 | 로그인 (진입점) | — | mock 세션 |
+| `/` (로그인 후) | SCR-009 | Live 주문 현황 = 운영 홈 | WBS2-035 | 하드코딩 |
 | `/dashboard` | SCR-022 | 대시보드 | WBS2-034 | 하드코딩 |
 | `/orders` | SCR-010 | 주문 관리 | WBS2-036 | 하드코딩 |
 | `/sold-out` | SCR-011 | 품절 | WBS2-038 | 하드코딩 |
@@ -34,7 +35,6 @@
 | `/sales` | SCR-019 | 매출 요약 | WBS2-041 | 하드코딩 |
 | `/sales/monthly` | SCR-020 | 월별 매출 | WBS2-042 | 하드코딩 |
 | `/sales/daily` | SCR-021 | 일별 매출 | WBS2-043 | 하드코딩 |
-| `/login` | SCR-015 | 로그인 | (EXCLUDED 요구) | 정적 |
 | *(미연결)* | — | `OrderDetailPage` | WBS2-036 | 라우트 없음 |
 
 > Canonical 문서 경로(`/orders/live`, `/soldOut`, `/paymentMethods`)와 **코드 kebab-case 불일치** → WBS2-033.  

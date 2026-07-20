@@ -1,7 +1,7 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { useMemo, useState } from "react";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import OrderListPage from "../pages/admin/OrderListPage.jsx";
 import LoginPage from "../pages/admin/LoginPage.jsx";
-import OrderDetailPage from "../pages/admin/OrderDetailPage.jsx";
 import OrderManagementPreview from "../pages/admin/OrderManagementPreview.jsx";
 import SoldOutManagePage from "../pages/admin/SoldOutManagePage.jsx";
 import MenuManagePage from "../pages/admin/MenuManagePage.jsx";
@@ -13,12 +13,17 @@ import MonthlySalesPage from "../pages/admin/MonthlySalesPage.jsx";
 import DashboardPage from "../pages/admin/DashboardPage.jsx";
 import UiStatePreviewPage from "../pages/admin/UiStatePreviewPage.jsx";
 import AdminLayout from "../layouts/AdminLayout.jsx";
+import { isAdminLoggedIn } from "../auth/adminSession.js";
 
 /*
- * 현재 코드 역할: 앱 셸 + 라우트 조립.
- * 사이드바는 components/admin/AdminSidebar가 소유하며 Figma Admin/Navbar(227:5009)를 따른다.
- * "/"는 Figma SCR-009 Live Order로, 사이드바의 "주문 현황" 버튼이 이 경로를 가리킨다.
- * 이 파일이 직접 처리하면 안 되는 상태: 주문/품절/매출 데이터, Draft, KPI 계산
+ * 라우트 정책 (2026-07-21):
+ * - 비로그인: 진입점(`/`)·보호 경로 → 로그인 화면
+ * - 로그인 후 `/` = SCR-009 주문 현황(Live Order) = 운영 홈
+ * - `/dashboard` = SCR-022 대시보드 (사이드바 Home)
+ * - `/login` = SCR-015 (이미 로그인된 경우 `/`로 보냄)
+ *
+ * Canonical 문서의 `/orders/live`와 코드 `/`는 아직 불일치(WBS2-033).
+ * 실행 정본은 이 파일의 코드 경로다.
  */
 
 function AdminScreen({ title, screenId }) {
@@ -32,16 +37,49 @@ function AdminScreen({ title, screenId }) {
   );
 }
 
+function useAuthTick() {
+  // 로그인/로그아웃 후 같은 트리에서 즉시 다시 그리기 위한 트리거
+  const [tick, setTick] = useState(0);
+  return {
+    tick,
+    refreshAuth: () => setTick((n) => n + 1),
+  };
+}
+
 export default function AdminApp() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { tick, refreshAuth } = useAuthTick();
+  const loggedIn = useMemo(() => isAdminLoggedIn(), [tick, pathname]);
 
-  // SCR-009 정적 프리뷰는 Figma의 전체 폭 top-bar 레이아웃을 그대로 보여 줍니다.
-  // TODO: 실제 관리자 라우팅 정책이 확정되면 이 분기를 canonical /orders/live 경로로 옮깁니다.
-  if (pathname === "/") return <OrderListPage />;
-  if (pathname === "/login") return <LoginPage />;
   if (pathname.startsWith("/ui-preview/")) {
-    return <Routes><Route path="/ui-preview/:screen/:state" element={<UiStatePreviewPage />} /></Routes>;
+    return (
+      <Routes>
+        <Route path="/ui-preview/:screen/:state" element={<UiStatePreviewPage />} />
+      </Routes>
+    );
   }
+
+  if (!loggedIn) {
+    if (pathname === "/login" || pathname === "/") {
+      return (
+        <LoginPage
+          onLoggedIn={() => {
+            refreshAuth();
+            navigate("/", { replace: true });
+          }}
+        />
+      );
+    }
+    return <Navigate to="/login" replace state={{ from: pathname }} />;
+  }
+
+  if (pathname === "/login") {
+    return <Navigate to="/" replace />;
+  }
+
+  // 로그인 후 `/` = 주문 현황 (운영 홈)
+  if (pathname === "/") return <OrderListPage />;
 
   const staticPages = {
     "/dashboard": <DashboardPage />,
@@ -60,7 +98,6 @@ export default function AdminApp() {
     return <AdminLayout>{staticPages[pathname]}</AdminLayout>;
   }
 
-  // 남은 경로는 Figma의 공통 셸 안에서 처리한다. 사이드바를 여기서 다시 그리지 않는다.
   return (
     <AdminLayout>
       <Routes>
