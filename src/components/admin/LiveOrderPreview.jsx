@@ -5,6 +5,7 @@ import excludeIcon from "../../assets/figma/icon-order-exclude.svg";
 import chipBagIcon from "../../assets/figma/icon-order-side.svg";
 import drinkIcon from "../../assets/figma/icon-order-drink.svg";
 import { getLiveOrders, completeOrder, cancelOrder } from "../../mocks/adminMockRepository.js";
+import { useNavigate } from "react-router-dom";
 
 /* SCR-009 / Live Order / Default
  * mock props: getLiveOrders().data.content[]
@@ -136,14 +137,26 @@ export default function LiveOrderPreview() {
     >
       <header className="live-order-preview__topbar" data-figma-node="235:6372">
         <div className="live-order-preview__logo" aria-label="ASAK">
-          <img alt="ASAK" src={asakSLogo} />
+          <img alt="ASAK" src={asakSLogo} onClick={() => useNavigate("/")} />
         </div>
         <div className="live-order-preview__heading">
           <div className="live-order-preview__title-group">
             <h1>주문 현황</h1>
             <p>조리 완료 처리 및 TTS 알림을 관리합니다.</p>
           </div>
-          <time>현재 시각: {new Date().toLocaleTimeString()}</time>
+          <time>
+            {new Date().toLocaleDateString("ko-KR", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+            {"  |  "}
+            {new Date().toLocaleTimeString("ko-KR", {
+              hour: "numeric",
+              minute: "numeric",
+              second: "numeric",
+            })}
+          </time>
         </div>
       </header>
       <main className="live-order-preview__content">
