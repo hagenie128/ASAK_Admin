@@ -44,7 +44,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 407px;
+  width: 420px;
   max-width: 100%;
   padding: 4px 0;
   box-sizing: border-box;
@@ -481,4 +481,3 @@
     flex-basis: min(380px, 100%);
   }
 }
-
