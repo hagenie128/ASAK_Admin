@@ -11,7 +11,7 @@ const [order, setOrder] = orderList?.length > 0 ? orderList[0] : null;
 function StaticMenuCard() {
   const [menu, setMenu] = order?.menuList?.length > 0 ? order.menuList[0] : null;
 
-  return (
+  return ( 
     <>
       {}
       <section className="figma-order-menu">
@@ -19,7 +19,6 @@ function StaticMenuCard() {
           <div className="figma-order-menu__title">
             <strong>{menu?.menuName || "menu name"}</strong>
             <span>{menu?.menuNumber || "0"}</span>
-          </div>
           <p className="figma-order-menu__base">
             <span>베이스:</span>
             <b>{menu?.base || "추천"}</b>
@@ -130,11 +129,11 @@ export default function LiveOrderPreview() {
           <StaticOrderCard number="#248" type="매장" />
           <StaticOrderCard number="#2318" type="매장" />
           <StaticOrderCard number="#2518" type="포장" wide />
-        </div>
+        </div>     
         <button type="button" className="live-order-preview__arrow" disabled aria-label="다음 주문">
           ›
-        </button>
+        </button>        
       </main>
-    </section>
+    </section>  
   );
 }

@@ -12,4 +12,4 @@
 
 문서와 구현이 충돌하면 API 계약과 운영 정책을 먼저 확인하고, 결정 사항을 해당 문서에 갱신합니다.
 
-화면 상태는 [06-C Admin](https://www.figma.com/design/JSrjOy668zhfkiLplCkreh/ASAK-%E2%80%94-Design-System---Product-UI-0715?node-id=134-10606), QA 범위는 [07-C Matrix](https://www.figma.com/design/JSrjOy668zhfkiLplCkreh/ASAK-%E2%80%94-Design-System---Product-UI-0715?node-id=190-2), API 응답 형태는 [중앙 API 가이드](../../ASAK/docs/implementation_guide/04_API_DB_IMPLEMENTATION.md)를 기준으로 확인합니다.
+화면 상태는 [06-C Admin](https://www.figma.com/design/JSrjOy668zhfkiLplCkreh/ASAK-%E2%80%94-Design-System---Product-UI-0715?node-id=134-10606), QA 범위는 [07-C Matrix](https://www.figma.com/design/JSrjOy668zhfkiLplCkreh/ASAK-%E2%80%94-Design-System---Product-UI-0715?node-id=190-2), API 응답 형태는 [중앙 API 가이드](../../ASAK/docs/implementation_guide/04-api-db-implementation.md)를 기준으로 확인합니다.

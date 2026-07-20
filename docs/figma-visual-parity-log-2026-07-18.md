@@ -1,6 +1,6 @@
-﻿# Admin Figma 시각 일치 기록
+# Admin Figma 시각 일치 기록
 
-> 화면 단위로 무엇을 고쳐야 하는지 찾고 있다면 먼저 워크스페이스 루트의 **[UI-INDEX.md](../../UI-INDEX.md)** 를 본다.
+> 화면 단위로 무엇을 고쳐야 하는지 찾고 있다면 먼저 워크스페이스 루트의 **[ui-index.md](../../ui-index.md)** 를 본다.
 > 화면명 → Figma 노드 → 코드 파일 → 에셋 → 스크린샷 → 미구현이 한 표에 정리되어 있다.
 
 ## Navbar 재작성 — 2026-07-19
@@ -86,7 +86,7 @@ Figma MCP가 내려주는 에셋 URL은 단기 URL이므로, 코드에는 URL을
 
 ## 문서 기준 위계·토큰 정책
 
-코드 반영은 다음 우선순위를 따른다: 현재 0718 Figma 파일 → `ASAK_FIGMA_PRECISE_FIX_CHECKLIST_2026-07-18.md` → `FIGMA_0718_COLOR_CANON_2026-07-18.md` → Product Bible의 component/token 규칙 → 이전 Figma 파일과 스크린샷.
+코드 반영은 다음 우선순위를 따른다: 현재 0718 Figma 파일 → `figma-precise-fix-checklist-2026-07-18.md` → `figma-0718-color-canon-2026-07-18.md` → Product Bible의 component/token 규칙 → 이전 Figma 파일과 스크린샷.
 
 | 영역 | 코드 적용 기준 | Figma에서 발견해도 그대로 복제하지 않는 값 |
 | --- | --- | --- |

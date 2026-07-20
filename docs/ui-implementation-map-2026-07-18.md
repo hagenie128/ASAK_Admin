@@ -1,6 +1,6 @@
 # 관리자 UI 구현 맵
 
-> 화면 단위 진입점: 워크스페이스 **[UI-INDEX.md](../../UI-INDEX.md)**  
+> 화면 단위 진입점: 워크스페이스 **[ui-index.md](../../ui-index.md)**  
 > 구조: [`src/STRUCTURE_GUIDE.md`](../src/STRUCTURE_GUIDE.md) · 계획: [`IMPLEMENTATION_PLAN.md`](../IMPLEMENTATION_PLAN.md)  
 > **2026-07-20:** 정적 UI는 연결됨. `adminMockRepository`는 READY, **Page 연동 0**.
 
