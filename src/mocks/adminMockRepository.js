@@ -18,8 +18,42 @@
 // TODO: 품절·결제수단·주문상태 PATCH/저장 stub + 실패 fixture 추가 (WBS2-037~040)
 import adminMock from "../../public/mocks/asak-admin-data.json";
 
+let liveOrders = clone(adminMock.liveOrders);
+
 function clone(value) {
   return structuredClone(value);
+}
+
+export function completeOrder(orderId) {
+  liveOrders.data.content = liveOrders.data.content.map((order) => {
+    if (order.orderId === Number(orderId)) {
+      order.orderStatus = "COMPLETED";
+    }
+    return order;
+  });
+  return {
+    success: true,
+    status: 200,
+    code: "ORDER_COMPLETE_SUCCESS",
+    message: "주문 완료 성공",
+    data: null,
+  };
+}
+
+export function cancelOrder(orderId) {
+  liveOrders.data.content = liveOrders.data.content.map((order) => {
+    if (order.orderId === Number(orderId)) {
+      order.orderStatus = "CANCELLED";
+    }
+    return order;
+  });
+  return {
+    success: true,
+    status: 200,
+    code: "ORDER_CANCEL_SUCCESS",
+    message: "주문 취소 성공",
+    data: null,
+  };
 }
 
 export function getAdminMockMeta() {
@@ -64,7 +98,7 @@ export function getAdminOrderById(orderId) {
 }
 
 export function getLiveOrders() {
-  return clone(adminMock.liveOrders);
+  return clone(liveOrders);
 }
 
 export function getDashboard() {
