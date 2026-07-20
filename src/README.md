@@ -1,7 +1,7 @@
 # src 폴더 안내 (Admin)
 
 > 기준일: **2026-07-20**  
-> 처음이면 [STRUCTURE_GUIDE.md](STRUCTURE_GUIDE.md) → [IMPLEMENTATION_PLAN.md](../IMPLEMENTATION_PLAN.md) → [docs/ui-implementation-map.md](../docs/ui-implementation-map.md).
+> 처음이면 [STRUCTURE_GUIDE.md](STRUCTURE_GUIDE.md) → [IMPLEMENTATION_PLAN.md](../IMPLEMENTATION_PLAN.md) → [docs/ui-implementation-map-2026-07-18.md](../docs/ui-implementation-map-2026-07-18.md).
 
 | 폴더 | 역할 | 현재 |
 | --- | --- | --- |

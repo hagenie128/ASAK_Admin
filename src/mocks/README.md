@@ -6,4 +6,4 @@
 - 품절: `targetType`, `targetId`, `name`, `isSoldOut`, `reasonType`
 - 매출: 기간, 일별 매출, 메뉴별 판매량
 
-mock 필드명은 `docs/06-api-integration.md`와 백엔드 API 명세를 우선합니다.
+mock 필드명은 `docs/api-integration-2026-07-14.md`와 백엔드 API 명세를 우선합니다.

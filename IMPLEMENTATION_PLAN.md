@@ -5,7 +5,7 @@
 > 문서 입구: [`ASAK/docs/START_HERE.md`](../ASAK/docs/START_HERE.md)  
 > 정본 WBS: [`ASAK/docs/wiki/wbs-v2.md`](../ASAK/docs/wiki/wbs-v2.md) **P4 관리자 · WBS2-033 ~ WBS2-045** (Kiosk는 P3 · WBS2-017~032)  
 > 구조: [`src/STRUCTURE_GUIDE.md`](src/STRUCTURE_GUIDE.md)  
-> UI 맵: [`docs/ui-implementation-map.md`](docs/ui-implementation-map.md)  
+> UI 맵: [`docs/ui-implementation-map-2026-07-18.md`](docs/ui-implementation-map-2026-07-18.md)
 > 구현 맵: [`ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md`](../ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md)  
 > Canonical: [`ASAK/docs/governance/CANONICAL_CONTRACT_DECISIONS.md`](../ASAK/docs/governance/CANONICAL_CONTRACT_DECISIONS.md)  
 > 이 문서는 **2026-07-14 최초 상세 계획**(화면 계약·일정·fixture·테스트·브랜치 규칙)을 복원하고, **2026-07-20 코드 실측**(현재 상태)을 함께 담은 통합본이다. 두 기준이 다를 때는 **0~1번(코드 실측)이 우선**이며, 나머지는 참고용 계약·이력이다.
@@ -242,7 +242,7 @@ docs(admin): align order mock fields with API-007
 | 문서 | 경로 |
 | --- | --- |
 | STRUCTURE_GUIDE | [`src/STRUCTURE_GUIDE.md`](src/STRUCTURE_GUIDE.md) |
-| UI 구현 맵 | [`docs/ui-implementation-map.md`](docs/ui-implementation-map.md) |
+| UI 구현 맵 | [`docs/ui-implementation-map-2026-07-18.md`](docs/ui-implementation-map-2026-07-18.md) |
 | admin-api-contract | [`src/contracts/admin-api-contract.md`](src/contracts/admin-api-contract.md) |
 | WBS 상태 메모 | [`ASAK/docs/wiki/wbs-status-notes.md`](../ASAK/docs/wiki/wbs-status-notes.md) |
 | 구현 맵 | [`ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md`](../ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md) |

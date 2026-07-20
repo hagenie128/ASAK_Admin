@@ -4,7 +4,7 @@
 > 문서 입구: `ASAK/docs/START_HERE.md`  
 > WBS: `ASAK/docs/wiki/wbs-v2.md` **WBS2-033 ~ WBS2-045**  
 > 구현 계획: [`../IMPLEMENTATION_PLAN.md`](../IMPLEMENTATION_PLAN.md)  
-> UI 맵: [`../docs/ui-implementation-map.md`](../docs/ui-implementation-map.md)
+> UI 맵: [`../docs/ui-implementation-map-2026-07-18.md`](../docs/ui-implementation-map-2026-07-18.md)
 
 ## 먼저 결론
 

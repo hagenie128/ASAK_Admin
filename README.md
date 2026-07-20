@@ -42,7 +42,7 @@ npm run dev
 
 - [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) ← **실행 계획 (2026-07-20)**
 - [src/STRUCTURE_GUIDE.md](src/STRUCTURE_GUIDE.md)
-- [docs/ui-implementation-map.md](docs/ui-implementation-map.md)
+- [docs/ui-implementation-map-2026-07-18.md](docs/ui-implementation-map-2026-07-18.md)
 - [UI-INDEX.md](../UI-INDEX.md)
 - [Current Implementation Map](../ASAK/docs/planning/CURRENT_IMPLEMENTATION_MAP.md)
 - [작업공간 안내](../README.md)
