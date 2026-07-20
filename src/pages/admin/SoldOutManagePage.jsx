@@ -1,9 +1,13 @@
 /*
  * SCR-011 / Sold-out Management / Default (Figma node 134:11863)
+ * 좌우 패널 정적 UI. draft/저장은 useSoldOutDraft 소유.
  *
- * 좌우 744 패널 + 가운데 이동 버튼의 정적 UI만 담는다.
- * 선택, 이동, 전체 해제, 저장은 이후 품절 draft store와 mutation이 소유한다.
+ * mock: getSoldOutCatalog().data
+ *   available[] | soldOut[] 동일 row:
+ *     targetType, targetId, name, category, isSoldOut, imageKey, price
+ * 표: public/mocks/README.md §4
  */
+// TODO: getSoldOutCatalog + useSoldOutDraft로 draft/저장, 실패 시 롤백 (WBS2-038)
 import chickenImage from "../../assets/figma/soldout-chicken.png";
 import pastaImage from "../../assets/figma/soldout-pasta.png";
 import ricottaImage from "../../assets/figma/soldout-ricotta.png";

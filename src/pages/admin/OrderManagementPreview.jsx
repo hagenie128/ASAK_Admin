@@ -2,9 +2,14 @@ import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
 
 /*
  * SCR-010 / Order Management / Default (Figma 134:10630)
+ * 정적 UI. Live 카드와 스키마가 다름.
  *
- * 화면 캡처와 동일한 정적 마크업만 둔다.
+ * mock: getAdminOrders().data.content[]  · empty: getAdminOrders({ empty: true })
+ *   row: orderId, orderNo, orderType, totalPrice, orderStatus, paymentStatus,
+ *        paymentMethod, createdAt, itemCount, menuSummary, requestNote, items[]
+ * 표: public/mocks/README.md §2
  */
+// TODO: getAdminOrders로 목록·필터 연결, 상세 선택 연동 (WBS2-036)
 export default function OrderManagementPreview() {
   return (
     <section className="order-management">

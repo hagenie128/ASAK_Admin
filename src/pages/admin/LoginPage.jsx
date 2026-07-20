@@ -1,8 +1,11 @@
 /*
  * SCR-015 / Login / Default (Figma node 134:12033)
+ * 인증 API 없음 → adminSession(localStorage) mock만.
  *
- * UI는 Figma 시안을 따른다. 인증 API는 아직 없으므로
- * 로그인 버튼은 mock 세션(localStorage)만 켠 뒤 `/`(주문 현황)으로 보낸다.
+ * mock 시나리오(JSON meta/scenarios.login 참고): admin | kitchen | viewer | invalid
+ * 세션: loginAdmin() / logoutAdmin() — src/auth/adminSession.js
+ * 성공 시 navigate "/" (주문 현황)
+ * Props: onLoggedIn? (선택 콜백)
  */
 import { useState } from "react";
 import loginLogo from "../../assets/svg/logo-F.svg";

@@ -1,5 +1,10 @@
-// Figma Shared/ConfirmDialog와 Admin/ModalActionBar 정적 UI 뼈대.
-// 관리자 확인 대화상자 자리.
+/*
+ * Figma Shared/ConfirmDialog · Admin/ModalActionBar
+ *
+ * Props 후보: open, title, message, confirmLabel?, cancelLabel?,
+ *             isBusy?, onConfirm, onCancel
+ * JSON mock과 무관 — 상태 변경/삭제 확인용
+ */
 export default function AdminConfirmDialog() {
   return (
     <div className="admin-confirm-layer" role="presentation">

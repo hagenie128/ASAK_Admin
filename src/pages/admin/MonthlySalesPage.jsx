@@ -1,7 +1,13 @@
 /*
  * SCR-020 / Monthly Sales / Default — Figma 134:10957
- * 정적 플레이스홀더. 조회·집계는 이후 sales adapter 소유.
+ * 정적 플레이스홀더. 조회·집계는 sales adapter 소유.
+ *
+ * mock: getMonthlySales().data
+ *   year
+ *   rows[{ month, orderCount, totalAmount, avgAmount }]
+ * 표: public/mocks/README.md §7
  */
+// TODO: getMonthlySales + 연도 필터 연결 (WBS2-042)
 import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
 
 const DAILY_BARS = [48, 62, 40, 55, 70, 44, 38, 52, 60, 35];

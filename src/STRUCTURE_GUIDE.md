@@ -65,6 +65,22 @@ Canonical 문서의 `/orders/live`와 코드 `/`(현황)는 아직 불일치 →
 4. empty와 error UI를 구분.  
 5. 키오스크 Admin 스캐폴드를 여기로 복사해 오지 말 것 (이 저장소가 정본).
 
+## Mock 필드 / props (바인딩 치트시트)
+
+JSON을 다시 뒤지지 말고 여기 → **[`../public/mocks/README.md`](../public/mocks/README.md)** 를 본다.
+
+| 화면 | Getter | 꺼내는 경로 |
+| --- | --- | --- |
+| Live 현황 카드 | `getLiveOrders()` | `data.content[]` → `order.*` / `menus[]` / `options[].tone` |
+| 주문 목록·상세 | `getAdminOrders()` / `ById` | `data.content[]` → `items[]` (Live와 **스키마 다름**) |
+| 대시보드 | `getDashboard()` | `data.kpis` · `recentOrders` · `statusSummary` … |
+| 품절 | `getSoldOutCatalog()` | `data.available[]` · `data.soldOut[]` |
+| 메뉴 | `getAdminMenus()` | `data.content[]` |
+| 결제 | `getPaymentMethods()` | `data[]` |
+| 매출 | `getSalesSummary` / Daily / Monthly | README §7 |
+
+Live 카드 props 예: `orderNo`, `orderTypeLabel`, `wide`, `elapsedSec`, `totalPrice`, `menus[].menuName|quantity|base|dressing`, `options[].label|tone`.
+
 ## 관련 WBS (요약)
 
 | WBS | 내용 | 상태(2026-07-20) |

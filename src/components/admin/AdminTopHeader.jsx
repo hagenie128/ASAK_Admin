@@ -1,6 +1,9 @@
 /*
  * Figma top-header (241:14215) — Admin 공통 페이지 상단바
  * breadcrumb 12 Medium / title 28 Bold / description 14 Regular, gap 6
+ *
+ * Props: crumb?, title, description?, children? (날짜·필터 슬롯)
+ * mock JSON과 무관
  */
 export default function AdminTopHeader({ crumb, title, description, children }) {
   return (

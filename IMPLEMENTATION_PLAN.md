@@ -87,7 +87,8 @@ import {
 } from "@/mocks/adminMockRepository";
 ```
 
-상세: `public/mocks/README.md`
+상세(필드·props 사전): `public/mocks/README.md` — Live/주문/대시보드/품절/메뉴/결제/매출 키 표  
+구조 요약: `src/STRUCTURE_GUIDE.md` → 「Mock 필드 / props」
 
 ## 3. 공통 계약
 

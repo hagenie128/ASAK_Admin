@@ -1,6 +1,19 @@
 import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
 
-/* SCR-008 / Dashboard / Default */
+/*
+ * SCR-022 / Dashboard / Default
+ *
+ * mock: getDashboard().data
+ *   dateLabel
+ *   kpis[{ label, value, display }]
+ *   recentOrders[{ orderNo, orderType, menuSummary, totalPrice, orderStatus, createdAtLabel }]
+ *   statusSummary[{ label, count, tone }]  tone: waiting|preparing|complete|cancelled
+ *   orderTypeSummary{ eatIn, takeOut }
+ *   inventoryAlerts[{ label, badge, tone }]
+ *   weeklySales[{ label, amount, barHeight, isCurrent? }]
+ * 표: public/mocks/README.md §3
+ */
+// TODO: getDashboard KPI·최근 주문 mock 연결 (WBS2-034)
 export default function DashboardPage() {
   return (
     <section className="admin-dashboard" aria-label="대시보드 정적 미리보기">

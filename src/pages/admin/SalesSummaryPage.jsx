@@ -1,10 +1,13 @@
 /*
  * SCR-019 / Sales Summary / Default (Figma node 134:10661)
+ * 정적 플레이스홀더. API/기간 계산은 sales adapter 소유.
  *
- * 아래 상수는 Figma 시안 값을 그대로 옮긴 정적 플레이스홀더다.
- * 기간 조회, 집계, 차트 변환은 이후 sales query/adapter가 소유한다.
- * 이 파일은 API 호출·스토어 쓰기·기간 계산을 직접 하지 않는다.
+ * mock: getSalesSummary(period)  period: today|week|month|empty|partial
+ *   data: period, label, dateRange, kpis, chartBars, paymentShare, orderShare,
+ *         ranking, availablePeriods
+ * 표: public/mocks/README.md §7
  */
+// TODO: getSalesSummary + 기간 필터, empty/error 구분 (WBS2-041)
 import calendarIcon from "../../assets/figma/icon-calendar.svg";
 import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
 

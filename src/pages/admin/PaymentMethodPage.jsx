@@ -1,4 +1,13 @@
-/* SCR-018 / Payment Methods / Default */
+/*
+ * SCR-018 / Payment Methods / Default
+ *
+ * mock: getPaymentMethods().data[]   ← data 자체가 배열
+ *   row: methodId, name, description, isActive, isMaintenance, sortOrder
+ * 표: public/mocks/README.md §6
+ *
+ * Props 후보: methods, onToggle, onReorder, onSave, isDirty, isSaving
+ */
+// TODO: 토글·정렬 활성화 + getPaymentMethods / usePaymentMethodDraft, 실패 롤백 (WBS2-040)
 import arrowUpIcon from "../../assets/figma/icon-arrow-up.svg";
 import arrowDownIcon from "../../assets/figma/icon-arrow-down.svg";
 import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";

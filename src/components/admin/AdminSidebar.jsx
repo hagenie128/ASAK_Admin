@@ -14,9 +14,12 @@ import promoCarrot from "../../assets/figma/promo-carrot.png";
 import { logoutAdmin } from "../../auth/adminSession.js";
 
 /*
- * Figma: Admin/Navbar (227:5009, 240×1080) — 화면마다 instance로 반복 사용된다.
- * 메뉴 구성/순서/라벨은 Figma 원본을 그대로 따른다. 라우팅 경로만 이 프로젝트 것으로 매핑했다.
- * Logout은 mock 세션을 지우고 /login으로 보낸다. 실인증 API는 아직 없다.
+ * Figma: Admin/Navbar (227:5009, 240×1080)
+ * 메뉴 라벨은 Figma, 경로는 이 프로젝트 라우트.
+ *
+ * mock/세션: logoutAdmin() → /login  (주문·매출 JSON 안 씀)
+ * Props: 없음 (NavLink + handleLogout)
+ * 경로 표: src/STRUCTURE_GUIDE.md
  */
 export default function AdminSidebar() {
   const navigate = useNavigate();

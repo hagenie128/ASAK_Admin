@@ -1,5 +1,9 @@
-// Figma Shared/Toast 관리자용 정적 UI 뼈대.
-// 관리자 토스트 자리.
+/*
+ * Figma Shared/Toast
+ *
+ * Props 후보: open, tone?: "success"|"error"|"info", message, onClose?
+ * JSON mock과 무관
+ */
 export default function AdminToast() {
   return (
     <div className="admin-toast" role="status">

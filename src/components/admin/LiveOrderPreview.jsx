@@ -3,66 +3,74 @@ import plusIcon from "../../assets/figma/icon-order-plus.svg";
 import excludeIcon from "../../assets/figma/icon-order-exclude.svg";
 import chipBagIcon from "../../assets/figma/icon-order-side.svg";
 import drinkIcon from "../../assets/figma/icon-order-drink.svg";
+import { getLiveOrders } from "../../mocks/adminMockRepository.js";
 
-/* SCR-009 / Live Order / Default */
-const orderList = adiminMockData?.orderList;
-const [order, setOrder] = orderList?.length > 0 ? orderList[0] : null;
+/* SCR-009 / Live Order / Default
+ * mock props: getLiveOrders().data.content[]
+ *   order: orderId, orderNo, orderTypeLabel, wide, elapsedSec, totalPrice, menus[]
+ *   menu:  menuName, quantity, base, dressing, options[{ label, tone }]
+ *   tone:  exclude | plus | drink | side
+ * 전체 표: public/mocks/README.md
+ */
+// TODO: loading / empty / error 상태 분리 (WBS2-044)
 
-function StaticMenuCard() {
-  const [menu, setMenu] = order?.menuList?.length > 0 ? order.menuList[0] : null;
+function optionIcon(tone) {
+  if (tone === "exclude") return excludeIcon;
+  if (tone === "plus") return plusIcon;
+  if (tone === "drink") return drinkIcon;
+  return chipBagIcon;
+}
 
-  return ( 
-    <>
-      {}
-      <section className="figma-order-menu">
-        <div className="figma-order-menu__header">
-          <div className="figma-order-menu__title">
-            <strong>{menu?.menuName || "menu name"}</strong>
-            <span>{menu?.menuNumber || "0"}</span>
-          <p className="figma-order-menu__base">
-            <span>베이스:</span>
-            <b>{menu?.base || "추천"}</b>
-          </p>
-          <p className="figma-order-menu__dressing">
-            <span>드레싱:</span>
-            <b>{menu?.dressing || "발사믹"}</b>
-          </p>
+function optionClass(tone) {
+  if (tone === "exclude") return "figma-order-option figma-order-option--exclude";
+  if (tone === "plus") return "figma-order-option figma-order-option--plus";
+  if (tone === "drink") return "figma-order-option figma-order-option--drink";
+  return "figma-order-option figma-order-option--side";
+}
+
+function StaticMenuCard({ menu }) {
+  const options = menu?.options ?? [];
+
+  return (
+    <section className="figma-order-menu">
+      <div className="figma-order-menu__header">
+        <div className="figma-order-menu__title">
+          <strong>{menu?.menuName || "menu name"}</strong>
+          <span>{menu?.quantity ?? 0}</span>
         </div>
+        <p className="figma-order-menu__base">
+          <span>베이스:</span>
+          <b>{menu?.base || "추천"}</b>
+        </p>
+        <p className="figma-order-menu__dressing">
+          <span>드레싱:</span>
+          <b>{menu?.dressing || "발사믹"}</b>
+        </p>
+      </div>
+      {options.length > 0 ? (
         <div className="figma-order-menu__options">
           <ul>
-            <li className="figma-order-option figma-order-option--exclude">
-              <i aria-hidden="true">
-                <img alt="" src={excludeIcon} />
-              </i>
-              <span>{menu?.excludeItem || "토마토 제외"}</span>
-            </li>
-            <li className="figma-order-option figma-order-option--plus">
-              <i aria-hidden="true">
-                <img alt="" src={plusIcon} />
-              </i>
-              <span>{menu?.plusItem || "아보카도"}</span>
-            </li>
-          </ul>
-          <ul>
-            <li className="figma-order-option figma-order-option--side">
-              <i aria-hidden="true">
-                <img alt="" src={chipBagIcon} />
-              </i>
-              <span>{menu?.sideItem || "item name"}</span>
-            </li>
-            <li className="figma-order-option figma-order-option--drink">
-              <i aria-hidden="true">
-                <img alt="" src={drinkIcon} />
-              </i>
-              <span>{menu?.drinkItem || "item name"}</span>
-            </li>
+            {options.map((option) => (
+              <li key={`${option.tone}-${option.label}`} className={optionClass(option.tone)}>
+                <i aria-hidden="true">
+                  <img alt="" src={optionIcon(option.tone)} />
+                </i>
+                <span>{option.label}</span>
+              </li>
+            ))}
           </ul>
         </div>
-      </section>
-    </>
+      ) : null}
+    </section>
   );
 }
-function StaticOrderCard({ number, type, wide = false }) {
+
+function StaticOrderCard({ order }) {
+  const number = order.orderNo;
+  const type = order.orderTypeLabel;
+  const wide = Boolean(order.wide);
+  const menus = order.menus ?? [];
+
   return (
     <article
       className={`figma-order-card${wide ? " figma-order-card--wide" : ""}`}
@@ -70,7 +78,7 @@ function StaticOrderCard({ number, type, wide = false }) {
     >
       <header className="figma-order-card__header">
         <strong>{number}</strong>
-        <time>00:00:00</time>
+        <time>{order.elapsedSec != null ? `${order.elapsedSec}초` : "00:00:00"}</time>
       </header>
       <span
         className={`figma-order-card__type${type === "포장" ? " figma-order-card__type--takeout" : ""}`}
@@ -78,15 +86,16 @@ function StaticOrderCard({ number, type, wide = false }) {
         {type}
       </span>
       <div className="figma-order-card__menus">
-        <StaticMenuCard />
-        <StaticMenuCard />
-        <StaticMenuCard />
+        {menus.map((menu, index) => (
+          <StaticMenuCard key={`${order.orderId}-${index}`} menu={menu} />
+        ))}
       </div>
       <footer className="figma-order-card__footer">
         <div className="figma-order-card__total">
           <span>총액</span>
           <strong>
-            0<em>원</em>
+            {(order.totalPrice ?? 0).toLocaleString()}
+            <em>원</em>
           </strong>
         </div>
         <div className="figma-order-card__actions">
@@ -101,7 +110,10 @@ function StaticOrderCard({ number, type, wide = false }) {
     </article>
   );
 }
+
 export default function LiveOrderPreview() {
+  const orders = getLiveOrders().data.content;
+
   return (
     <section
       className="live-order-preview"
@@ -117,7 +129,7 @@ export default function LiveOrderPreview() {
             <h1>주문 현황</h1>
             <p>조리 완료 처리 및 TTS 알림을 관리합니다.</p>
           </div>
-          <time>현재 시각: 14:30:15</time>
+          <time>현재 시각: {new Date().toLocaleTimeString()}</time>
         </div>
       </header>
       <main className="live-order-preview__content">
@@ -125,15 +137,14 @@ export default function LiveOrderPreview() {
           ‹
         </button>
         <div className="live-order-preview__board">
-          <StaticOrderCard number="#1325" type="매장" />
-          <StaticOrderCard number="#248" type="매장" />
-          <StaticOrderCard number="#2318" type="매장" />
-          <StaticOrderCard number="#2518" type="포장" wide />
-        </div>     
+          {orders.map((order) => (
+            <StaticOrderCard key={order.orderId} order={order} />
+          ))}
+        </div>
         <button type="button" className="live-order-preview__arrow" disabled aria-label="다음 주문">
           ›
-        </button>        
+        </button>
       </main>
-    </section>  
+    </section>
   );
 }

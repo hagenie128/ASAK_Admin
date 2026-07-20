@@ -25,6 +25,8 @@ import { isAdminLoggedIn } from "../auth/adminSession.js";
  * Canonical 문서의 `/orders/live`와 코드 `/`는 아직 불일치(WBS2-033).
  * 실행 정본은 이 파일의 코드 경로다.
  */
+// TODO: OrderDetailPage 라우트 연결 (WBS2-036)
+// TODO: Canonical 경로와 사이드바·문서 정렬 (WBS2-033)
 
 function AdminScreen({ title, screenId }) {
   return (

@@ -1,9 +1,12 @@
 /*
  * SCR-016 / Menu Management / Default (Figma node 134:12137)
+ * 목록+상세 정적 UI.
  *
- * 좌측 목록(980) + 우측 상세 패널(700)의 정적 UI만 담는다.
- * 메뉴 조회, 검색, 카테고리 필터, 등록·수정·삭제는 이후 메뉴 query/mutation이 소유한다.
+ * mock: getAdminMenus({ keyword?, onlyActive? }).data.content[]
+ *   row: menuId, categoryId, categoryName, name, price, isSoldOut, isActive
+ * 표: public/mocks/README.md §5
  */
+// TODO: getAdminMenus로 목록·검색 연결 (WBS2-039)
 import ricottaImage from "../../assets/figma/soldout-ricotta.png";
 import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
 

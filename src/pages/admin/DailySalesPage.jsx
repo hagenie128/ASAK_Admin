@@ -1,4 +1,13 @@
-/* SCR-021 / Daily Sales / Default */
+/*
+ * SCR-021 / Daily Sales / Default
+ *
+ * mock: getDailySales().data
+ *   from, to
+ *   rows[{ date, orderCount, totalAmount, avgAmount }]
+ *   totals
+ * 표: public/mocks/README.md §7
+ */
+// TODO: getDailySales + 날짜 필터 연결 (WBS2-043)
 import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
 
 function PaymentShareRows() { return <><div className="sales-share-card__row"><p><span>카드</span><b>67%</b></p><i><em className="is-primary" style={{ width: "67%" }} /></i></div><div className="sales-share-card__row"><p><span>카카오페이</span><b>33%</b></p><i><em style={{ width: "33%" }} /></i></div><div className="sales-share-card__row"><p><span>현금</span><b>0%</b></p><i><em style={{ width: "0%" }} /></i></div></>; }
