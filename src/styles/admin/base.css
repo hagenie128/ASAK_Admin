@@ -180,6 +180,10 @@ a {
   min-height: 100vh;
 }
 
+.admin-app--tablet {
+  grid-template-columns: var(--admin-sidebar-compact-width) minmax(0, 1fr);
+}
+
 .admin-sidebar {
   min-height: 100vh;
   padding: 0 20px 28px;

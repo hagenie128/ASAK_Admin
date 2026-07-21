@@ -237,39 +237,31 @@
   font-weight: 700;
 }
 
+/* Tablet 변형은 AdminLayout matchMedia → AdminSidebar model="Tablet" + .admin-app--tablet 로 처리.
+ * Desktop 강제 시에도 좁은 뷰에서 깨지지 않도록 desktop 마크업용 폴백만 유지. */
 @media (max-width: 1280px) {
-  .admin-app {
-    grid-template-columns: var(--admin-sidebar-compact-width) minmax(0, 1fr);
+  .admin-sidebar--desktop .admin-sidebar__brand-full {
+    display: none;
   }
-  .admin-sidebar {
-    padding: 14px;
+  .admin-sidebar--desktop .admin-sidebar__brand-mark {
+    display: block;
   }
-  .admin-sidebar__brand-full {
-    display: none !important;
+  .admin-sidebar--desktop .admin-sidebar__nav a span,
+  .admin-sidebar--desktop .admin-sidebar__caret-button,
+  .admin-sidebar--desktop .admin-sidebar__subitem,
+  .admin-sidebar--desktop .admin-sidebar__promo {
+    display: none;
   }
-  .admin-sidebar__brand-mark {
-    display: block !important;
-  }
-  .admin-sidebar__nav a {
+  .admin-sidebar--desktop .admin-sidebar__nav a {
     justify-content: center;
     padding: 10px;
   }
-  .admin-sidebar__nav a span,
-  .admin-sidebar__caret-button {
-    display: none;
-  }
-  /* 아이콘 rail에서는 라벨이 없어 하위 항목을 구분할 수 없으므로 접는다. */
-  .admin-sidebar__subitem,
-  .admin-sidebar__promo,
-  .admin-sidebar__footer {
-    display: none;
-  }
-  .admin-sidebar__logout {
+  .admin-sidebar--desktop .admin-sidebar__logout {
     min-width: 0;
     justify-content: center;
     padding: 10px;
   }
-  .admin-sidebar__logout span {
+  .admin-sidebar--desktop .admin-sidebar__logout span {
     display: none;
   }
 }
@@ -278,7 +270,7 @@
   .admin-app {
     grid-template-columns: 1fr;
   }
-  .admin-sidebar {
+  .admin-sidebar:not(.admin-sidebar--logo) {
     min-height: auto;
     padding: 8px 16px;
     flex-direction: row;

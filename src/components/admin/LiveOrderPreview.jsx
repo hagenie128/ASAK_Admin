@@ -1,11 +1,10 @@
 import { useState } from "react";
-import asakSLogo from "../../assets/svg/logo-S.svg";
 import plusIcon from "../../assets/figma/icon-order-plus.svg";
 import excludeIcon from "../../assets/figma/icon-order-exclude.svg";
 import chipBagIcon from "../../assets/figma/icon-order-side.svg";
 import drinkIcon from "../../assets/figma/icon-order-drink.svg";
 import { getLiveOrders, completeOrder, cancelOrder } from "../../mocks/adminMockRepository.js";
-import { useNavigate } from "react-router-dom";
+import AdminSidebar from "./AdminSidebar.jsx";
 
 /* SCR-009 / Live Order / Default
  * mock props: getLiveOrders().data.content[]
@@ -120,6 +119,7 @@ export default function LiveOrderPreview() {
     if (action === "complete") {
       completeOrder(orderId);
     } else if (action === "cancel") {
+      if (!confirm("주문을 취소하시겠습니까?")) return;
       cancelOrder(orderId);
     }
     setOrders(getLiveOrders().data.content);
@@ -136,9 +136,7 @@ export default function LiveOrderPreview() {
       data-figma-node="235:6361"
     >
       <header className="live-order-preview__topbar" data-figma-node="235:6372">
-        <div className="live-order-preview__logo" aria-label="ASAK">
-          <img alt="ASAK" src={asakSLogo} onClick={() => useNavigate("/")} />
-        </div>
+        <AdminSidebar model="logo" />
         <div className="live-order-preview__heading">
           <div className="live-order-preview__title-group">
             <h1>주문 현황</h1>
@@ -163,11 +161,17 @@ export default function LiveOrderPreview() {
         <button type="button" className="live-order-preview__arrow" disabled aria-label="이전 주문">
           ‹
         </button>
-        <div className="live-order-preview__board">
-          {visibleOrders.map((order) => (
-            <StaticOrderCard key={order.orderId} order={order} onAction={handleOrder} />
-          ))}
-        </div>
+        {visibleOrders.length > 0 ? (
+          <div className="live-order-preview__board">
+            {visibleOrders.map((order) => (
+              <StaticOrderCard key={order.orderId} order={order} onAction={handleOrder} />
+            ))}
+          </div>
+        ) : (
+          <div className="live-order-preview__board">
+            <p>주문이 없습니다.</p>
+          </div>
+        )}
         <button type="button" className="live-order-preview__arrow" disabled aria-label="다음 주문">
           ›
         </button>
