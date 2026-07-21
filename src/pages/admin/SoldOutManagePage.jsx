@@ -1,13 +1,8 @@
 /*
- * SCR-011 / Sold-out Management / Default (Figma node 134:11863)
- * 좌우 패널 정적 UI. draft/저장은 useSoldOutDraft 소유.
- *
- * mock: getSoldOutCatalog().data
- *   available[] | soldOut[] 동일 row:
- *     targetType, targetId, name, category, isSoldOut, imageKey, price
- * 표: public/mocks/README.md §4
+ * SCR-011 / Sold-out Management
+ * getSoldOutCatalog() → useSoldOutDraft
  */
-// TODO: getSoldOutCatalog + useSoldOutDraft로 draft/저장, 실패 시 롤백 (WBS2-038)
+import { useMemo, useState } from "react";
 import chickenImage from "../../assets/figma/soldout-chicken.png";
 import pastaImage from "../../assets/figma/soldout-pasta.png";
 import ricottaImage from "../../assets/figma/soldout-ricotta.png";
@@ -15,42 +10,50 @@ import salmonImage from "../../assets/figma/soldout-salmon.png";
 import sandwichImage from "../../assets/figma/soldout-sandwich.png";
 import tomatoImage from "../../assets/figma/soldout-tomato.png";
 import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
+import AdminPagination from "../../components/admin/AdminPagination.jsx";
+import { soldOutRowKey, useSoldOutDraft } from "../../hooks/useSoldOutDraft.js";
+import { usePagination } from "../../hooks/usePagination.js";
+import { toast } from "../../utils/toast.js";
 
 const TABS = ["메뉴", "재료", "옵션 선택지"];
-const CHIPS = ["전체", "샐러드", "샌드위치", "웜볼", "랩", "사이드", "음료"];
+const SOLD_OUT_PAGE_SIZE = 12;
 
-// [이름, 카테고리, 이미지, 선택여부]
-const availableItems = [
-  ["리코타 샐러드", "샐러드", ricottaImage, true],
-  ["연어 포케볼", "샐러드", salmonImage, false],
-  ["그릭 샐러드", "샐러드", tomatoImage, true],
-  ["치킨 클럽 샌드위치", "샌드위치", sandwichImage, false],
-  ["에그 베네딕트", "샌드위치", chickenImage, false],
-  ["불고기 웜볼", "웜볼", pastaImage, false],
-  ["치킨 시저 랩", "랩", salmonImage, false],
-  ["고구마 프라이", "사이드", sandwichImage, false],
-  ["오렌지 주스", "음료", ricottaImage, false],
-];
+const IMAGE_BY_KEY = {
+  chicken: chickenImage,
+  pasta: pastaImage,
+  ricotta: ricottaImage,
+  salmon: salmonImage,
+  sandwich: sandwichImage,
+  tomato: tomatoImage,
+};
 
-const soldOutItems = [
-  ["레몬에이드", "음료", tomatoImage],
-  ["바질 페스토 파스타", "웜볼", pastaImage],
-  ["베이컨 랩", "랩", salmonImage],
-  ["퀴노아 샐러드", "샐러드", sandwichImage],
-];
+function ItemCard({ item, checked, onToggle, soldOut = false }) {
+  const image = IMAGE_BY_KEY[item.imageKey] ?? chickenImage;
 
-function ItemCard({ name, category, image, checked = false, soldOut = false }) {
   return (
-    <article className={`sold-out-card${checked ? " is-checked" : ""}`}>
+    <article
+      className={`sold-out-card${checked ? " is-checked" : ""}`}
+      role="checkbox"
+      aria-checked={checked}
+      aria-label={`${item.name} 선택`}
+      tabIndex={0}
+      onClick={onToggle}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onToggle();
+        }
+      }}
+    >
       <div className="sold-out-card__image">
         <img src={image} alt="" />
-        <input type="checkbox" checked={checked || soldOut} readOnly disabled aria-label={`${name} 선택`} />
+        <input type="checkbox" checked={checked} readOnly tabIndex={-1} aria-hidden="true" />
       </div>
       <div className="sold-out-card__info">
-        <strong>{name}</strong>
+        <strong>{item.name}</strong>
         <div className="sold-out-card__chips">
-          <span className="sold-out-chip">{category}</span>
-          {soldOut && <span className="sold-out-chip sold-out-chip--danger">품절</span>}
+          <span className="sold-out-chip">{item.category}</span>
+          {soldOut ? <span className="sold-out-chip sold-out-chip--danger">품절</span> : null}
         </div>
       </div>
     </article>
@@ -58,6 +61,44 @@ function ItemCard({ name, category, image, checked = false, soldOut = false }) {
 }
 
 export default function SoldOutManagePage() {
+  const draft = useSoldOutDraft();
+  const [selectedCategory, setSelectedCategory] = useState("전체");
+
+  const categories = useMemo(() => {
+    const names = new Set(draft.available.map((row) => row.category).filter(Boolean));
+    return ["전체", ...names];
+  }, [draft.available]);
+
+  const filteredAvailable = useMemo(() => {
+    if (selectedCategory === "전체") return draft.available;
+    return draft.available.filter((row) => row.category === selectedCategory);
+  }, [draft.available, selectedCategory]);
+
+  const availablePage = usePagination(filteredAvailable, { pageSize: SOLD_OUT_PAGE_SIZE });
+  const soldOutPage = usePagination(draft.soldOut, { pageSize: SOLD_OUT_PAGE_SIZE });
+
+  function handleCategoryChange(name) {
+    setSelectedCategory(name);
+    availablePage.resetPage();
+  }
+
+  async function handleSave() {
+    const result = await draft.save();
+    if (result.success) {
+      toast.success(result.message || "저장되었습니다.");
+    } else {
+      toast.error(result.message || "저장에 실패했습니다.");
+    }
+  }
+
+  if (draft.status === "loading") {
+    return (
+      <section className="sold-out-management">
+        <AdminTopHeader crumb="Admin / 품절 관리" title="품절 관리" description="불러오는 중…" />
+      </section>
+    );
+  }
+
   return (
     <section className="sold-out-management" data-figma-node="241:14211">
       <AdminTopHeader
@@ -65,77 +106,192 @@ export default function SoldOutManagePage() {
         title="품절 관리"
         description="메뉴, 재료, 옵션의 판매 상태를 관리하세요."
       />
-
       <div className="sold-out-management__workspace">
-        <section className="sold-out-panel" aria-label="판매 항목">
-          <div className="sold-out-panel__controls">
-            <div className="sold-out-tabs" aria-label="항목 유형">
-              {TABS.map((label, index) => (
-                <button key={label} type="button" disabled className={index === 0 ? "is-selected" : ""}>
-                  {label}
-                </button>
-              ))}
-            </div>
-            <label className="sold-out-search">
-              <span className="sr-only">이름으로 검색</span>
-              <input value="" placeholder="이름으로 검색..." readOnly disabled />
-              <i aria-hidden="true" />
-            </label>
-          </div>
-
-          <div className="sold-out-chips" aria-label="카테고리">
-            {CHIPS.map((category, index) => (
-              <button key={category} type="button" disabled className={index === 0 ? "is-selected" : ""}>
-                {category}
-              </button>
-            ))}
-          </div>
-
-          <div className="sold-out-panel__title">
-            <strong>전체 항목</strong>
-            <span>12</span>
-          </div>
-
-          <div className="sold-out-grid">
-            {availableItems.map(([name, category, image, checked]) => (
-              <ItemCard key={name} name={name} category={category} image={image} checked={checked} />
-            ))}
-          </div>
-        </section>
-
+        <AvailablePanel
+          items={availablePage.pageItems}
+          totalCount={availablePage.totalElements}
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onCategoryChange={handleCategoryChange}
+          selectedKeys={draft.selectedAvailable}
+          onToggle={draft.toggleAvailableSelect}
+          pagination={availablePage}
+        />
         <div className="sold-out-transfer" aria-label="항목 이동">
-          <button type="button" disabled className="is-primary" aria-label="품절 목록으로 이동">
+          <button
+            type="button"
+            className="is-primary"
+            disabled={!draft.canMoveToSoldOut}
+            aria-label="품절 목록으로 이동"
+            onClick={draft.moveToSoldOut}
+          >
             →
           </button>
-          <button type="button" disabled aria-label="전체 항목으로 이동">
+          <button
+            type="button"
+            disabled={!draft.canMoveToAvailable}
+            aria-label="전체 항목으로 이동"
+            onClick={draft.moveToAvailable}
+          >
             ←
           </button>
         </div>
+        <SoldOutPanel
+          items={soldOutPage.pageItems}
+          totalCount={soldOutPage.totalElements}
+          dirtyCount={draft.dirtyCount}
+          canSave={draft.canSave}
+          isSaving={draft.isSaving}
+          selectedKeys={draft.selectedSoldOut}
+          onToggle={draft.toggleSoldOutSelect}
+          onSelectPage={draft.selectSoldOutPage}
+          onClearSelection={draft.clearSoldOutSelection}
+          onSave={handleSave}
+          pagination={soldOutPage}
+        />
+      </div>
+    </section>
+  );
+}
 
-        <section className="sold-out-panel sold-out-panel--selected" aria-label="품절 항목">
-          <div className="sold-out-panel__controls sold-out-panel__controls--selected">
-            <div className="sold-out-panel__title">
-              <strong>품절 목록</strong>
-              <span>4</span>
-            </div>
-            <button type="button" disabled className="sold-out-clear">
-              전체 해제
+function AvailablePanel({
+  items,
+  totalCount,
+  categories,
+  selectedCategory,
+  onCategoryChange,
+  selectedKeys,
+  onToggle,
+  pagination,
+}) {
+  return (
+    <section className="sold-out-panel" aria-label="판매 항목">
+      <div className="sold-out-panel__controls">
+        <div className="sold-out-tabs" aria-label="항목 유형">
+          {TABS.map((label, index) => (
+            <button key={label} type="button" disabled className={index === 0 ? "is-selected" : ""}>
+              {label}
             </button>
-          </div>
+          ))}
+        </div>
+        <label className="sold-out-search">
+          <span className="sr-only">이름으로 검색</span>
+          <input value="" placeholder="이름으로 검색..." readOnly disabled />
+          <i aria-hidden="true" />
+        </label>
+      </div>
 
-          <div className="sold-out-grid">
-            {soldOutItems.map(([name, category, image]) => (
-              <ItemCard key={name} name={name} category={category} image={image} soldOut />
-            ))}
-          </div>
+      <div className="sold-out-chips" aria-label="카테고리">
+        {categories.map((category) => (
+          <button
+            key={category}
+            type="button"
+            className={category === selectedCategory ? "is-selected" : ""}
+            onClick={() => onCategoryChange(category)}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
 
-          <div className="sold-out-save">
-            <span className="sold-out-save__badge">변경사항 3건</span>
-            <button type="button" disabled>
-              변경사항 저장
-            </button>
-          </div>
-        </section>
+      <div className="sold-out-panel__title">
+        <strong>전체 항목</strong>
+        <span>{totalCount}</span>
+      </div>
+
+      <div className="sold-out-grid">
+        {items.map((item) => {
+          const key = soldOutRowKey(item);
+          return (
+            <ItemCard
+              key={key}
+              item={item}
+              checked={selectedKeys.has(key)}
+              onToggle={() => onToggle(key)}
+            />
+          );
+        })}
+      </div>
+
+      <AdminPagination
+        className="sold-out-panel__pagination"
+        page={pagination.page}
+        pageSize={pagination.pageSize}
+        totalElements={pagination.totalElements}
+        onPageChange={pagination.goToPage}
+      />
+    </section>
+  );
+}
+
+function SoldOutPanel({
+  items,
+  totalCount,
+  dirtyCount,
+  canSave,
+  isSaving,
+  selectedKeys,
+  onToggle,
+  onSelectPage,
+  onClearSelection,
+  onSave,
+  pagination,
+}) {
+  const hasSelection = selectedKeys.size > 0;
+
+  function handleToggleAll() {
+    if (hasSelection) {
+      onClearSelection();
+      return;
+    }
+    onSelectPage(items);
+  }
+
+  return (
+    <section className="sold-out-panel sold-out-panel--selected" aria-label="품절 항목">
+      <div className="sold-out-panel__controls sold-out-panel__controls--selected">
+        <div className="sold-out-panel__title">
+          <strong>품절 목록</strong>
+          <span>{totalCount}</span>
+        </div>
+        <button
+          type="button"
+          className="sold-out-clear"
+          disabled={!hasSelection && items.length === 0}
+          onClick={handleToggleAll}
+        >
+          {hasSelection ? "전체 해제" : "전체 선택"}
+        </button>
+      </div>
+
+      <div className="sold-out-grid">
+        {items.map((item) => {
+          const key = soldOutRowKey(item);
+          return (
+            <ItemCard
+              key={key}
+              item={item}
+              soldOut
+              checked={selectedKeys.has(key)}
+              onToggle={() => onToggle(key)}
+            />
+          );
+        })}
+      </div>
+
+      <AdminPagination
+        className="sold-out-panel__pagination"
+        page={pagination.page}
+        pageSize={pagination.pageSize}
+        totalElements={pagination.totalElements}
+        onPageChange={pagination.goToPage}
+      />
+
+      <div className="sold-out-save">
+        <span className="sold-out-save__badge">변경사항 {dirtyCount}건</span>
+        <button type="button" disabled={!canSave} onClick={onSave}>
+          {isSaving ? "저장 중…" : "변경사항 저장"}
+        </button>
       </div>
     </section>
   );

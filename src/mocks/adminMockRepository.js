@@ -18,6 +18,7 @@
 // TODO: 품절·결제수단·주문상태 PATCH/저장 stub + 실패 fixture 추가 (WBS2-037~040)
 import adminMock from "../../public/mocks/asak-admin-data.json";
 
+
 let liveOrders = clone(adminMock.liveOrders);
 
 function clone(value) {
@@ -97,6 +98,68 @@ export function getAdminOrderById(orderId) {
   };
 }
 
+/** 환불 stub — paymentStatus PAID → FAILED, orderStatus → CANCELLED */
+export function refundAdminOrder(orderId) {
+  const order = adminMock.orders.data.content.find((row) => row.orderId === Number(orderId));
+  if (!order) {
+    return {
+      success: false,
+      status: 404,
+      code: "ADMIN_ORDER_NOT_FOUND",
+      message: "주문을 찾을 수 없습니다.",
+      data: null,
+    };
+  }
+  if (order.paymentStatus !== "PAID") {
+    return {
+      success: false,
+      status: 400,
+      code: "ADMIN_ORDER_REFUND_NOT_ALLOWED",
+      message: "결제 완료된 주문만 환불할 수 있습니다.",
+      data: null,
+    };
+  }
+  order.paymentStatus = "FAILED";
+  order.orderStatus = "CANCELLED";
+  return {
+    success: true,
+    status: 200,
+    code: "ADMIN_ORDER_REFUND_SUCCESS",
+    message: "환불 처리가 완료되었습니다.",
+    data: clone(order),
+  };
+}
+
+/** 영수증 출력 stub — 상태 변경 없이 성공만 반환 */
+export function printAdminOrderReceipt(orderId) {
+  const order = adminMock.orders.data.content.find((row) => row.orderId === Number(orderId));
+  if (!order) {
+    return {
+      success: false,
+      status: 404,
+      code: "ADMIN_ORDER_NOT_FOUND",
+      message: "주문을 찾을 수 없습니다.",
+      data: null,
+    };
+  }
+  if (order.paymentStatus !== "PAID") {
+    return {
+      success: false,
+      status: 400,
+      code: "ADMIN_ORDER_RECEIPT_NOT_ALLOWED",
+      message: "결제 완료된 주문만 영수증을 출력할 수 있습니다.",
+      data: null,
+    };
+  }
+  return {
+    success: true,
+    status: 200,
+    code: "ADMIN_ORDER_RECEIPT_PRINT_SUCCESS",
+    message: "영수증 출력이 완료되었습니다.",
+    data: clone(order),
+  };
+}
+
 export function getLiveOrders() {
   return clone(liveOrders);
 }
@@ -109,8 +172,42 @@ export function getSoldOutCatalog() {
   return clone(adminMock.soldOut);
 }
 
+/** 품절 draft 저장 stub — 화면에서 옮긴 available / soldOut 을 mock에 반영 */
+export function saveSoldOutCatalog({ available = [], soldOut = [] } = {}) {
+  adminMock.soldOut.data.available = clone(available).map((row) => ({
+    ...row,
+    isSoldOut: false,
+  }));
+  adminMock.soldOut.data.soldOut = clone(soldOut).map((row) => ({
+    ...row,
+    isSoldOut: true,
+  }));
+  return {
+    success: true,
+    status: 200,
+    code: "SOLD_OUT_SAVE_SUCCESS",
+    message: "품절 변경사항이 저장되었습니다.",
+    data: clone(adminMock.soldOut.data),
+  };
+}
+
 export function getPaymentMethods() {
   return clone(adminMock.paymentMethods);
+}
+
+/** 결제수단 draft 저장 stub */
+export function savePaymentMethods(rows = []) {
+  adminMock.paymentMethods.data = clone(rows).map((row, index) => ({
+    ...row,
+    sortOrder: index + 1,
+  }));
+  return {
+    success: true,
+    status: 200,
+    code: "ADMIN_PAYMENT_METHOD_SAVE_SUCCESS",
+    message: "결제수단 설정이 저장되었습니다.",
+    data: clone(adminMock.paymentMethods.data),
+  };
 }
 
 export function getAdminMenus({ keyword = "", onlyActive } = {}) {

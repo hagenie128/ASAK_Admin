@@ -1,41 +1,186 @@
 import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
+import { formatCurrency } from "../../utils/currency.js";
+import { ORDER_TYPE_LABEL, ORDER_STATUS_LABEL } from "../../constants/orderLabels.js";
+import { useDashboard } from "../../hooks/useDashboard.js";
 
 /*
- * SCR-022 / Dashboard / Default
- *
- * mock: getDashboard().data
- *   dateLabel
- *   kpis[{ label, value, display }]
- *   recentOrders[{ orderNo, orderType, menuSummary, totalPrice, orderStatus, createdAtLabel }]
- *   statusSummary[{ label, count, tone }]  tone: waiting|preparing|complete|cancelled
- *   orderTypeSummary{ eatIn, takeOut }
- *   inventoryAlerts[{ label, badge, tone }]
- *   weeklySales[{ label, amount, barHeight, isCurrent? }]
- * 표: public/mocks/README.md §3
+ * SCR-022 / Dashboard
+ * getDashboard() → useDashboard
  */
-// TODO: getDashboard KPI·최근 주문 mock 연결 (WBS2-034)
 export default function DashboardPage() {
+  const { data, status } = useDashboard();
+
+  if (status === "loading" || !data) {
+    return (
+      <section className="admin-dashboard">
+        <AdminTopHeader crumb="Admin / 대시보드" title="대시보드" description="불러오는 중…" />
+      </section>
+    );
+  }
+
+  const trendStats = buildWeeklyTrendStats(data.weeklySales);
+
   return (
-    <section className="admin-dashboard" aria-label="대시보드 정적 미리보기">
-      <AdminTopHeader crumb="Admin / 대시보드" title="대시보드" description="오늘의 매출 현황 및 핵심 지표"><div className="admin-dashboard__date"><b>오늘</b><span>2026.07.10</span></div></AdminTopHeader>
-      <div className="admin-dashboard__kpis"><article><span>오늘 매출</span><strong>392,500원</strong></article><article><span>결제 승인</span><strong>36건</strong></article><article><span>객단가</span><strong>10,903원</strong></article><article><span>현재 대기 주문</span><strong>1건</strong></article></div>
+    <section className="admin-dashboard" aria-label="대시보드">
+      <AdminTopHeader crumb="Admin / 대시보드" title="대시보드" description="오늘의 매출 현황 및 핵심 지표">
+        <div className="admin-dashboard__date">
+          <b>오늘</b>
+          <span>{data.dateLabel}</span>
+        </div>
+      </AdminTopHeader>
+      <div className="admin-dashboard__kpis">
+        {data.kpis.map((kpi) => (
+          <article key={kpi.label}>
+            <span>{kpi.label}</span>
+            <strong>{kpi.display}</strong>
+          </article>
+        ))}
+      </div>
       <div className="admin-dashboard__middle">
-        <section className="dashboard-panel dashboard-orders"><h2>최근 주문</h2><div className="dashboard-orders__table"><div className="dashboard-orders__head"><span>주문번호</span><span>유형</span><span>메뉴</span><span>금액</span><span>상태</span><span>시간</span></div>
-          <div className="dashboard-orders__row"><b>A-003</b><span>포장</span><span>로스트닭다리살 샐러드</span><span>9,900원</span><em className="dashboard-status dashboard-status--waiting">대기</em><span>오전 9:05</span></div>
-          <div className="dashboard-orders__row"><b>A-1024</b><span>매장</span><span>로스트닭다리살 샐러드 외 3건</span><span>128,800원</span><em className="dashboard-status dashboard-status--preparing">조리중</em><span>오후 12:48</span></div>
-          <div className="dashboard-orders__row"><b>A-001</b><span>포장</span><span>탄단지 샐러디</span><span>11,400원</span><em className="dashboard-status dashboard-status--complete">완료</em><span>오후 1:03</span></div>
-        </div></section>
-        <section className="dashboard-panel dashboard-status-summary"><h2>주문 상태 요약</h2>
-          <div className="dashboard-status-summary__row"><p><span>대기</span><b>1건</b></p><i><em className="dashboard-status-fill dashboard-status-fill--waiting" style={{ width: "6.9915254237%" }} /></i></div>
-          <div className="dashboard-status-summary__row"><p><span>조리중</span><b>1건</b></p><i><em className="dashboard-status-fill dashboard-status-fill--preparing" style={{ width: "12.0762711864%" }} /></i></div>
-          <div className="dashboard-status-summary__row"><p><span>완료</span><b>1건</b></p><i><em className="dashboard-status-fill dashboard-status-fill--complete" style={{ width: "80.9322033898%" }} /></i></div>
-          <div className="dashboard-order-type"><div><span>매장</span><b>1건</b></div><div><span>포장</span><b>2건</b></div></div>
-        </section>
+        <RecentOrders orders={data.recentOrders} />
+        <StatusSummary
+          statusSummary={data.statusSummary}
+          orderTypeSummary={data.orderTypeSummary}
+        />
       </div>
       <div className="admin-dashboard__bottom">
-        <section className="dashboard-panel dashboard-inventory"><h2>품절 / 재고 알림</h2><div className="dashboard-inventory__row"><span>타코 쉬림프 포케볼</span><b className="dashboard-badge dashboard-badge--danger">품절</b></div><div className="dashboard-inventory__row"><span>아보카도 추가</span><b className="dashboard-badge dashboard-badge--normal">기본</b></div><div className="dashboard-inventory__row"><span>추가 품절 없음</span><b className="dashboard-badge dashboard-badge--normal">기본</b></div><p className="dashboard-inventory__note">품절 항목은 키오스크에서 자동 비활성화됩니다</p></section>
-        <section className="dashboard-panel dashboard-trend"><h2>매출 추이 요약</h2><div className="dashboard-trend__chart"><div><i style={{ height: "113px" }} /><span>8일</span></div><div><i style={{ height: "102px" }} /><span>9일</span></div><div><i style={{ height: "137px" }} /><span>10일</span></div><div><i style={{ height: "124px" }} /><span>—</span></div><div><i className="is-current" style={{ height: "136px" }} /><span>—</span></div></div><div className="dashboard-trend__stats"><div><span>이번 주 매출</span><b>1,186,900원</b></div><div><span>일 평균</span><b>395,633원</b></div><div><span>전주 대비</span><b className="is-down">↓ 17.0%</b></div></div></section>
+        <InventoryAlerts alerts={data.inventoryAlerts} />
+        <WeeklyTrend weeklySales={data.weeklySales} stats={trendStats} />
       </div>
     </section>
   );
+}
+
+const STATUS_CLASS = {
+  RECEIVED: "waiting",
+  PREPARING: "preparing",
+  COMPLETED: "complete",
+  CANCELLED: "cancelled",
+};
+
+function RecentOrders({ orders = [] }) {
+  return (
+    <section className="dashboard-panel dashboard-orders">
+      <h2>최근 주문</h2>
+      <div className="dashboard-orders__table">
+        <div className="dashboard-orders__head">
+          <span>주문번호</span>
+          <span>유형</span>
+          <span>메뉴</span>
+          <span>금액</span>
+          <span>상태</span>
+          <span>시간</span>
+        </div>
+        {orders.slice(0, 3).map((order) => (
+          <div key={order.orderNo} className="dashboard-orders__row">
+            <b>{order.orderNo}</b>
+            <span>{ORDER_TYPE_LABEL[order.orderType] ?? order.orderType}</span>
+            <span>{order.menuSummary}</span>
+            <span>{formatCurrency(order.totalPrice)}</span>
+            <em
+              className={`dashboard-status dashboard-status--${STATUS_CLASS[order.orderStatus] ?? "waiting"}`}
+            >
+              {ORDER_STATUS_LABEL[order.orderStatus] ?? order.orderStatus}
+            </em>
+            <span>{order.createdAtLabel}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function StatusSummary({ statusSummary = [], orderTypeSummary = {} }) {
+  const total = statusSummary.reduce((sum, row) => sum + row.count, 0) || 1;
+
+  return (
+    <section className="dashboard-panel dashboard-status-summary">
+      <h2>주문 상태 요약</h2>
+      {statusSummary.map((row) => (
+        <div key={row.label} className="dashboard-status-summary__row">
+          <p>
+            <span>{row.label}</span>
+            <b>{row.count}건</b>
+          </p>
+          <i>
+            <em
+              className={`dashboard-status-fill dashboard-status-fill--${row.tone}`}
+              style={{ width: `${(row.count / total) * 100}%` }}
+            />
+          </i>
+        </div>
+      ))}
+      <div className="dashboard-order-type">
+        <div>
+          <span>매장</span>
+          <b>{orderTypeSummary.eatIn ?? 0}건</b>
+        </div>
+        <div>
+          <span>포장</span>
+          <b>{orderTypeSummary.takeOut ?? 0}건</b>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function InventoryAlerts({ alerts = [] }) {
+  return (
+    <section className="dashboard-panel dashboard-inventory">
+      <h2>품절 / 재고 알림</h2>
+      {alerts.map((alert) => (
+        <div key={alert.label} className="dashboard-inventory__row">
+          <span>{alert.label}</span>
+          <b className={`dashboard-badge dashboard-badge--${alert.tone}`}>{alert.badge}</b>
+        </div>
+      ))}
+      <p className="dashboard-inventory__note">품절 항목은 키오스크에서 자동 비활성화됩니다</p>
+    </section>
+  );
+}
+
+function WeeklyTrend({ weeklySales = [], stats = {} }) {
+  return (
+    <section className="dashboard-panel dashboard-trend">
+      <h2>매출 추이 요약</h2>
+      <div className="dashboard-trend__chart">
+        {weeklySales.map((bar, index) => (
+          <div key={`${bar.label}-${index}`}>
+            <i
+              className={bar.isCurrent ? "is-current" : ""}
+              style={{ height: `${bar.barHeight}px` }}
+            />
+            <span>{bar.label}</span>
+          </div>
+        ))}
+      </div>
+      <div className="dashboard-trend__stats">
+        <div>
+          <span>이번 주 매출</span>
+          <b>{stats.weekTotal ?? "-"}</b>
+        </div>
+        <div>
+          <span>일 평균</span>
+          <b>{stats.dailyAverage ?? "-"}</b>
+        </div>
+        <div>
+          <span>전주 대비</span>
+          <b className={stats.weekDeltaTone === "down" ? "is-down" : ""}>{stats.weekDelta ?? "-"}</b>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function buildWeeklyTrendStats(weeklySales = []) {
+  const amounts = weeklySales.map((row) => row.amount).filter((value) => value > 0);
+  const weekTotal = amounts.reduce((sum, value) => sum + value, 0);
+  const dailyAverage = amounts.length ? Math.round(weekTotal / amounts.length) : 0;
+
+  return {
+    weekTotal: formatCurrency(weekTotal),
+    dailyAverage: formatCurrency(dailyAverage),
+    weekDelta: "—",
+    weekDeltaTone: "neutral",
+  };
 }

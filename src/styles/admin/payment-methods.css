@@ -138,8 +138,20 @@
   padding: 4px 4px 4px 24px;
   display: flex;
   align-items: center;
+  border: 0;
   border-radius: 14px;
   background: #6c9700;
+  cursor: pointer;
+}
+
+.payment-toggle--off {
+  padding: 4px 24px 4px 4px;
+  background: #d1d5db;
+}
+
+.payment-toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .payment-toggle i {
@@ -147,6 +159,7 @@
   height: 20px;
   border-radius: 50%;
   background: #ffffff;
+  pointer-events: none;
 }
 
 /* PoliciesSection (134:11563) */

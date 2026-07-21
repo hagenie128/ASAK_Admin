@@ -1,19 +1,13 @@
 /*
- * SCR-019 / Sales Summary / Default (Figma node 134:10661)
- * 정적 플레이스홀더. API/기간 계산은 sales adapter 소유.
- *
- * mock: getSalesSummary(period)  period: today|week|month|empty|partial
- *   data: period, label, dateRange, kpis, chartBars, paymentShare, orderShare,
- *         ranking, availablePeriods
- * 표: public/mocks/README.md §7
+ * SCR-019 / Sales Summary
  */
-// TODO: getSalesSummary + 기간 필터, empty/error 구분 (WBS2-041)
 import calendarIcon from "../../assets/figma/icon-calendar.svg";
 import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
 
 const PERIODS = ["오늘", "이번 주", "이번 달"];
 const ACTIVE_PERIOD = "이번 달";
 const DATE_RANGE = "2025.02.01 ~ 2025.02.28";
+const BREAKDOWN_TRACK = 400;
 
 const kpis = [
   ["오늘 총매출", "392,500원", "↓ 18.5%", "전일 대비"],
@@ -21,13 +15,9 @@ const kpis = [
   ["평균 객단가", "10,903원", "↓ 4.9%", "전일 대비"],
 ];
 
-// Figma Admin/HourlySalesChart (534:20933) — 막대 높이는 시안 실측값(px)이다.
 const chartBars = [40, 30, 45, 60, 50, 35, 25, 20, 15, 10, 5, 5];
-const PEAK_BAR_INDEX = 3;
 const chartTicks = ["10시", "12시", "14시", "16시", "18시", "20시", "21시"];
 
-// Figma Admin/AnalyticsBreakdownCard (551:19921) — fill 너비는 시안의 px 값이다.
-const BREAKDOWN_TRACK = 400;
 const paymentShare = [
   ["카드", "67%", 288, true],
   ["카카오페이", "33%", 60, false],
@@ -46,7 +36,6 @@ const dailyRows = [
   ["—", "—", "—", "—"],
 ];
 
-// Figma Admin/RankingCard (551:74185) — 제목은 TOP 4지만 5행(마지막은 빈 자리)이다.
 const ranking = [
   ["1", "탄단지 샐러디", "11건", "97,900원"],
   ["2", "우삼겹 포케볼", "8건", "87,200원"],
@@ -79,12 +68,10 @@ function BreakdownCard({ title, rows }) {
   );
 }
 
-export default function SalesSummaryPage({ view = "summary" }) {
-  const title = view === "daily" ? "일별 매출" : view === "monthly" ? "월별 매출" : "매출 요약";
-
+export default function SalesSummaryPage() {
   return (
     <section className="sales-summary">
-      <AdminTopHeader crumb="Admin / 매출 관리" title={title} description="전체 매출 현황 및 핵심 지표">
+      <AdminTopHeader crumb="Admin / 매출 관리" title="매출 요약" description="전체 매출 현황 및 핵심 지표">
         <div className="sales-summary__filters">
           {PERIODS.map((period) => (
             <button
@@ -124,7 +111,7 @@ export default function SalesSummaryPage({ view = "summary" }) {
               {chartBars.map((height, index) => (
                 <i
                   key={index}
-                  className={index === PEAK_BAR_INDEX ? "is-peak" : ""}
+                  className={index === 3 ? "is-peak" : ""}
                   style={{ height: `${height}px` }}
                 />
               ))}

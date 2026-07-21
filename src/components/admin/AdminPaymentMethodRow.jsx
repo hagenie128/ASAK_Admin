@@ -1,11 +1,58 @@
 /*
  * 결제수단 행 (SCR-018)
- *
- * mock: getPaymentMethods().data[]
- *   methodId, name, description, isActive, isMaintenance, sortOrder
- * Props 후보: method, onToggle, onMoveUp, onMoveDown, disabled
- * 표: public/mocks/README.md §6
+ * mock: getPaymentMethods().data[] — methodId, name, description, isActive, sortOrder
  */
-export default function AdminPaymentMethodRow() {
-  return null;
+import arrowUpIcon from "../../assets/figma/icon-arrow-up.svg";
+import arrowDownIcon from "../../assets/figma/icon-arrow-down.svg";
+import { getPaymentMethodGlyph } from "../../constants/paymentMethodGlyphs.js";
+
+export default function AdminPaymentMethodRow({
+  method,
+  onToggle,
+  onMoveUp,
+  onMoveDown,
+  canMoveUp = false,
+  canMoveDown = false,
+  disabled = false,
+}) {
+  return (
+    <article className="payment-method-row">
+      <span className="payment-method-row__icon" aria-hidden="true">
+        {getPaymentMethodGlyph(method.methodId)}
+      </span>
+      <div className="payment-method-row__info">
+        <strong>{method.name}</strong>
+        <span>{method.description}</span>
+      </div>
+      <div className="payment-method-row__reorder">
+        <button
+          type="button"
+          disabled={disabled || !canMoveUp}
+          aria-label={`${method.name} 위로 이동`}
+          onClick={onMoveUp}
+        >
+          <img alt="" aria-hidden="true" src={arrowUpIcon} />
+        </button>
+        <button
+          type="button"
+          disabled={disabled || !canMoveDown}
+          aria-label={`${method.name} 아래로 이동`}
+          onClick={onMoveDown}
+        >
+          <img alt="" aria-hidden="true" src={arrowDownIcon} />
+        </button>
+      </div>
+      <button
+        type="button"
+        className={`payment-toggle${method.isActive ? "" : " payment-toggle--off"}`}
+        role="switch"
+        aria-checked={method.isActive}
+        aria-label={`${method.name} ${method.isActive ? "활성" : "비활성"}`}
+        disabled={disabled}
+        onClick={onToggle}
+      >
+        <i />
+      </button>
+    </article>
+  );
 }

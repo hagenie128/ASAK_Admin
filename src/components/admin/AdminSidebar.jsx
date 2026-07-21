@@ -65,10 +65,11 @@ export default function AdminSidebar({ model = MODELS.Desktop }) {
         aria-label="ASAK Admin"
         onClick={() => navigate("/dashboard")}
       >
-        {!isTablet ? (
+        {isTablet ? (
+          <img className="admin-sidebar__brand-mark" alt="ASAK" src={asakSLogo} />
+        ) : (
           <img className="admin-sidebar__brand-full" alt="ASAK" src={adminLogo} />
-        ) : null}
-        <img className="admin-sidebar__brand-mark" alt="ASAK" src={asakSLogo} />
+        )}
       </button>
 
       <nav className="admin-sidebar__nav" aria-label="관리자 메뉴">

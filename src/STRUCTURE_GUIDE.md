@@ -4,6 +4,7 @@
 > 문서 입구: `ASAK/docs/START_HERE.md`  
 > WBS: `ASAK/docs/wiki/wbs-v2-2026-07-16.md` **WBS2-033 ~ WBS2-045**  
 > 구현 계획: [`../IMPLEMENTATION_PLAN.md`](../IMPLEMENTATION_PLAN.md)  
+> 실행 TODO 트리: [`../docs/admin-implementation-todo-tree-2026-07-21.md`](../docs/admin-implementation-todo-tree-2026-07-21.md)  
 > UI 맵: [`../docs/ui-implementation-map-2026-07-18.md`](../docs/ui-implementation-map-2026-07-18.md)
 
 ## 먼저 결론
@@ -64,6 +65,30 @@ Canonical 문서의 `/orders/live`와 코드 `/`(현황)는 아직 불일치 →
 3. 저장 실패 시 토글/폼 **롤백**.  
 4. empty와 error UI를 구분.  
 5. 키오스크 Admin 스캐폴드를 여기로 복사해 오지 말 것 (이 저장소가 정본).
+
+## 분리 원칙 (2026-07-21)
+
+1. **구현할 화면만** 분리한다. 안 만든 화면은 기존 정적 UI/placeholder 상태를 유지한다.
+2. Page는 조립만 맡기되, 실제로 데이터 연결이 시작되기 전에는 억지로 hook / component를 늘리지 않는다.
+3. 새 컴포넌트를 만들 때는 아래 셋 중 하나가 분명할 때만 만든다.
+   - 같은 UI를 한 화면에서 2번 이상 쓴다
+   - 저장/조회 로직을 page 바깥으로 빼야 한다
+   - 다른 화면에서도 재사용할 가능성이 높다
+4. "나중에 쓸 것 같아서" 미리 파일만 만드는 방식은 피한다.
+
+### 현재 분리 상태 (2026-07-21)
+
+| 유지 | 이유 |
+| --- | --- |
+| `usePaymentMethodDraft`, `useSoldOutDraft`, `useOrdersQuery`, `useDashboard` | 화면 로직·조회 책임 |
+| `AdminPaymentMethodRow`, `OrderTable`, `OrderDetailPanel`, `AdminSaveBar` | 재사용 UI 또는 명확한 행/패널 책임 |
+| `adminMockRepository.js` | 데이터 입구 단일 경계 |
+
+| 페이지 안 로컬로 둠 | 이유 |
+| --- | --- |
+| 품절 `ItemCard` / 패널 | 이 화면 전용, 아직 공통화 이득 적음 |
+| 라이브 주문 카드 | 이 화면 전용 |
+| 대시보드·매출·메뉴 정적 섹션 | mock 연결 전, 하드코딩 위치 이동만 하던 파일 제거 |
 
 ## Mock 필드 / props (바인딩 치트시트)
 

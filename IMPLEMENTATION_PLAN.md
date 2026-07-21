@@ -6,6 +6,8 @@
 > 정본 WBS: [`ASAK/docs/wiki/wbs-v2-2026-07-16.md`](../ASAK/docs/wiki/wbs-v2-2026-07-16.md) **P4 관리자 · WBS2-033 ~ WBS2-045** (Kiosk는 P3 · WBS2-017~032)  
 > 구조: [`src/STRUCTURE_GUIDE.md`](src/STRUCTURE_GUIDE.md)  
 > UI 맵: [`docs/ui-implementation-map-2026-07-18.md`](docs/ui-implementation-map-2026-07-18.md)
+> 실행 가이드: [`docs/admin-implementation-todo-tree-2026-07-21.md`](docs/admin-implementation-todo-tree-2026-07-21.md)
+> 매출 날짜 조건 체크리스트: [`docs/admin-sales-date-condition-checklist-2026-07-21.md`](docs/admin-sales-date-condition-checklist-2026-07-21.md)
 > 구현 맵: [`ASAK/docs/planning/current-implementation-map-2026-07-16.md`](../ASAK/docs/planning/current-implementation-map-2026-07-16.md)  
 > Canonical: [`ASAK/docs/governance/canonical-contract-decisions-2026-07-16.md`](../ASAK/docs/governance/canonical-contract-decisions-2026-07-16.md)  
 > 이 문서는 **2026-07-14 최초 상세 계획**(화면 계약·일정·fixture·테스트·브랜치 규칙)을 복원하고, **2026-07-20 코드 실측**(현재 상태)을 함께 담은 통합본이다. 두 기준이 다를 때는 **0~1번(코드 실측)이 우선**이며, 나머지는 참고용 계약·이력이다.
@@ -43,6 +45,13 @@
 ## 1. 이번 스프린트(7/20~7/22) 목표
 
 **화면을 다시 그리지 않는다.** mock repository → 페이지 연결만 한다.
+
+### 작업 원칙 (2026-07-21)
+
+1. **안 만든 기능은 미리 컴포넌트/훅으로 펼쳐두지 않는다.**
+2. 정적 UI만 있는 화면은 **기존 placeholder / disabled 상태를 유지**한다.
+3. 분리는 **실제로 연결하는 화면만 최소 단위로** 한다.
+4. 문서 작성은 구현 직후에만 갱신한다. 구현하지 않은 상태를 앞서 문서화하지 않는다.
 
 | 우선 | 작업 | WBS | 완료 조건 |
 | --- | --- | --- | --- |
@@ -122,6 +131,46 @@ import {
 6. **WBS2-037** — 상태 변경 stub
 7. **WBS2-039** — 메뉴 목록/편집 mock 저장
 8. **WBS2-044~045** — 상태 UI·QA
+
+### 남은 구현 + 작성 순서 (재정렬 · 2026-07-21)
+
+1. **주문 운영부터 끝낸다**
+   - `WBS2-035` Live 현황
+   - `WBS2-036` 주문 목록/상세
+   - `WBS2-037` 주문 상태 변경 stub
+   - 작성: 주문 화면 evidence / QA 메모
+2. **운영 설정 화면을 끝낸다**
+   - `WBS2-038` 품절 저장/롤백
+   - `WBS2-040` 결제수단 저장/정렬
+   - `WBS2-039` 메뉴 목록/편집은 **목록 먼저**, 편집은 마지막
+   - 작성: mock 필드 차이 / 저장 실패 규칙
+3. **조회성 화면을 묶어서 처리한다**
+   - `WBS2-034` Dashboard
+   - `WBS2-041` Sales Summary
+   - `WBS2-042` Monthly
+   - `WBS2-043` Daily
+   - 작성: 기간 필터 규칙 / empty·partial 기준
+4. **마지막에 공통 상태와 QA를 붙인다**
+   - `WBS2-044` loading / empty / error
+   - `WBS2-045` 화면 간 합계·내비 QA
+   - 작성: 최종 smoke checklist / demo 순서
+
+### 작업 TODO (실행 체크리스트)
+
+- [ ] `WBS2-033` 코드 경로와 문서 경로 차이 정리
+- [ ] `WBS2-035` Live 주문 현황을 mock 기준으로 표시
+- [ ] `WBS2-036` 주문 목록 선택 / 필터 / 검색 / 날짜 조건 변경 동작 구현
+- [ ] `WBS2-037` 주문 상태 변경 stub + 목록/상세 동시 반영
+- [ ] `WBS2-038` 품절 저장/실패 롤백 + 검색/카테고리 조건 변경 구현
+- [ ] `WBS2-040` 결제수단 저장/정렬/실패 롤백 + 미리보기 순서 반영 구현
+- [ ] `WBS2-039` 메뉴 목록 mock 연결 + 카테고리/검색 조건 변경 구현
+- [ ] `WBS2-039` 메뉴 편집 저장 규칙 + 검증/입력 보존 구현
+- [ ] `WBS2-034` Dashboard KPI/패널 mock 연결
+- [ ] `WBS2-041` 매출 요약 기간 필터 / 검증 / empty-partial 구현
+- [ ] `WBS2-042` 월별 매출 월 선택 조건 변경 구현
+- [ ] `WBS2-043` 일별 매출 일자/기간 변경 구현
+- [ ] `WBS2-044` loading/empty/error 공통 상태 정리
+- [ ] `WBS2-045` 관리자 최종 QA 체크
 
 ## 5. 화면별 구현 계약 (2026-07-14 최초 계약, 참고)
 

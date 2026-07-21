@@ -21,6 +21,10 @@
 .admin-sidebar__brand-mark {
   width: 50px;
   height: 50px;
+}
+
+/* Desktop은 full만 렌더. mark가 같이 들어온 경우(폴백) 숨김 — brand img 규칙보다 특이도 높게 */
+.admin-sidebar--desktop .admin-sidebar__brand-mark {
   display: none;
 }
 

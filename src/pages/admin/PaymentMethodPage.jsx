@@ -1,18 +1,119 @@
 /*
- * SCR-018 / Payment Methods / Default
- *
- * mock: getPaymentMethods().data[]   ← data 자체가 배열
- *   row: methodId, name, description, isActive, isMaintenance, sortOrder
- * 표: public/mocks/README.md §6
- *
- * Props 후보: methods, onToggle, onReorder, onSave, isDirty, isSaving
+ * SCR-018 / Payment Methods
+ * getPaymentMethods() → usePaymentMethodDraft → AdminPaymentMethodRow
  */
-// TODO: 토글·정렬 활성화 + getPaymentMethods / usePaymentMethodDraft, 실패 롤백 (WBS2-040)
-import arrowUpIcon from "../../assets/figma/icon-arrow-up.svg";
-import arrowDownIcon from "../../assets/figma/icon-arrow-down.svg";
 import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
+import AdminPaymentMethodRow from "../../components/admin/AdminPaymentMethodRow.jsx";
+import AdminSaveBar from "../../components/admin/AdminSaveBar.jsx";
+import { getPaymentMethodGlyph } from "../../constants/paymentMethodGlyphs.js";
+import { usePaymentMethodDraft } from "../../hooks/usePaymentMethodDraft.js";
+import { toast } from "../../utils/toast.js";
 
-function Toggle() { return <span className="payment-toggle" aria-hidden="true"><i /></span>; }
-function MethodRow({ glyph, name, desc }) { return <article className="payment-method-row"><span className="payment-method-row__icon" aria-hidden="true">{glyph}</span><div className="payment-method-row__info"><strong>{name}</strong><span>{desc}</span></div><div className="payment-method-row__reorder"><button type="button" disabled aria-label={`${name} 위로 이동`}><img alt="" aria-hidden="true" src={arrowUpIcon} /></button><button type="button" disabled aria-label={`${name} 아래로 이동`}><img alt="" aria-hidden="true" src={arrowDownIcon} /></button></div><Toggle /></article>; }
-function PreviewRow({ glyph, name, desc }) { return <div className="payment-preview-row"><span className="payment-method-row__icon" aria-hidden="true">{glyph}</span><div className="payment-method-row__info"><strong>{name}</strong><span>{desc}</span></div><Toggle /></div>; }
-export default function PaymentMethodPage() { return <section className="payment-settings" aria-label="결제수단 정적 미리보기"><AdminTopHeader crumb="Admin / 결제수단 설정" title="결제수단 설정" description="변경 사항은 키오스크에 즉시 반영됩니다" /><div className="payment-settings__body"><div className="payment-settings__main"><h2>결제수단 목록</h2><div className="payment-method-list"><MethodRow glyph="💳" name="카드 / 삼성페이 결제" desc="신용 · 체크카드" /><MethodRow glyph="🟡" name="카카오페이 결제" desc="모바일 간편결제" /><MethodRow glyph="🟢" name="네이버페이 결제" desc="모바일 간편결제" /><MethodRow glyph="🔵" name="제로페이 결제" desc="QR 결제" /></div><h2 className="payment-settings__policies-title">결제 정책 설정</h2><div className="payment-policy-row"><article className="payment-policy-card"><div className="payment-policy-card__head"><strong>결제 실패 시 초기화 정책</strong><button type="button" disabled>수정</button></div><p>결제 실패 시 장바구니 데이터를 5분간 유지한 후 자동으로 초기화합니다</p></article><article className="payment-policy-card"><div className="payment-policy-card__head"><strong>영수증 안내 문구</strong><button type="button" disabled>수정</button></div><p>주문해주셔서 감사합니다. 맛있게 드시고 리뷰 작성 시 서비스를 드립니다!</p></article></div></div><div className="payment-settings__preview"><div className="payment-settings__preview-head"><h2>결제수단 목록</h2><p>설정한 결제수단 순서대로 키오스크/웹 결제 화면에 노출됩니다.</p></div><div className="payment-preview-card"><PreviewRow glyph="💳" name="카드 / 삼성페이 결제" desc="신용 · 체크카드" /><PreviewRow glyph="🟡" name="카카오페이 결제" desc="모바일 간편결제" /><PreviewRow glyph="🟢" name="네이버페이 결제" desc="모바일 간편결제" /><PreviewRow glyph="🔵" name="제로페이 결제" desc="QR 결제" /></div></div></div><div className="payment-settings__footer"><div className="payment-save-bar"><p>저장하지 않은 변경 사항이 있습니다</p><button type="button" disabled>저장하기</button></div></div></section>; }
+const POLICIES = [
+  {
+    title: "결제 실패 시 초기화 정책",
+    body: "결제 실패 시 장바구니 데이터를 5분간 유지한 후 자동으로 초기화합니다",
+  },
+  {
+    title: "영수증 안내 문구",
+    body: "주문해주셔서 감사합니다. 맛있게 드시고 리뷰 작성 시 서비스를 드립니다!",
+  },
+];
+
+function PreviewRow({ method }) {
+  return (
+    <div className="payment-preview-row">
+      <span className="payment-method-row__icon" aria-hidden="true">
+        {getPaymentMethodGlyph(method.methodId)}
+      </span>
+      <div className="payment-method-row__info">
+        <strong>{method.name}</strong>
+        <span>{method.description}</span>
+      </div>
+    </div>
+  );
+}
+
+export default function PaymentMethodPage() {
+  const draft = usePaymentMethodDraft();
+
+  async function handleSave() {
+    const result = await draft.save();
+    if (result.success) {
+      toast.success(result.message || "저장되었습니다.");
+    } else {
+      toast.error(result.message || "저장에 실패했습니다.");
+    }
+  }
+
+  if (draft.status === "loading") {
+    return (
+      <section className="payment-settings">
+        <AdminTopHeader
+          crumb="Admin / 결제수단 설정"
+          title="결제수단 설정"
+          description="불러오는 중…"
+        />
+      </section>
+    );
+  }
+
+  return (
+    <section className="payment-settings" aria-label="결제수단 설정">
+      <AdminTopHeader
+        crumb="Admin / 결제수단 설정"
+        title="결제수단 설정"
+        description="변경 사항은 키오스크에 즉시 반영됩니다"
+      />
+      <div className="payment-settings__body">
+        <div className="payment-settings__main">
+          <h2>결제수단 목록</h2>
+          <div className="payment-method-list">
+            {draft.rows.map((method, index) => (
+              <AdminPaymentMethodRow
+                key={method.methodId}
+                method={method}
+                disabled={draft.isSaving}
+                canMoveUp={index > 0}
+                canMoveDown={index < draft.rows.length - 1}
+                onToggle={() => draft.toggleMethod(method.methodId)}
+                onMoveUp={() => draft.moveMethod(method.methodId, "up")}
+                onMoveDown={() => draft.moveMethod(method.methodId, "down")}
+              />
+            ))}
+          </div>
+          <h2 className="payment-settings__policies-title">결제 정책 설정</h2>
+          <div className="payment-policy-row">
+            {POLICIES.map((policy) => (
+              <article key={policy.title} className="payment-policy-card">
+                <div className="payment-policy-card__head">
+                  <strong>{policy.title}</strong>
+                  <button type="button" disabled>
+                    수정
+                  </button>
+                </div>
+                <p>{policy.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+        <div className="payment-settings__preview">
+          <div className="payment-settings__preview-head">
+            <h2>결제수단 목록</h2>
+            <p>설정한 결제수단 순서대로 키오스크/웹 결제 화면에 노출됩니다.</p>
+          </div>
+          <div className="payment-preview-card">
+            {draft.activePreviewRows.length > 0 ? (
+              draft.activePreviewRows.map((method) => (
+                <PreviewRow key={method.methodId} method={method} />
+              ))
+            ) : (
+              <p>활성화된 결제수단이 없습니다.</p>
+            )}
+          </div>
+        </div>
+      </div>
+      <AdminSaveBar isDirty={draft.isDirty} isSaving={draft.isSaving} onSave={handleSave} />
+    </section>
+  );
+}

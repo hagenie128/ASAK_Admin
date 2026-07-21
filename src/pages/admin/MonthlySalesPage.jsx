@@ -1,18 +1,10 @@
 /*
- * SCR-020 / Monthly Sales / Default — Figma 134:10957
- * 정적 플레이스홀더. 조회·집계는 sales adapter 소유.
- *
- * mock: getMonthlySales().data
- *   year
- *   rows[{ month, orderCount, totalAmount, avgAmount }]
- * 표: public/mocks/README.md §7
+ * SCR-020 / Monthly Sales
  */
-// TODO: getMonthlySales + 연도 필터 연결 (WBS2-042)
 import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
 
 const DAILY_BARS = [48, 62, 40, 55, 70, 44, 38, 52, 60, 35];
 const DAILY_TICKS = ["8일", "9일", "10일", "11일", "12일", "13일", "14일", "15일", "16일", "17일"];
-const PEAK_INDEX = 4;
 
 const DETAIL_ROWS = [
   ["07.10", "금", "36", "392,500원", "10,903원"],
@@ -21,7 +13,7 @@ const DETAIL_ROWS = [
   ["07.07", "화", "—", "—", "—"],
 ];
 
-const ranking = [
+const RANKING = [
   ["1", "탄단지 샐러디", "11건", "97,900원"],
   ["2", "우삼겹 포케볼", "8건", "87,200원"],
   ["3", "시저치킨 랩", "7건", "53,200원"],
@@ -76,7 +68,7 @@ export default function MonthlySalesPage() {
               {DAILY_BARS.map((height, index) => (
                 <i
                   key={index}
-                  className={index === PEAK_INDEX ? "is-peak" : ""}
+                  className={index === 4 ? "is-peak" : ""}
                   style={{ height: `${height}px` }}
                 />
               ))}
@@ -159,7 +151,7 @@ export default function MonthlySalesPage() {
         <section className="sales-ranking">
           <h2>7월 인기 메뉴</h2>
           <div className="sales-ranking__rows">
-            {ranking.map(([rank, name, count, amount]) => (
+            {RANKING.map(([rank, name, count, amount]) => (
               <div className="sales-ranking__row" key={rank}>
                 <span className="sales-ranking__rank">{rank}</span>
                 <span className="sales-ranking__name">{name}</span>

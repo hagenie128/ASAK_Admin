@@ -5,15 +5,65 @@ import chipBagIcon from "../../assets/figma/icon-order-side.svg";
 import drinkIcon from "../../assets/figma/icon-order-drink.svg";
 import { getLiveOrders, completeOrder, cancelOrder } from "../../mocks/adminMockRepository.js";
 import AdminSidebar from "./AdminSidebar.jsx";
+import { formatCurrency } from "../../utils/currency.js";
+import { formatDate, formatTime } from "../../utils/date.js";
 
-/* SCR-009 / Live Order / Default
- * mock props: getLiveOrders().data.content[]
- *   order: orderId, orderNo, orderTypeLabel, wide, elapsedSec, totalPrice, menus[]
- *   menu:  menuName, quantity, base, dressing, options[{ label, tone }]
- *   tone:  exclude | plus | drink | side
- * 전체 표: public/mocks/README.md
- */
-// TODO: loading / empty / error 상태 분리 (WBS2-044)
+/* SCR-009 / Live Order — getLiveOrders() */
+export default function LiveOrderPreview() {
+  const [orders, setOrders] = useState(getLiveOrders().data.content);
+
+  const handleOrder = (orderId, action) => {
+    if (action === "complete") {
+      completeOrder(orderId);
+    } else if (action === "cancel") {
+      if (!confirm("주문을 취소하시겠습니까?")) return;
+      cancelOrder(orderId);
+    }
+    setOrders(getLiveOrders().data.content);
+  };
+
+  const visibleOrders = orders.filter(
+    (order) => order.orderStatus !== "COMPLETED" && order.orderStatus !== "CANCELLED",
+  );
+
+  return (
+    <section className="live-order-preview" aria-label="주문 현황" data-figma-node="235:6361">
+      <header className="live-order-preview__topbar" data-figma-node="235:6372">
+        <AdminSidebar model="logo" />
+        <div className="live-order-preview__heading">
+          <div className="live-order-preview__title-group">
+            <h1>주문 현황</h1>
+            <p>조리 완료 처리 및 TTS 알림을 관리합니다.</p>
+          </div>
+          <time>
+            {formatDate(new Date())}
+            {"  |  "}
+            {formatTime(new Date())}
+          </time>
+        </div>
+      </header>
+      <main className="live-order-preview__content">
+        <button type="button" className="live-order-preview__arrow" disabled aria-label="이전 주문">
+          ‹
+        </button>
+        {visibleOrders.length > 0 ? (
+          <div className="live-order-preview__board">
+            {visibleOrders.map((order) => (
+              <OrderCard key={order.orderId} order={order} onAction={handleOrder} />
+            ))}
+          </div>
+        ) : (
+          <div className="live-order-preview__board">
+            <p>주문이 없습니다.</p>
+          </div>
+        )}
+        <button type="button" className="live-order-preview__arrow" disabled aria-label="다음 주문">
+          ›
+        </button>
+      </main>
+    </section>
+  );
+}
 
 function optionIcon(tone) {
   if (tone === "exclude") return excludeIcon;
@@ -29,7 +79,7 @@ function optionClass(tone) {
   return "figma-order-option figma-order-option--side";
 }
 
-function StaticMenuCard({ menu }) {
+function MenuCard({ menu }) {
   const options = menu?.options ?? [];
 
   return (
@@ -66,38 +116,32 @@ function StaticMenuCard({ menu }) {
   );
 }
 
-function StaticOrderCard({ order, onAction }) {
-  const number = order.orderNo;
-  const type = order.orderTypeLabel;
-  const wide = Boolean(order.wide);
+function OrderCard({ order, onAction }) {
   const menus = order.menus ?? [];
 
   return (
     <article
-      className={`figma-order-card${wide ? " figma-order-card--wide" : ""}`}
-      aria-label={`${number} 주문 미리보기`}
+      className={`figma-order-card${order.wide ? " figma-order-card--wide" : ""}`}
+      aria-label={`${order.orderNo} 주문 미리보기`}
     >
       <header className="figma-order-card__header">
-        <strong>{number}</strong>
+        <strong>{order.orderNo}</strong>
         <time>{order.elapsedSec != null ? `${order.elapsedSec}초` : "00:00:00"}</time>
       </header>
       <span
-        className={`figma-order-card__type${type === "포장" ? " figma-order-card__type--takeout" : ""}`}
+        className={`figma-order-card__type${order.orderTypeLabel === "포장" ? " figma-order-card__type--takeout" : ""}`}
       >
-        {type}
+        {order.orderTypeLabel}
       </span>
       <div className="figma-order-card__menus">
         {menus.map((menu, index) => (
-          <StaticMenuCard key={`${order.orderId}-${index}`} menu={menu} />
+          <MenuCard key={`${order.orderId}-${index}`} menu={menu} />
         ))}
       </div>
       <footer className="figma-order-card__footer">
         <div className="figma-order-card__total">
           <span>총액</span>
-          <strong>
-            {(order.totalPrice ?? 0).toLocaleString()}
-            <em>원</em>
-          </strong>
+          <strong>{formatCurrency(order.totalPrice ?? 0)}</strong>
         </div>
         <div className="figma-order-card__actions">
           <button type="button" onClick={() => onAction(order.orderId, "cancel")}>
@@ -109,73 +153,5 @@ function StaticOrderCard({ order, onAction }) {
         </div>
       </footer>
     </article>
-  );
-}
-
-export default function LiveOrderPreview() {
-  const [orders, setOrders] = useState(getLiveOrders().data.content);
-
-  const handleOrder = (orderId, action) => {
-    if (action === "complete") {
-      completeOrder(orderId);
-    } else if (action === "cancel") {
-      if (!confirm("주문을 취소하시겠습니까?")) return;
-      cancelOrder(orderId);
-    }
-    setOrders(getLiveOrders().data.content);
-  };
-
-  const visibleOrders = orders.filter(
-    (order) => order.orderStatus !== "COMPLETED" && order.orderStatus !== "CANCELLED",
-  );
-
-  return (
-    <section
-      className="live-order-preview"
-      aria-label="주문 현황 정적 미리보기"
-      data-figma-node="235:6361"
-    >
-      <header className="live-order-preview__topbar" data-figma-node="235:6372">
-        <AdminSidebar model="logo" />
-        <div className="live-order-preview__heading">
-          <div className="live-order-preview__title-group">
-            <h1>주문 현황</h1>
-            <p>조리 완료 처리 및 TTS 알림을 관리합니다.</p>
-          </div>
-          <time>
-            {new Date().toLocaleDateString("ko-KR", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-            {"  |  "}
-            {new Date().toLocaleTimeString("ko-KR", {
-              hour: "numeric",
-              minute: "numeric",
-              second: "numeric",
-            })}
-          </time>
-        </div>
-      </header>
-      <main className="live-order-preview__content">
-        <button type="button" className="live-order-preview__arrow" disabled aria-label="이전 주문">
-          ‹
-        </button>
-        {visibleOrders.length > 0 ? (
-          <div className="live-order-preview__board">
-            {visibleOrders.map((order) => (
-              <StaticOrderCard key={order.orderId} order={order} onAction={handleOrder} />
-            ))}
-          </div>
-        ) : (
-          <div className="live-order-preview__board">
-            <p>주문이 없습니다.</p>
-          </div>
-        )}
-        <button type="button" className="live-order-preview__arrow" disabled aria-label="다음 주문">
-          ›
-        </button>
-      </main>
-    </section>
   );
 }
