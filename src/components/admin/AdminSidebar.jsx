@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import adminLogo from "../../assets/svg/logo-L.svg";
-import asakSLogo from "../../assets/figma/asak-s-logo.svg";
+import asakSLogo from "../../assets/svg/logo-S.svg";
 import dashboardIcon from "../../assets/figma/icon-nav-dashboard.svg";
 import ordersIcon from "../../assets/figma/icon-nav-orders.svg";
 import salesIcon from "../../assets/figma/icon-nav-sales.svg";
