@@ -3,6 +3,9 @@
   padding: 10px 0;
   display: grid;
   place-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
 }
 
 .admin-sidebar__brand img {
@@ -18,7 +21,71 @@
 .admin-sidebar__brand-mark {
   width: 50px;
   height: 50px;
-  display: none !important;
+  display: none;
+}
+
+/* Figma Model=logo (150:4904, 90×72) — Live Order 상단 마크 */
+.admin-sidebar.admin-sidebar--logo {
+  display: grid;
+  width: 90px;
+  height: 72px;
+  min-height: 72px;
+  flex: 0 0 90px;
+  place-items: center;
+  padding: 11px 20px;
+  gap: 0;
+  box-sizing: border-box;
+  box-shadow: none;
+  background: #fff;
+}
+
+.admin-sidebar.admin-sidebar--logo .admin-sidebar__brand-mark {
+  display: block;
+  width: 50px;
+  height: 50px;
+}
+
+/* Figma Model=Tablet (150:4865, 90×1080) */
+.admin-sidebar--tablet {
+  width: var(--admin-sidebar-compact-width);
+  min-width: var(--admin-sidebar-compact-width);
+  padding: 11px 20px 28px;
+  align-items: center;
+}
+
+.admin-sidebar--tablet .admin-sidebar__brand-full {
+  display: none;
+}
+
+.admin-sidebar--tablet .admin-sidebar__brand-mark {
+  display: block;
+}
+
+.admin-sidebar--tablet .admin-sidebar__nav a {
+  justify-content: center;
+  width: auto;
+  padding: 10px;
+}
+
+.admin-sidebar--tablet .admin-sidebar__nav a span {
+  display: none;
+}
+
+.admin-sidebar--tablet .admin-sidebar__logout {
+  min-width: 0;
+  width: auto;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.admin-sidebar--tablet .admin-sidebar__logout span {
+  display: none;
+}
+
+.admin-sidebar--tablet .admin-sidebar__logout img {
+  width: 18px;
+  height: 18px;
 }
 
 /* Figma Admin/Navbar (227:5009): Menu Nav가 flex-1이라 프로모 카드와 Logout이 아래로 밀린다. */
