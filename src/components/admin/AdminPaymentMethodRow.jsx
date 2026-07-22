@@ -1,6 +1,6 @@
 /*
  * 결제수단 행 (SCR-018)
- * mock: getPaymentMethods().data[] — methodId, name, description, isActive, sortOrder
+ * mock: getPaymentMethods().data[] — methodId, name, description, isActive, isMaintenance, sortOrder
  */
 import arrowUpIcon from "../../assets/figma/icon-arrow-up.svg";
 import arrowDownIcon from "../../assets/figma/icon-arrow-down.svg";
@@ -21,7 +21,12 @@ export default function AdminPaymentMethodRow({
         {getPaymentMethodGlyph(method.methodId)}
       </span>
       <div className="payment-method-row__info">
-        <strong>{method.name}</strong>
+        <strong>
+          {method.name}
+          {method.isMaintenance ? (
+            <span className="payment-method-row__badge">점검중</span>
+          ) : null}
+        </strong>
         <span>{method.description}</span>
       </div>
       <div className="payment-method-row__reorder">

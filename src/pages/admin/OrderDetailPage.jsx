@@ -11,13 +11,17 @@
  *
  * Props 후보: order, nextStatusActions, isUpdating, onChangeStatus
  * Badge에서 PATCH 직접 호출 금지 · 실패 시 롤백
+ *
+ * 이번 mock 범위: 주문 상세 정본은 `/orders`의 OrderDetailPanel.
+ * 이 페이지 별도 라우트는 팀 합의 후.
  */
-// TODO: 라우트 연결 + getAdminOrderById 바인딩 (WBS2-036)
-// TODO: 상태 변경 stub (RECEIVED→PREPARING→COMPLETED), 실패 시 롤백 (WBS2-037)
+// 이번 mock 범위 제외: OrderDetailPage 단독 라우트 (패널이 정본)
 
 import AdminPageHeader from "../../components/admin/AdminPageHeader.jsx";
 
 export default function OrderDetailPage() {
+  // 이번 mock 범위 제외: 정본은 /orders OrderDetailPanel (TODO(28))
+  // 아래는 미리보기 정적 UI — 라우트 합의 전 하드코딩 유지
   return (
     <section className="admin-page">
       <AdminPageHeader title="주문 관리" description="주문 상세와 상태 변경 UI 미리보기" />

@@ -1,0 +1,327 @@
+/* Figma Shared Loading / Empty / Error / Confirm / Toast (node 145:2) */
+/* Kiosk `styles/kiosk/shared.css`와 동일 역할 */
+
+.admin-async-state {
+  min-height: 240px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border-radius: var(--admin-radius-lg);
+  background: transparent;
+  text-align: center;
+}
+.admin-async-state--inline {
+  min-height: 0;
+  padding: 16px;
+  gap: 8px;
+}
+.admin-async-state h2,
+.admin-async-state p {
+  margin: 0;
+  max-width: 28rem;
+}
+.admin-async-state h2 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: var(--admin-text-primary);
+}
+.admin-async-state--inline h2 {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+.admin-async-state p {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--admin-text-tertiary);
+}
+.admin-async-state--inline p {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+.admin-async-state__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--admin-radius-xl);
+  background: var(--admin-border);
+}
+.admin-async-state--inline .admin-async-state__icon {
+  width: 32px;
+  height: 32px;
+}
+.admin-async-state__empty-icon {
+  width: 64px;
+  height: 64px;
+  display: block;
+  object-fit: contain;
+}
+.admin-async-state--loading .admin-async-state__icon {
+  border: 4px solid var(--admin-border);
+  border-top-color: var(--admin-brand-primary);
+  background: transparent;
+  border-radius: 50%;
+  animation: admin-spin 0.8s linear infinite;
+}
+.admin-async-state--error .admin-async-state__icon {
+  background: var(--admin-danger-soft);
+}
+.admin-async-state__primary,
+.admin-async-state__secondary,
+.admin-confirm__actions button {
+  min-height: 48px;
+  padding: 14px 20px;
+  border: 1px solid transparent;
+  border-radius: var(--admin-radius-md);
+  background: var(--admin-panel);
+  color: var(--admin-text-primary);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  cursor: pointer;
+}
+.admin-async-state__primary {
+  background: var(--admin-brand-primary);
+  color: var(--admin-text-primary);
+}
+.admin-async-state__secondary {
+  border-color: var(--admin-bg-subtle);
+  color: var(--admin-text-tertiary);
+}
+
+/* Loading skeletons — Shared/LoadingState */
+.admin-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.admin-skeleton--card {
+  width: min(300px, 100%);
+  padding: 16px;
+  border-radius: var(--admin-radius-lg);
+  background: var(--admin-panel);
+}
+.admin-skeleton--table {
+  width: min(600px, 100%);
+  gap: 8px;
+  padding: 16px 0;
+}
+.admin-skeleton--button {
+  width: 120px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border-radius: var(--admin-radius-md);
+  background: var(--admin-bg-subtle);
+}
+.admin-skeleton__block {
+  display: block;
+  width: 100%;
+  height: 12px;
+  border-radius: var(--admin-radius-sm);
+  background: var(--admin-bg-subtle);
+}
+.admin-skeleton__block--image {
+  height: 80px;
+  border-radius: var(--admin-radius-md);
+}
+.admin-skeleton__block--short {
+  width: 140px;
+}
+.admin-skeleton__block--button {
+  width: 60px;
+  height: 12px;
+  background: var(--admin-border);
+}
+.admin-skeleton__row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+.admin-skeleton__row > span {
+  display: block;
+  height: 16px;
+  border-radius: var(--admin-radius-sm);
+  background: var(--admin-bg-subtle);
+}
+.admin-skeleton__row.is-header > span {
+  background: var(--admin-border);
+}
+
+/* ConfirmDialog */
+.admin-confirm-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.45);
+}
+.admin-confirm {
+  width: min(440px, 100%);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  border-radius: var(--admin-radius-xl);
+  background: var(--admin-panel);
+  box-shadow: var(--admin-shadow-floating);
+  text-align: center;
+}
+.admin-confirm__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--admin-radius-xl);
+  background: var(--admin-border);
+  flex-shrink: 0;
+}
+.admin-confirm__text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.admin-confirm h2,
+.admin-confirm p {
+  margin: 0;
+}
+.admin-confirm h2 {
+  color: var(--admin-text-primary);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+}
+.admin-confirm p {
+  color: var(--admin-text-tertiary);
+  font-size: 14px;
+  line-height: 20px;
+}
+.admin-confirm__actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+}
+.admin-confirm__actions button {
+  flex: 1;
+  background: var(--admin-bg-subtle);
+  color: #404040;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  padding: 14px 28px;
+}
+.admin-confirm__actions .is-primary {
+  border-color: transparent;
+  background: var(--admin-danger);
+  color: #fff;
+}
+.admin-confirm--warning .admin-confirm__actions .is-primary {
+  background: var(--admin-brand-primary);
+  color: #0d0d0d;
+}
+.admin-confirm.is-busy .admin-confirm__actions button {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* Toast — white card + tone icon (not dark bar) */
+.admin-toast {
+  position: fixed;
+  right: 24px;
+  bottom: 12px;
+  z-index: 60;
+  width: min(300px, calc(100vw - 48px));
+  min-height: 80px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: var(--admin-radius-lg);
+  background: var(--admin-panel);
+  color: var(--admin-text-inverse);
+  box-shadow: var(--admin-shadow-subtle);
+}
+.admin-toast--long {
+  width: min(420px, calc(100vw - 48px));
+  height: auto;
+  align-items: flex-start;
+}
+.admin-toast__icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: var(--admin-radius-xl);
+  background: var(--admin-brand-primary);
+}
+.admin-toast--error .admin-toast__icon {
+  background: var(--admin-danger);
+}
+.admin-toast--warning .admin-toast__icon {
+  background: var(--admin-warning);
+}
+.admin-toast--info .admin-toast__icon {
+  background: #404040;
+}
+.admin-toast--loading .admin-toast__icon {
+  background: var(--admin-text-tertiary);
+}
+.admin-toast__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.admin-toast__title,
+.admin-toast__message,
+.admin-toast p {
+  margin: 0;
+}
+.admin-toast__title {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--admin-text-inverse);
+}
+.admin-toast__message {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  color: var(--admin-text-inverse);
+}
+.admin-toast__close {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--admin-text-tertiary);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.admin-toast__close img {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+@keyframes admin-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

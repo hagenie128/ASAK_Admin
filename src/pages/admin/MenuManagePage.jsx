@@ -1,12 +1,109 @@
-/*
- * SCR-016 / Menu Management
- */
-import ricottaImage from "../../assets/figma/soldout-ricotta.png";
+/* SCR-016 / Menu Management — Page는 조합만 */
+import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import AdminAsyncState from "../../components/admin/AdminAsyncState.jsx";
+import AdminConfirmDialog from "../../components/admin/AdminConfirmDialog.jsx";
 import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
+import AdminPagination from "../../components/admin/AdminPagination.jsx";
+import MenuListPanel from "../../components/admin/MenuListPanel.jsx";
+import MenuDetailPanel from "../../components/admin/MenuDetailPanel.jsx";
+import MenuEditPanel from "../../components/admin/MenuEditPanel.jsx";
+import { ADMIN_PAGINATION } from "../../constants/pagination.js";
+import { useMenusQuery } from "../../hooks/useMenusQuery.js";
+import { usePagination } from "../../hooks/usePagination.js";
+import { toast } from "../../utils/toast.js";
 
-const CATEGORIES = ["전체", "샐러드", "포케볼", "랩&롤", "음료"];
+const MENUS_PAGINATION = ADMIN_PAGINATION.menus;
 
-export default function MenuManagePage() {
+/**
+ * panelMode: view | edit | create
+ * URL: /menus · /menus/edit?menuId= · /menus/new → 이 Page에서 조립
+ */
+export default function MenuManagePage({ initialMode = "view" } = {}) {
+  const [searchParams] = useSearchParams();
+  const urlMenuId = searchParams.get("menuId");
+  const [panelMode, setPanelMode] = useState(() => {
+    if (initialMode === "create" || initialMode === "edit") return initialMode;
+    if (urlMenuId) return "edit";
+    return "view";
+  });
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+
+  const {
+    status,
+    categories,
+    filteredMenus,
+    selectedMenu,
+    selectedCategory,
+    keyword,
+    setSelectedCategory,
+    setKeyword,
+    selectMenu,
+  } = useMenusQuery({ initialMenuId: urlMenuId });
+
+  const menusPage = usePagination(filteredMenus, { pageSize: MENUS_PAGINATION.pageSize });
+
+  function handleSelectMenu(menuId) {
+    selectMenu(menuId);
+    if (panelMode !== "view") setPanelMode("view");
+  }
+
+  function handleCategoryChange(name) {
+    setSelectedCategory(name);
+    menusPage.resetPage();
+  }
+
+  function handleKeywordChange(value) {
+    setKeyword(value);
+    menusPage.resetPage();
+  }
+
+  function handleEdit() {
+    if (!selectedMenu) return;
+    setPanelMode("edit");
+  }
+
+  function handleCreate() {
+    setPanelMode("create");
+  }
+
+  function handleCancelEdit() {
+    setPanelMode("view");
+  }
+
+  function handleSaveEdit(payload) {
+    toast.success(
+      panelMode === "create"
+        ? `메뉴 등록 stub: ${payload.name || "(이름 없음)"}`
+        : `메뉴 수정 stub: ${payload.name || selectedMenu?.name}`,
+    );
+    setPanelMode("view");
+  }
+
+  function handleDeleteRequest() {
+    if (!selectedMenu) return;
+    setDeleteConfirmOpen(true);
+  }
+
+  function handleDeleteConfirm() {
+    setDeleteConfirmOpen(false);
+    toast.success(`mock에서는 삭제 stub만: ${selectedMenu?.name ?? ""}`);
+    setPanelMode("view");
+  }
+
+  if (status === "loading") {
+    return (
+      <section className="menu-management">
+        <AdminTopHeader
+          crumb="Admin / 메뉴 관리"
+          title="메뉴 관리"
+          description="상품 기본정보 / 가격 / 카테고리 / 옵션그룹 / 노출여부를 관리하세요."
+        />
+        <AdminAsyncState status="loading" layout="page" loadingVariant="card" />
+      </section>
+    );
+  }
+
   return (
     <section className="menu-management">
       <AdminTopHeader
@@ -15,176 +112,58 @@ export default function MenuManagePage() {
         description="상품 기본정보 / 가격 / 카테고리 / 옵션그룹 / 노출여부를 관리하세요."
       />
       <div className="menu-management__workspace">
-        <div className="menu-management__list">
-          <div className="menu-management__toolbar">
-            <div className="menu-management__tabs">
-              {CATEGORIES.map((label, index) => (
-                <button key={label} type="button" disabled className={index === 0 ? "is-selected" : ""}>
-                  {label}
-                </button>
-              ))}
-            </div>
-            <label className="menu-management__search">
-              <span className="sr-only">메뉴명 검색</span>
-              <i aria-hidden="true" />
-              <input value="" placeholder="메뉴명 검색" readOnly disabled />
-            </label>
-          </div>
-          <div className="menu-management__grid">
-            {Array.from({ length: 8 }, (_, index) => (
-              <article key={index} className="admin-menu-card">
-                <img src={ricottaImage} alt="" />
-                <div>
-                  <strong>MENU</strong>
-                  <b>9,300</b>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
+        <MenuListPanel
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onCategoryChange={handleCategoryChange}
+          keyword={keyword}
+          onKeywordChange={handleKeywordChange}
+          menus={menusPage.pageItems}
+          selectedMenuId={selectedMenu?.menuId ?? null}
+          onSelectMenu={handleSelectMenu}
+          onCreate={handleCreate}
+          pagination={
+            <AdminPagination
+              className="menu-management__pagination"
+              page={menusPage.page}
+              pageSize={menusPage.pageSize}
+              totalElements={menusPage.totalElements}
+              windowSize={MENUS_PAGINATION.windowSize}
+              onPageChange={menusPage.goToPage}
+            />
+          }
+        />
 
-        <aside className="menu-detail-panel">
-          <div className="menu-detail-panel__scroll">
-            <header className="menu-detail__header">
-              <div>
-                <h2>기본 정보</h2>
-                <p>등록된 상품의 상세 정보 및 노출 설정을 보여줍니다.</p>
-              </div>
-              <div className="menu-detail__actions">
-                <button type="button" disabled className="is-delete">
-                  삭제
-                </button>
-                <button type="button" disabled className="is-edit">
-                  수정
-                </button>
-              </div>
-            </header>
-
-            <section className="menu-detail-card menu-detail-basic">
-              <div className="menu-detail-basic__top">
-                <img src={ricottaImage} alt="" />
-                <div className="menu-detail-basic__info">
-                  <div className="menu-detail-basic__name">
-                    <strong>케이준 쉬림프 샐러드</strong>
-                    <span className="menu-detail-badge">판매중</span>
-                  </div>
-                  <p>
-                    <span>카테고리</span>
-                    <b>샐러드</b>
-                  </p>
-                  <p className="menu-detail-basic__price">
-                    <span>판매 가격</span>
-                    <b>9,900원</b>
-                  </p>
-                </div>
-              </div>
-              <div className="menu-detail-basic__desc">
-                <span>메뉴 설명</span>
-                <p>탱글탱글한 새우와 바삭한 케이준 시즈닝이 어우러진 신선한 프리미엄 샐러드입니다.</p>
-              </div>
-            </section>
-
-            <section className="menu-detail-card menu-detail-ingredients">
-              <header>
-                <h3>기본 재료</h3>
-                <span>지정된 정량 정보</span>
-              </header>
-              <div className="menu-detail-ingredients__group">
-                <p className="menu-detail-legend menu-detail-legend--core">핵심 재료</p>
-                <div className="menu-ingredient-row menu-ingredient-row--core">
-                  <strong>케이준 쉬림프</strong>
-                  <b>5개 · 기본 포함 · 제거 불가</b>
-                </div>
-              </div>
-              <div className="menu-detail-ingredients__group">
-                <p className="menu-detail-legend menu-detail-legend--base">베이스 재료</p>
-                <div className="menu-ingredient-row menu-ingredient-row--base">
-                  <strong>로메인</strong>
-                  <b>80g · 기본 포함 · 제거 불가</b>
-                </div>
-              </div>
-              <div className="menu-detail-ingredients__group">
-                <p className="menu-detail-legend menu-detail-legend--plain">일반 기본 재료</p>
-                <div className="menu-ingredient-chips">
-                  <span>
-                    방울토마토 <i>30g</i>
-                  </span>
-                  <span>
-                    옥수수 <i>30g</i>
-                  </span>
-                  <span>
-                    크루통 <i>30g</i>
-                  </span>
-                </div>
-              </div>
-            </section>
-
-            <section className="menu-detail-card menu-detail-options">
-              <h3>옵션 그룹</h3>
-              <div className="menu-detail-options__grid">
-                {["드레싱", "베이스", "토핑", "소스", "사이드", "음료"].map((name) => (
-                  <article key={name}>
-                    <div>
-                      <strong>{name}</strong>
-                      <em>필수</em>
-                    </div>
-                    <p>추천 : 레몬허브 드레싱</p>
-                  </article>
-                ))}
-              </div>
-            </section>
-
-            <section className="menu-detail-card menu-detail-nutrition">
-              <header>
-                <h3>영양 정보</h3>
-                <span>정량 기준 자동 분석</span>
-              </header>
-              <div className="menu-detail-nutrition__grid">
-                <div>
-                  <span>칼로리</span>
-                  <b>320 kcal</b>
-                </div>
-                <div>
-                  <span>단백질</span>
-                  <b>18 g</b>
-                </div>
-                <div>
-                  <span>탄수화물</span>
-                  <b>25 g</b>
-                </div>
-                <div>
-                  <span>지방</span>
-                  <b>15 g</b>
-                </div>
-                <div>
-                  <span>나트륨</span>
-                  <b>580 mg</b>
-                </div>
-              </div>
-            </section>
-
-            <section className="menu-detail-tags">
-              <article>
-                <h3>알레르기 정보</h3>
-                <div>
-                  <span>갑각류</span>
-                  <span>우유</span>
-                  <span>대두</span>
-                  <span>밀</span>
-                </div>
-              </article>
-              <article>
-                <h3>태그 설정</h3>
-                <div>
-                  <span className="menu-tag menu-tag--best">BEST</span>
-                  <span className="menu-tag menu-tag--new">NEW</span>
-                  <span className="menu-tag menu-tag--vegan">Vegan</span>
-                </div>
-              </article>
-            </section>
-          </div>
-        </aside>
+        {panelMode === "view" ? (
+          <MenuDetailPanel
+            menu={selectedMenu}
+            onEdit={handleEdit}
+            onDelete={handleDeleteRequest}
+          />
+        ) : (
+          <MenuEditPanel
+            mode={panelMode}
+            menu={panelMode === "edit" ? selectedMenu : null}
+            categoryOptions={categories.filter((name) => name !== "전체")}
+            onCancel={handleCancelEdit}
+            onSave={handleSaveEdit}
+            onDelete={handleDeleteRequest}
+          />
+        )}
       </div>
+      <AdminConfirmDialog
+        open={deleteConfirmOpen}
+        title="메뉴를 삭제할까요?"
+        description={
+          selectedMenu
+            ? `"${selectedMenu.name}" 메뉴를 삭제합니다. 이 작업은 취소할 수 없습니다.`
+            : "선택한 메뉴를 삭제합니다."
+        }
+        confirmLabel="삭제"
+        tone="danger"
+        onConfirm={handleDeleteConfirm}
+        onCancel={() => setDeleteConfirmOpen(false)}
+      />
     </section>
   );
 }

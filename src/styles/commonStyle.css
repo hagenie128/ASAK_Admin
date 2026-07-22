@@ -1,0 +1,17 @@
+@import "./admin/base.css";
+@import "./admin/shared.css";
+@import "./admin/filters-inputs.css";
+@import "./admin/status-badge.css";
+@import "./admin/live-order.css";
+@import "./admin/shell.css";
+@import "./admin/login.css";
+@import "./admin/state-preview.css";
+@import "./admin/orders.css";
+@import "./admin/sold-out.css";
+@import "./admin/menu.css";
+@import "./admin/ingredient-select.css";
+@import "./admin/dashboard.css";
+@import "./admin/sales-summary.css";
+@import "./admin/payment-methods.css";
+@import "./admin/sales-period.css";
+@import "./admin/date-picker.css";

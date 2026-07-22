@@ -6,9 +6,14 @@ export function useDashboard() {
   const [status, setStatus] = useState("loading");
 
   useEffect(() => {
-    const envelope = getDashboard();
-    setData(envelope.data ?? null);
-    setStatus("ready");
+    try {
+      const envelope = getDashboard();
+      setData(envelope.data ?? null);
+      setStatus("ready");
+    } catch {
+      setData(null);
+      setStatus("error");
+    }
   }, []);
 
   return { data, status };

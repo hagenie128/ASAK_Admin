@@ -53,3 +53,11 @@ export const PAYMENT_METHOD_LABEL = {
   KAKAO_PAY: "카카오페이",
   NAVER_PAY: "네이버페이",
 };
+
+export const PERIODS = {
+  today: "오늘",
+  week: "이번 주",
+  month: "이번 달",
+};
+// empty / partial 은 mock QA용 키라 라벨에 넣지 않음 (getSalesSummary("empty") 직접 호출)
+

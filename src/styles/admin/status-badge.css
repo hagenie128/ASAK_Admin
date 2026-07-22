@@ -1,0 +1,36 @@
+/* Admin/StatusBadge — Figma 150:5064 */
+.admin-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.admin-status-badge--danger {
+  background: var(--admin-danger-soft);
+  color: var(--admin-danger);
+}
+
+.admin-status-badge--success {
+  background: var(--admin-success-soft);
+  color: var(--admin-deep-green);
+}
+
+.admin-status-badge--muted {
+  background: var(--admin-bg-subtle);
+  color: var(--admin-text-secondary);
+}
+
+.admin-status-badge--warning {
+  background: var(--admin-warning-bg);
+  color: var(--admin-warning-text);
+}
+
+.admin-status-badge--dressing {
+  background: var(--admin-category-dressing-bg);
+  color: var(--admin-category-dressing);
+}

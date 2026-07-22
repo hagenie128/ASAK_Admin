@@ -40,9 +40,10 @@ npm run dev
 
 ## 문서
 
-- [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) ← **실행 계획 (2026-07-20)**
-- [src/STRUCTURE_GUIDE.md](src/STRUCTURE_GUIDE.md)
-- [docs/ui-implementation-map-2026-07-18.md](docs/ui-implementation-map-2026-07-18.md)
+- [src/STRUCTURE_GUIDE.md](src/STRUCTURE_GUIDE.md) — 짧은 구조 지도
+- [docs/README.md](docs/README.md) — Admin 문서 목차
+- [_local_study/ADMIN_MOCK_STUDY.md](_local_study/ADMIN_MOCK_STUDY.md) — 공부 가이드 (로컬·gitignore)
+- [public/mocks/README.md](public/mocks/README.md) — Mock 필드 사전
 - [ui-index.md](../ui-index.md)
 - [Current Implementation Map](../ASAK/docs/planning/current-implementation-map-2026-07-16.md)
 - [작업공간 안내](../README.md)
@@ -51,20 +52,21 @@ npm run dev
 
 ```text
 src/
-  apps/       AdminApp 라우트
-  pages/      정적 UI 화면
-  components/ Sidebar 등
-  mocks/      adminMockRepository (READY, Page 미연결)
-  api/hooks/adapters/  placeholder
-docs/         UI 맵·Figma 로그
+  apps/       AdminApp 라우트 · CSS 로드
+  pages/      URL 화면 (조합)
+  components/ UI 조각
+  hooks/      조회·draft·페이지네이션
+  mocks/      adminMockRepository
+  styles/     tokens → reset → global → commonStyle
+docs/         온보딩·아키텍처·API 등
 public/mocks/ asak-admin-data.json
+_local_study/ 개인 공부 노트 (gitignore)
 ```
 
-## 현재 구현 기준 (2026-07-20)
+## 현재 구현 기준 (2026-07-23)
 
-- **Figma 정적 UI:** 라우트 연결됨 (`/`, `/dashboard`, `/orders`, `/sold-out`, `/menus`, `/payment-methods`, `/sales*`)
-- **Mock:** repository READY · **페이지 연동 0**
-- **코드 경로(실행):** kebab-case · Canonical(`/soldOut` 등)과 CONFLICT → WBS2-033
-- Figma **0718** (`yHhvn5RKjBd91U8BJUQz7F`) — 0715 키 사용 금지
+- **Figma UI + mock 바인딩:** Live·주문·품절·메뉴·결제·매출·대시보드 연결
+- **데이터 흐름:** Page → Hook → `adminMockRepository` → `asak-admin-data.json`
+- **코드 경로(실행):** kebab-case · Canonical과 일부 CONFLICT → WBS2-033
 - Admin 정본은 이 저장소. Kiosk 안 Admin scaffold에 새 기능 넣지 말 것.
-- Backend API 없음 → mock UI와 실연동을 구분할 것.
+- Backend API 없음 → mock과 실연동을 구분할 것.

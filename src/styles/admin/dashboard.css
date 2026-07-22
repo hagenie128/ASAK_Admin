@@ -4,11 +4,17 @@
    섹션 폭은 시안 실측값을 그대로 쓴다: KPI 1008 / Middle 1080 / Bottom 1616. */
 .admin-dashboard {
   width: 100%;
+  height: 100%;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 24px;
+  /* 행 간격만 통일 — 카드는 콘텐츠 높이(늘어나지 않음) */
+  gap: 20px;
   color: #404040;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 .admin-dashboard h1,
@@ -69,7 +75,7 @@
   width: 1008px;
   max-width: 100%;
   height: 120px;
-  margin-top: 16px;
+  flex: 0 0 auto;
   display: flex;
   gap: 16px;
 }
@@ -101,11 +107,13 @@
   color: var(--admin-text-primary);
 }
 
-/* 공통 패널 표면 */
+/* 공통 패널 표면 — 콘텐츠 높이, stretch로 늘어나지 않음 */
 .dashboard-panel {
-  padding: 20px 24px;
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
+  flex: 0 0 auto;
+  align-self: flex-start;
   border: 1px solid var(--admin-border);
   border-radius: 8px;
   background: var(--admin-panel);
@@ -119,23 +127,23 @@
   color: var(--admin-text-primary);
 }
 
-/* MiddleSection (227:7546) — 1080×394 */
+/* MiddleSection — 폭만 유지, 높이는 콘텐츠에 맞춤 */
 .admin-dashboard__middle {
   width: 1080px;
   max-width: 100%;
-  height: 394px;
-  margin-top: 20px;
+  flex: 0 0 auto;
   display: flex;
+  align-items: flex-start;
   gap: 16px;
 }
 
-/* Dashboard Recent Orders Panel (551:74447) — 544×394 */
+/* Dashboard Recent Orders Panel — 콘텐츠 높이 */
 .dashboard-orders {
   width: 544px;
   flex: 0 1 544px;
   min-width: 0;
-  height: 394px;
-  gap: 16px;
+  height: auto;
+  gap: 12px;
 }
 
 .dashboard-orders__table {
@@ -222,13 +230,13 @@
   color: #6699ff;
 }
 
-/* Dashboard Status Summary Panel (551:74526) — 520×394 */
+/* Dashboard Status Summary Panel — 콘텐츠 높이 */
 .dashboard-status-summary {
   width: 520px;
   flex: 0 1 520px;
   min-width: 0;
-  height: 394px;
-  gap: 16px;
+  height: auto;
+  gap: 12px;
 }
 
 .dashboard-status-summary__row {
@@ -317,22 +325,22 @@
   color: #262626;
 }
 
-/* BottomSection (227:7632) — 1616×400 */
+/* BottomSection — 폭만 유지, 높이는 콘텐츠에 맞춤 */
 .admin-dashboard__bottom {
   width: 1616px;
   max-width: 100%;
-  height: 400px;
-  margin-top: 24px;
+  flex: 0 0 auto;
   display: flex;
+  align-items: flex-start;
   gap: 16px;
 }
 
-/* Dashboard Inventory Alert Panel (551:74570) — 520×400 */
+/* Dashboard Inventory Alert Panel — 콘텐츠 높이(하단 빈 공간 제거) */
 .dashboard-inventory {
   width: 520px;
   flex: 0 0 520px;
-  height: 400px;
-  gap: 12px;
+  height: auto;
+  gap: 8px;
 }
 
 .dashboard-inventory__row {
@@ -384,12 +392,12 @@
   font-weight: 500;
 }
 
-/* Dashboard Sales Trend Panel (551:74615) — 1080×400 */
+/* Dashboard Sales Trend Panel — 콘텐츠 높이 */
 .dashboard-trend {
   flex: 1 0 0;
   min-width: 0;
-  height: 400px;
-  gap: 16px;
+  height: auto;
+  gap: 12px;
 }
 
 .dashboard-trend__chart {
@@ -468,13 +476,13 @@
   .admin-dashboard__middle,
   .admin-dashboard__bottom {
     width: 100%;
-    height: auto;
   }
   .dashboard-orders,
   .dashboard-status-summary,
   .dashboard-inventory,
   .dashboard-trend {
     flex: 1 1 0;
+    height: auto;
   }
 }
 
@@ -516,4 +524,3 @@
     flex-wrap: wrap;
   }
 }
-

@@ -1,0 +1,91 @@
+/* Admin/SearchInput · Admin/Checkbox — Figma 150:5006 · 150:5409 */
+
+.admin-search-input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  padding: 10px 14px;
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius-md);
+  background: var(--admin-panel);
+  color: var(--admin-text-primary);
+  font: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  outline: none;
+}
+
+.admin-search-input::placeholder {
+  color: #9ca3af;
+}
+
+.admin-search-input:focus {
+  border-color: var(--admin-brand-secondary);
+}
+
+.admin-search-input:disabled {
+  background: var(--admin-bg-subtle);
+  color: var(--admin-text-secondary);
+  cursor: not-allowed;
+}
+
+.admin-search-input--compact {
+  height: 32px;
+  padding: 5px 12px;
+}
+
+.admin-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--admin-text-primary);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.admin-checkbox input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.admin-checkbox__box {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border: 1.5px solid var(--admin-border);
+  border-radius: 4px;
+  background: var(--admin-panel);
+  position: relative;
+}
+
+.admin-checkbox.is-checked .admin-checkbox__box {
+  border-color: transparent;
+  background: var(--admin-brand-primary);
+}
+
+.admin-checkbox.is-checked .admin-checkbox__box::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 9px;
+  border: solid #111827;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.admin-checkbox.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.admin-checkbox__label {
+  white-space: nowrap;
+}

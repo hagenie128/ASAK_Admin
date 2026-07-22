@@ -1,7 +1,4 @@
-/*
- * SCR-011 / Sold-out Management
- * getSoldOutCatalog() → useSoldOutDraft
- */
+/* SCR-011 / Sold-out — getSoldOutCatalog() → useSoldOutDraft */
 import { useMemo, useState } from "react";
 import chickenImage from "../../assets/figma/soldout-chicken.png";
 import pastaImage from "../../assets/figma/soldout-pasta.png";
@@ -9,14 +6,23 @@ import ricottaImage from "../../assets/figma/soldout-ricotta.png";
 import salmonImage from "../../assets/figma/soldout-salmon.png";
 import sandwichImage from "../../assets/figma/soldout-sandwich.png";
 import tomatoImage from "../../assets/figma/soldout-tomato.png";
+import AdminAsyncState from "../../components/admin/AdminAsyncState.jsx";
+import AdminConfirmDialog from "../../components/admin/AdminConfirmDialog.jsx";
 import AdminTopHeader from "../../components/admin/AdminTopHeader.jsx";
 import AdminPagination from "../../components/admin/AdminPagination.jsx";
+import AdminSearchInput from "../../components/admin/AdminSearchInput.jsx";
+import AdminStatusBadge from "../../components/admin/AdminStatusBadge.jsx";
+import { ADMIN_PAGINATION } from "../../constants/pagination.js";
 import { soldOutRowKey, useSoldOutDraft } from "../../hooks/useSoldOutDraft.js";
 import { usePagination } from "../../hooks/usePagination.js";
 import { toast } from "../../utils/toast.js";
 
-const TABS = ["메뉴", "재료", "옵션 선택지"];
-const SOLD_OUT_PAGE_SIZE = 12;
+const TABS = [
+  { label: "메뉴", targetType: "MENU" },
+  { label: "재료", targetType: "INGREDIENT" },
+  { label: "옵션 선택지", targetType: "OPTION" },
+];
+const SOLD_OUT_PAGINATION = ADMIN_PAGINATION.soldOut;
 
 const IMAGE_BY_KEY = {
   chicken: chickenImage,
@@ -53,7 +59,7 @@ function ItemCard({ item, checked, onToggle, soldOut = false }) {
         <strong>{item.name}</strong>
         <div className="sold-out-card__chips">
           <span className="sold-out-chip">{item.category}</span>
-          {soldOut ? <span className="sold-out-chip sold-out-chip--danger">품절</span> : null}
+          {soldOut ? <AdminStatusBadge role="soldOut" /> : null}
         </div>
       </div>
     </article>
@@ -62,27 +68,62 @@ function ItemCard({ item, checked, onToggle, soldOut = false }) {
 
 export default function SoldOutManagePage() {
   const draft = useSoldOutDraft();
+  const [selectedTab, setSelectedTab] = useState(TABS[0].targetType);
+  const [keyword, setKeyword] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("전체");
+  const [saveConfirmOpen, setSaveConfirmOpen] = useState(false);
+
+  const typedAvailable = useMemo(
+    () => draft.available.filter((row) => row.targetType === selectedTab),
+    [draft.available, selectedTab],
+  );
+
+  const typedSoldOut = useMemo(
+    () => draft.soldOut.filter((row) => row.targetType === selectedTab),
+    [draft.soldOut, selectedTab],
+  );
 
   const categories = useMemo(() => {
-    const names = new Set(draft.available.map((row) => row.category).filter(Boolean));
+    const names = new Set(typedAvailable.map((row) => row.category).filter(Boolean));
     return ["전체", ...names];
-  }, [draft.available]);
+  }, [typedAvailable]);
 
   const filteredAvailable = useMemo(() => {
-    if (selectedCategory === "전체") return draft.available;
-    return draft.available.filter((row) => row.category === selectedCategory);
-  }, [draft.available, selectedCategory]);
+    const q = keyword.trim().toLowerCase();
+    return typedAvailable.filter((row) => {
+      if (selectedCategory !== "전체" && row.category !== selectedCategory) return false;
+      if (q && !String(row.name ?? "").toLowerCase().includes(q)) return false;
+      return true;
+    });
+  }, [typedAvailable, selectedCategory, keyword]);
 
-  const availablePage = usePagination(filteredAvailable, { pageSize: SOLD_OUT_PAGE_SIZE });
-  const soldOutPage = usePagination(draft.soldOut, { pageSize: SOLD_OUT_PAGE_SIZE });
+  const availablePage = usePagination(filteredAvailable, {
+    pageSize: SOLD_OUT_PAGINATION.pageSize,
+  });
+  const soldOutPage = usePagination(typedSoldOut, {
+    pageSize: SOLD_OUT_PAGINATION.pageSize,
+  });
+
+  function handleTabChange(targetType) {
+    setSelectedTab(targetType);
+    setSelectedCategory("전체");
+    setKeyword("");
+    availablePage.resetPage();
+    soldOutPage.resetPage();
+  }
 
   function handleCategoryChange(name) {
     setSelectedCategory(name);
     availablePage.resetPage();
   }
 
-  async function handleSave() {
+  function handleKeywordChange(value) {
+    setKeyword(value);
+    availablePage.resetPage();
+  }
+
+  async function handleSaveConfirm() {
+    setSaveConfirmOpen(false);
     const result = await draft.save();
     if (result.success) {
       toast.success(result.message || "저장되었습니다.");
@@ -94,7 +135,12 @@ export default function SoldOutManagePage() {
   if (draft.status === "loading") {
     return (
       <section className="sold-out-management">
-        <AdminTopHeader crumb="Admin / 품절 관리" title="품절 관리" description="불러오는 중…" />
+        <AdminTopHeader
+          crumb="Admin / 품절 관리"
+          title="품절 관리"
+          description="메뉴, 재료, 옵션의 판매 상태를 관리하세요."
+        />
+        <AdminAsyncState status="loading" layout="page" loadingVariant="card" />
       </section>
     );
   }
@@ -110,6 +156,10 @@ export default function SoldOutManagePage() {
         <AvailablePanel
           items={availablePage.pageItems}
           totalCount={availablePage.totalElements}
+          selectedTab={selectedTab}
+          onTabChange={handleTabChange}
+          keyword={keyword}
+          onKeywordChange={handleKeywordChange}
           categories={categories}
           selectedCategory={selectedCategory}
           onCategoryChange={handleCategoryChange}
@@ -146,10 +196,20 @@ export default function SoldOutManagePage() {
           onToggle={draft.toggleSoldOutSelect}
           onSelectPage={draft.selectSoldOutPage}
           onClearSelection={draft.clearSoldOutSelection}
-          onSave={handleSave}
+          onSave={() => setSaveConfirmOpen(true)}
           pagination={soldOutPage}
         />
       </div>
+      <AdminConfirmDialog
+        open={saveConfirmOpen}
+        title="변경사항을 저장할까요?"
+        description={`품절 상태 변경 ${draft.dirtyCount}건을 저장합니다.`}
+        confirmLabel="저장"
+        tone="warning"
+        isBusy={draft.isSaving}
+        onConfirm={handleSaveConfirm}
+        onCancel={() => setSaveConfirmOpen(false)}
+      />
     </section>
   );
 }
@@ -157,6 +217,10 @@ export default function SoldOutManagePage() {
 function AvailablePanel({
   items,
   totalCount,
+  selectedTab,
+  onTabChange,
+  keyword,
+  onKeywordChange,
   categories,
   selectedCategory,
   onCategoryChange,
@@ -168,15 +232,25 @@ function AvailablePanel({
     <section className="sold-out-panel" aria-label="판매 항목">
       <div className="sold-out-panel__controls">
         <div className="sold-out-tabs" aria-label="항목 유형">
-          {TABS.map((label, index) => (
-            <button key={label} type="button" disabled className={index === 0 ? "is-selected" : ""}>
-              {label}
+          {TABS.map((tab) => (
+            <button
+              key={tab.targetType}
+              type="button"
+              className={tab.targetType === selectedTab ? "is-selected" : ""}
+              onClick={() => onTabChange(tab.targetType)}
+            >
+              {tab.label}
             </button>
           ))}
         </div>
         <label className="sold-out-search">
           <span className="sr-only">이름으로 검색</span>
-          <input value="" placeholder="이름으로 검색..." readOnly disabled />
+          <AdminSearchInput
+            className="admin-search-input--embedded"
+            value={keyword}
+            placeholder="이름으로 검색..."
+            onChange={(next) => onKeywordChange(next)}
+          />
           <i aria-hidden="true" />
         </label>
       </div>
@@ -218,6 +292,7 @@ function AvailablePanel({
         page={pagination.page}
         pageSize={pagination.pageSize}
         totalElements={pagination.totalElements}
+        windowSize={SOLD_OUT_PAGINATION.windowSize}
         onPageChange={pagination.goToPage}
       />
     </section>
@@ -284,6 +359,7 @@ function SoldOutPanel({
         page={pagination.page}
         pageSize={pagination.pageSize}
         totalElements={pagination.totalElements}
+        windowSize={SOLD_OUT_PAGINATION.windowSize}
         onPageChange={pagination.goToPage}
       />
 

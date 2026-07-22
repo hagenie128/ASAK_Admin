@@ -9,6 +9,7 @@ import { getPaymentMethodGlyph } from "../../constants/paymentMethodGlyphs.js";
 import { usePaymentMethodDraft } from "../../hooks/usePaymentMethodDraft.js";
 import { toast } from "../../utils/toast.js";
 
+// POLICIES — JSON 없음, 정적 유지
 const POLICIES = [
   {
     title: "결제 실패 시 초기화 정책",

@@ -18,6 +18,10 @@ export function soldOutRowKey(item) {
   return `${item.targetType}-${item.targetId}`;
 }
 
+function cloneRows(rows) {
+  return structuredClone(rows ?? []);
+}
+
 function countDirty(savedSoldOutKeys, currentSoldOutRows) {
   const current = new Set(currentSoldOutRows.map(soldOutRowKey));
   let count = 0;
@@ -31,9 +35,10 @@ function countDirty(savedSoldOutKeys, currentSoldOutRows) {
 }
 
 export function useSoldOutDraft() {
-  // ① "저장된 장부" 기준 품절 키 목록 — state 로 두어야 저장 후 dirtyCount 가 0으로 다시 계산됨
-  //    (useRef 만 쓰면 저장해도 리렌더가 없어 건수가 안 바뀐 것처럼 보임)
+  // ① "저장된 장부" 기준 — 키 + 전체 목록 스냅샷(저장 실패 롤백용)
   const [baselineSoldOutKeys, setBaselineSoldOutKeys] = useState([]);
+  const [baselineAvailable, setBaselineAvailable] = useState([]);
+  const [baselineSoldOut, setBaselineSoldOut] = useState([]);
 
   // ② 드래프트 = 화면에 보이는 두 목록 (useState)
   const [available, setAvailable] = useState([]);
@@ -53,6 +58,8 @@ export function useSoldOutDraft() {
     const nextSoldOut = envelope.data?.soldOut ?? [];
     setAvailable(nextAvailable);
     setSoldOut(nextSoldOut);
+    setBaselineAvailable(cloneRows(nextAvailable));
+    setBaselineSoldOut(cloneRows(nextSoldOut));
     setBaselineSoldOutKeys(nextSoldOut.map(soldOutRowKey));
     setStatus("ready");
   }, []);
@@ -145,13 +152,21 @@ export function useSoldOutDraft() {
     try {
       const result = saveSoldOutCatalog({ available, soldOut });
       if (result.success) {
+        setBaselineAvailable(cloneRows(available));
+        setBaselineSoldOut(cloneRows(soldOut));
         setBaselineSoldOutKeys(soldOut.map(soldOutRowKey));
+      } else {
+        // 저장 실패: 마지막 성공 로드/저장 스냅샷으로 롤백 (asak_mock_fail_save=1)
+        setAvailable(cloneRows(baselineAvailable));
+        setSoldOut(cloneRows(baselineSoldOut));
+        setSelectedAvailable(new Set());
+        setSelectedSoldOut(new Set());
       }
       return result;
     } finally {
       setIsSaving(false);
     }
-  }, [available, soldOut, dirtyCount]);
+  }, [available, soldOut, dirtyCount, baselineAvailable, baselineSoldOut]);
 
   return {
     status,

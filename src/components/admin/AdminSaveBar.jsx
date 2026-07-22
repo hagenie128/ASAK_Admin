@@ -1,7 +1,4 @@
-/*
- * 저장 바 (품절·결제수단·메뉴 편집)
- * Props: isDirty, isSaving, message?, onSave
- */
+/* 저장 바 (품절·결제수단·메뉴 편집) — Props: isDirty, isSaving, message?, onSave */
 export default function AdminSaveBar({
   isDirty,
   isSaving,

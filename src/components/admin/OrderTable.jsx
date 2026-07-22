@@ -1,15 +1,49 @@
-/*
- * 주문 목록 표 (SCR-010)
- */
+/* 주문 목록 표 (SCR-010) */
 import { formatDate } from "../../utils/date.js";
 import { formatCurrency } from "../../utils/currency.js";
-import {
-  ORDER_TYPE_LABEL,
-  ORDER_STATUS_LABEL,
-  PAYMENT_STATUS_LABEL,
-} from "../../constants/orderLabels.js";
+import { ORDER_TYPE_LABEL } from "../../constants/orderLabels.js";
+import AdminAsyncState from "./AdminAsyncState.jsx";
+import OrderStatusBadge from "./OrderStatusBadge.jsx";
 
-export default function OrderTable({ status, orders, onOrderDetail }) {
+export default function OrderTable({
+  status,
+  orders,
+  onOrderDetail,
+  selectedOrderId = null,
+}) {
+  if (status === "loading" || status === "idle") {
+    return (
+      <AdminAsyncState
+        status="loading"
+        layout="section"
+        loadingVariant="table"
+        title="주문 내역을 불러오는 중"
+      />
+    );
+  }
+
+  if (status === "error") {
+    return (
+      <AdminAsyncState
+        status="error"
+        layout="section"
+        title="주문 내역을 불러오지 못했습니다"
+        description="잠시 후 다시 시도해 주세요."
+      />
+    );
+  }
+
+  if (status === "empty" || orders.length === 0) {
+    return (
+      <AdminAsyncState
+        status="empty"
+        layout="section"
+        title="주문 내역이 없습니다"
+        description="조건에 맞는 주문이 없습니다. 필터를 바꿔 보세요."
+      />
+    );
+  }
+
   return (
     <table className="order-management__table">
       <thead>
@@ -25,40 +59,26 @@ export default function OrderTable({ status, orders, onOrderDetail }) {
         </tr>
       </thead>
       <tbody>
-        {status === "success" && orders.length > 0 ? (
-          orders.map((order) => (
-            <tr key={order.orderId} onClick={() => onOrderDetail(order.orderId)}>
-              <td>{order.orderNo}</td>
-              <td>{formatDate(order.createdAt)}</td>
-              <td>{ORDER_TYPE_LABEL[order.orderType] ?? order.orderType}</td>
-              <td>{order.menuSummary}</td>
-              <td>{order.itemCount}</td>
-              <td>{formatCurrency(order.totalPrice)}</td>
-              <td>
-                <span className={`order-status order-status--${order.orderStatus}`}>
-                  {ORDER_STATUS_LABEL[order.orderStatus] ?? order.orderStatus}
-                </span>
-              </td>
-              <td>
-                <span className={`order-status order-status--${order.paymentStatus}`}>
-                  {PAYMENT_STATUS_LABEL[order.paymentStatus] ?? order.paymentStatus}
-                </span>
-              </td>
-            </tr>
-          ))
-        ) : status === "error" ? (
-          <tr>
-            <td colSpan={8}>주문 내역을 불러오는 중에 실패했습니다.</td>
+        {orders.map((order) => (
+          <tr
+            key={order.orderId}
+            className={order.orderId === selectedOrderId ? "is-selected" : ""}
+            onClick={() => onOrderDetail(order.orderId)}
+          >
+            <td>{order.orderNo}</td>
+            <td>{formatDate(order.createdAt)}</td>
+            <td>{ORDER_TYPE_LABEL[order.orderType] ?? order.orderType}</td>
+            <td>{order.menuSummary}</td>
+            <td>{order.itemCount}</td>
+            <td>{formatCurrency(order.totalPrice)}</td>
+            <td>
+              <OrderStatusBadge orderStatus={order.orderStatus} />
+            </td>
+            <td>
+              <OrderStatusBadge paymentStatus={order.paymentStatus} />
+            </td>
           </tr>
-        ) : status === "empty" ? (
-          <tr>
-            <td colSpan={8}>주문 내역이 없습니다.</td>
-          </tr>
-        ) : (
-          <tr>
-            <td colSpan={8}>주문 내역을 불러오는 중입니다. 잠시 후 다시 시도해주세요.</td>
-          </tr>
-        )}
+        ))}
       </tbody>
     </table>
   );

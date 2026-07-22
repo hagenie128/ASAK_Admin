@@ -6,8 +6,7 @@
  * 이 파일이 직접 처리하면 안 되는 상태: 비밀번호 저장, 로그인 폼 입력값, 주문 데이터
  *
  * 데이터 흐름: LoginPage → (예정) auth API → adminSessionStore ← useAdminAuth ← 보호 Route
- * TODO 1: adminSessionStore의 isAuthenticated만 읽는다
- * TODO 2: 401 시 로그인 경로로 보내는 책임 위치를 Layout vs Router에서 합의
+ * 이번 mock 범위: mock 세션 읽기만. BACKEND 연동 후: 실 401 처리·실인증.
  */
 
 import { useAdminSessionStore } from "../store/adminSessionStore.js";
