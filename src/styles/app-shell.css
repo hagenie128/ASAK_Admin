@@ -1,12 +1,9 @@
-@import "./admin/base.css";
-@import "./admin/live-order.css";
-@import "./admin/shell.css";
-@import "./admin/login.css";
-@import "./admin/state-preview.css";
-@import "./admin/orders.css";
-@import "./admin/sold-out.css";
-@import "./admin/menu.css";
-@import "./admin/dashboard.css";
-@import "./admin/sales-summary.css";
-@import "./admin/payment-methods.css";
-@import "./admin/sales-period.css";
+/**
+ * 호환용 진입점 (구 import 경로 유지).
+ * 정본은 Kiosk와 동일: tokens → reset → global → commonStyle
+ * (AdminApp.jsx에서 4파일을 직접 import)
+ */
+@import "./tokens.css";
+@import "./reset.css";
+@import "./global.css";
+@import "./commonStyle.css";

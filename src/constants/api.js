@@ -5,8 +5,8 @@
  * Figma 승인 후 연결할 Props: 해당 없음
  * 이 파일이 직접 처리하면 안 되는 상태: HTTP, UI
  *
- * TODO 1: docs/api-integration-2026-07-14.md의 경로를 상수로만 옮긴다
- * TODO 2: 계약 변경 없이 임의 path 창작 금지
+ * BACKEND 연동 후: docs/api-integration 경로를 상수로만 옮긴다 (임의 path 창작 금지).
+ * 이번 mock 범위 제외: 실 API URL/DTO 확정 전 추측 작성 금지.
  */
 
 export const ADMIN_API_PATH_HINTS = {

@@ -94,11 +94,13 @@
 
 /* Figma Admin/Navbar (227:5009): Menu Nav가 flex-1이라 프로모 카드와 Logout이 아래로 밀린다. */
 .admin-sidebar__nav {
-  flex: 1 0 0;
+  flex: 1 1 auto;
   min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 .admin-sidebar__nav a {
@@ -613,4 +615,3 @@
   margin: 16px 0 0;
   color: #6b7280;
 }
-

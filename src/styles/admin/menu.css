@@ -1,12 +1,14 @@
-/* SCR-016 / Menu management (Figma 134:12137) ------------------------------ */
+﻿/* SCR-016 / Menu management (Figma 134:12137) ------------------------------ */
 /* MainContent 1680, 공통 padding 40. workspace = 목록 + 상세. */
 .menu-management {
   width: 100%;
-  min-height: calc(100vh - 80px);
+  height: 100%;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 24px;
   color: var(--admin-text-primary);
+  overflow: hidden;
 }
 
 .menu-management h1,
@@ -18,20 +20,22 @@
 
 .menu-management__workspace {
   display: flex;
-  flex: 1 1 auto;
+  flex-direction: row;
+  flex: 1 1 0;
   align-items: stretch;
   gap: 16px;
   min-height: 0;
-  overflow: clip;
+  overflow: hidden;
 }
 
 .menu-management__list {
   flex: 1 1 0;
   min-width: 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  overflow: clip;
+  overflow: hidden;
 }
 
 /* legacy header kept for compatibility — pages now use AdminTopHeader */
@@ -42,6 +46,7 @@
 /* Search-Row — 흰 카드 툴바 */
 .menu-management__toolbar {
   height: 52px;
+  flex: 0 0 auto;
   padding: 0 16px;
   display: flex;
   align-items: center;
@@ -103,10 +108,14 @@
   transform: rotate(45deg);
 }
 
-.menu-management__search input {
+.menu-management__search input,
+.menu-management__search .admin-search-input {
   width: 76px;
   min-width: 0;
+  height: auto;
+  padding: 0;
   border: 0;
+  border-radius: 0;
   background: none;
   font-family: inherit;
   font-size: 14px;
@@ -114,16 +123,53 @@
   color: var(--admin-text-primary);
 }
 
-/* Menu-Grid (134:12156) — 4열 × 196×234, 간격 16 */
+.menu-management__search .admin-search-input:focus {
+  border: 0;
+  outline: none;
+}
+
+.menu-management__toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu-management__create {
+  height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 18px;
+  background: var(--admin-brand-primary);
+  color: #0d0d0d;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Menu-Grid (134:12156) — 4열 × 196×234, 간격 16. 넘치면 목록 영역만 스크롤 */
 .menu-management__grid {
   margin-top: 24px;
+  flex: 1 1 0;
+  min-height: 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 196px));
   gap: 16px;
+  align-content: start;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.menu-management__pagination {
+  flex: 0 0 auto;
+  justify-content: center;
+  margin-top: 4px;
 }
 
 .admin-menu-card {
-  height: 234px;
+  /* 이미지 + 이름 2줄(40) + 가격 한 줄 고정 영역 */
+  height: 248px;
   padding: 8px;
   display: flex;
   flex-direction: column;
@@ -131,6 +177,18 @@
   border-radius: 12px;
   background: var(--admin-panel);
   overflow: hidden;
+  cursor: pointer;
+}
+
+.admin-menu-card.is-selected {
+  outline: 2px solid var(--admin-brand-primary);
+  outline-offset: 1px;
+}
+
+.menu-management__empty {
+  margin: 24px 8px;
+  color: var(--admin-text-secondary);
+  font-size: 14px;
 }
 
 .admin-menu-card img {
@@ -144,44 +202,64 @@
 .admin-menu-card div {
   padding: 0 8px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  gap: 8px;
+  min-height: 40px;
 }
 
 .admin-menu-card strong {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   font-size: 14px;
   line-height: 20px;
+  max-height: 40px;
   font-weight: 700;
   color: var(--admin-text-primary);
+  overflow: hidden;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 .admin-menu-card b {
+  flex: 0 0 auto;
   font-size: 14px;
   line-height: 20px;
   font-weight: 700;
   color: #6c9700;
+  white-space: nowrap;
 }
 
-/* Menu-Detail-Panel — 우측 상세, clip */
+/* Menu-Detail-Panel — 우측 상세. 항상 보이고, 안쪽만 스크롤 */
 .menu-detail-panel {
   width: min(700px, 42%);
-  flex: 0 0 auto;
+  flex: 0 0 min(700px, 42%);
+  align-self: stretch;
   min-width: 320px;
   min-height: 0;
+  display: flex;
+  flex-direction: column;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   background: #fff;
-  overflow: clip;
+  overflow: hidden;
 }
 
 .menu-detail-panel__scroll {
-  height: 100%;
-  max-height: calc(100vh - 180px);
+  flex: 1 1 0;
+  min-height: 0;
+  height: auto;
+  max-height: none;
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  overflow-x: hidden;
   overflow-y: auto;
+  scrollbar-width: thin;
   box-sizing: border-box;
 }
 
@@ -300,14 +378,8 @@
   font-weight: 700;
 }
 
-.menu-detail-badge {
-  padding: 4px 8px;
-  border-radius: 6px;
-  background: var(--admin-brand-primary);
-  color: var(--admin-text-primary);
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 700;
+.menu-detail-basic__name .admin-status-badge {
+  flex-shrink: 0;
 }
 
 .menu-detail-basic__info p {
@@ -481,14 +553,6 @@
   font-weight: 500;
 }
 
-.menu-detail-options__grid em {
-  font-style: normal;
-  font-size: 13px;
-  line-height: 18px;
-  font-weight: 500;
-  color: #ef4444;
-}
-
 .menu-detail-options__grid p {
   font-size: 14px;
   line-height: 20px;
@@ -577,28 +641,470 @@
   color: #077e40;
 }
 
-/* Figma는 1920 고정폭만 정의한다. 아래는 좁은 화면 보정이다. */
-@media (max-width: 1500px) {
-  .menu-management {
+/* SCR-016 Detail Add/Edit — menu-edit-operational (Figma 134:12400) */
+.menu-edit-panel {
+  width: min(700px, 42%);
+  flex: 0 0 min(700px, 42%);
+  align-self: stretch;
+  min-width: 320px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.menu-edit-panel__scroll {
+  flex: 1 1 0;
+  min-height: 0;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.menu-edit-card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.menu-edit-card__top {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 16px;
+}
+
+.menu-edit-image {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-edit-image > span,
+.menu-edit-field > span,
+.menu-edit-status > span {
+  color: var(--admin-text-secondary);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+.menu-edit-image__preview {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--admin-page-bg);
+}
+
+.menu-edit-image__preview img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
+.menu-edit-image__actions {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.menu-edit-image__actions button {
+  height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.menu-edit-image__actions button.is-danger {
+  width: 32px;
+  padding: 0;
+  color: #ff0004;
+}
+
+.menu-edit-card__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.menu-edit-card__header,
+.menu-edit-card__section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.menu-edit-card__header h2,
+.menu-edit-card__section-head h3,
+.menu-edit-card h3 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 700;
+}
+
+.menu-edit-card__header p,
+.menu-edit-card__section-head p,
+.menu-edit-card > p {
+  margin: 4px 0 0;
+  color: var(--admin-text-secondary);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.menu-edit-card__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.menu-edit-card__actions button,
+.menu-edit-bottombar button {
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.menu-edit-card__actions .is-delete {
+  color: #ff0004;
+  border-color: #ffd0d1;
+  background: #fff5f5;
+}
+
+.menu-edit-card__actions .is-save,
+.menu-edit-bottombar .is-primary {
+  border: 0;
+  background: var(--admin-brand-primary);
+  color: #0d0d0d;
+}
+
+.menu-edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.menu-edit-field input,
+.menu-edit-field select,
+.menu-edit-field textarea {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--admin-text-primary);
+  box-sizing: border-box;
+}
+
+.menu-edit-field input,
+.menu-edit-field select {
+  height: 40px;
+  padding: 0 12px;
+}
+
+.menu-edit-field textarea {
+  min-height: 96px;
+  padding: 10px 12px;
+  resize: vertical;
+}
+
+.menu-edit-field small,
+.menu-edit-field em {
+  color: var(--admin-text-secondary);
+  font-size: 12px;
+  font-style: normal;
+}
+
+.menu-edit-field-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.menu-edit-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.menu-edit-toggle {
+  height: 36px;
+  padding: 0 8px 0 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.menu-edit-toggle i {
+  width: 28px;
+  height: 16px;
+  border-radius: 8px;
+  background: #d1d5db;
+  position: relative;
+}
+
+.menu-edit-toggle i::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  transition: left 0.15s ease;
+}
+
+.menu-edit-toggle.is-on i {
+  background: var(--admin-brand-primary);
+}
+
+.menu-edit-toggle.is-on i::after {
+  left: 14px;
+}
+
+.menu-edit-toggle b {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+button.is-link {
+  border: 0;
+  background: none;
+  color: #6c9700;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.menu-edit-ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-edit-ingredients > p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.menu-edit-ingredients--core > p {
+  color: #ff0004;
+}
+
+.menu-edit-ingredients--base > p {
+  color: #6c9700;
+}
+
+.menu-edit-ingredient-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.menu-edit-ingredient-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--admin-page-bg);
+}
+
+.menu-edit-ingredient-chip strong {
+  font-size: 13px;
+}
+
+.menu-edit-ingredient-chip span,
+.menu-edit-ingredient-chip em {
+  font-size: 12px;
+  color: var(--admin-text-secondary);
+  font-style: normal;
+}
+
+.menu-edit-ingredient-chip button {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 50%;
+  background: #e5e7eb;
+  cursor: pointer;
+}
+
+.menu-edit-note,
+.menu-edit-empty {
+  margin: 0;
+  color: var(--admin-text-secondary);
+  font-size: 12px;
+}
+
+.menu-edit-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.menu-edit-options article {
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--admin-page-bg);
+}
+
+.menu-edit-options article div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.menu-edit-options strong {
+  font-size: 14px;
+}
+
+.menu-edit-options p {
+  margin: 6px 0 0;
+  color: var(--admin-text-secondary);
+  font-size: 12px;
+}
+
+.menu-edit-nutrition {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.menu-edit-nutrition div {
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--admin-page-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menu-edit-nutrition span {
+  color: var(--admin-text-secondary);
+  font-size: 12px;
+}
+
+.menu-edit-nutrition b {
+  font-size: 14px;
+}
+
+.menu-edit-tags-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.menu-edit-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.menu-edit-chips span {
+  height: 24px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 12px;
+  background: var(--admin-page-bg);
+  color: var(--admin-text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.menu-edit-bottombar {
+  flex: 0 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid #e5e7eb;
+  background: #fafafa;
+}
+
+.menu-edit-bottombar span {
+  color: var(--admin-text-secondary);
+  font-size: 13px;
+}
+
+.menu-edit-bottombar div {
+  display: flex;
+  gap: 8px;
+}
+
+/* 좁은 화면에서도 기본은 가로(좌 목록 · 우 상세). 아주 좁을 때만 세로 */
+@media (max-width: 1100px) {
+  .menu-management__workspace {
     flex-direction: column;
   }
   .menu-management__list {
     width: 100%;
-    flex: 0 0 auto;
+    flex: 1 1 auto;
+    min-height: 0;
   }
-  .menu-detail-panel {
+  .menu-detail-panel,
+  .menu-edit-panel {
     width: 100%;
     flex: 0 0 auto;
-    height: auto;
+    min-height: 280px;
+    max-height: 50vh;
     position: static;
   }
-  .menu-detail-panel__scroll {
-    height: auto;
-    padding: 0 32px 40px;
-    overflow: visible;
+  .menu-detail-panel__scroll,
+  .menu-edit-panel__scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 24px;
+    overflow-y: auto;
   }
   .menu-management__grid {
     grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+  }
+  .menu-edit-card__top,
+  .menu-edit-field-row,
+  .menu-edit-options,
+  .menu-edit-tags-row,
+  .menu-edit-nutrition {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -623,5 +1129,4 @@
     gap: 12px;
   }
 }
-
 

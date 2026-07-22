@@ -14,19 +14,22 @@ import DashboardPage from "../pages/admin/DashboardPage.jsx";
 import UiStatePreviewPage from "../pages/admin/UiStatePreviewPage.jsx";
 import AdminLayout from "../layouts/AdminLayout.jsx";
 import { isAdminLoggedIn } from "../auth/adminSession.js";
+import "../styles/tokens.css";
+import "../styles/reset.css";
+import "../styles/global.css";
+import "../styles/commonStyle.css";
 
 /*
  * 라우트 정책 (2026-07-21):
  * - 비로그인: 진입점(`/`)·보호 경로 → 로그인 화면
  * - 로그인 후 `/` = SCR-009 주문 현황(Live Order) = 운영 홈
+ * - Canonical `/orders/live` → `/` soft alias (문서·북마크 정렬용, 실서버 아님)
  * - `/dashboard` = SCR-022 대시보드 (사이드바 Home)
  * - `/login` = SCR-015 (이미 로그인된 경우 `/`로 보냄)
  *
- * Canonical 문서의 `/orders/live`와 코드 `/`는 아직 불일치(WBS2-033).
  * 실행 정본은 이 파일의 코드 경로다.
  */
-// TODO: OrderDetailPage 라우트 연결 (WBS2-036)
-// TODO: Canonical 경로와 사이드바·문서 정렬 (WBS2-033)
+// 이번 mock 범위: 주문 상세는 /orders 패널이 정본. OrderDetailPage 별도 라우트는 팀 합의 후.
 
 function AdminScreen({ title, screenId }) {
   return (
@@ -80,8 +83,9 @@ export default function AdminApp() {
     return <Navigate to="/" replace />;
   }
 
-  // 로그인 후 `/` = 주문 현황 (운영 홈)
+  // 로그인 후 `/` = 주문 현황 (운영 홈). Canonical `/orders/live`는 `/`로 정렬.
   if (pathname === "/") return <OrderListPage />;
+  if (pathname === "/orders/live") return <Navigate to="/" replace />;
 
   const staticPages = {
     "/dashboard": <DashboardPage />,

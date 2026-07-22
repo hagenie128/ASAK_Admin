@@ -6,8 +6,7 @@
  * 이 파일이 직접 처리하면 안 되는 상태: 로그인 폼 입력·오류 문구, 주문/품절 Draft
  *
  * 주의: 비밀번호·원문 토큰을 persistent storage에 두지 말 것 (기존 안내 유지)
- * TODO 1: setSession / clearSession / isAuthenticated
- * TODO 2: 화면 전용 UI 상태는 Page 로컬로 둔다 (IMPLEMENTATION_PLAN)
+ * 이번 mock 범위: mock 세션 최소 동작만. BACKEND 연동 후: 실인증·토큰 갱신.
  */
 
 import { create } from "zustand";

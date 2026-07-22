@@ -1,183 +1,35 @@
-/**
- * ASAK Admin design tokens
- * 정본: Figma 0718 `yHhvn5RKjBd91U8BJUQz7F` — Kiosk와 동일 Primitive/Semantic
- * (화면 JSX·API·store는 유지. :root 값만 Variable에 맞춤)
+/* ASAK Admin — 셸/캔버스 공통 (Kiosk `styles/kiosk/base.css`와 동일 역할) */
+
+/*
+ * Figma 1920×1080 캔버스를 고정하고, AdminLayout이 창 크기에 맞게 scale 한다.
+ * 뷰포트만 채우면(100dvh) 시안 px이 그대로라 작은 창에서 UI가 커 보인다.
  */
-:root {
-  /* Brand — Semantic/Brand/* */
-  --admin-brand-primary: #b5e30f; /* Brand/Primary · Green/300 */
-  --admin-brand-secondary: #6c9700; /* Brand/Secondary · Green/500 */
-  --admin-brand-subtle: #f5fbe0; /* Brand/Subtle · Green/50 */
-  --admin-lime: #b5e30f; /* alias → Brand/Primary (구 #c6e84a 폐기) */
-  --admin-lime-soft: #c8f064; /* Color/Green/200 (차트 막대) */
-  --admin-deep-green: #5b8c2a; /* Color/Green/600 */
 
-  /* Surface / BG — Semantic/BG/* */
-  --admin-bg: #f7f7f7; /* BG/Page/Admin · Neutral/50 */
-  --admin-page-bg: #f7f7f7;
-  --admin-panel: #ffffff; /* BG/Admin · White */
-  --admin-sidebar: #ffffff; /* 라이트 Navbar 정본 */
-  --admin-sidebar-text: #737373; /* Text/Tertiary */
-  --admin-bg-subtle: #f5f5f5; /* BG/Subtle · Neutral/100 */
-
-  /* Text — Semantic/Text/Admin/* */
-  --admin-text: #111827; /* Text/Admin/Primary · CoolGray/950 */
-  --admin-text-primary: #111827;
-  --admin-text-secondary: #6b7280; /* Text/Admin/Secondary · CoolGray/700 */
-  --admin-muted: #6b7280;
-  --admin-text-tertiary: #737373; /* Text/Tertiary */
-
-  /* Border / Status */
-  --admin-border: #e5e7eb; /* Border/Default · CoolGray/200 */
-  --admin-danger: #ef4444; /* Status/Error */
-  --admin-danger-soft: #fff0eb; /* Status/ErrorBG */
-  --admin-warning-bg: #fffbeb; /* Status/WarningBG · Yellow/50 */
-  --admin-warning-text: #92400e; /* Status/WarningText */
-  --admin-success: #5da45d; /* Status/Success */
-  --admin-success-soft: #ebf5eb; /* Status/SuccessBG */
-
-  /* Radius / Spacing (Semantic) */
-  --admin-radius-sm: 4px;
-  --admin-radius-md: 8px;
-  --admin-radius-lg: 12px;
-  --admin-radius-xl: 16px;
-  --admin-space-md: 16px;
-  --admin-space-lg: 24px;
-  --admin-space-xl: 32px;
-
-  /* Type */
-  --admin-font: "Pretendard Variable", Pretendard, sans-serif;
-  --admin-sidebar-width: 240px;
-  --admin-sidebar-compact-width: 88px;
-}
-
-/* Figma Shared Loading / Empty / Error / Confirm / Toast — API 연결 전 상태 UI 뼈대 */
-.admin-async-state {
-  min-height: 240px;
-  padding: 32px;
+.admin-viewport {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  border: 1px solid var(--admin-border);
-  border-radius: var(--admin-radius-lg);
-  background: var(--admin-panel);
-  text-align: center;
-}
-.admin-async-state h2,
-.admin-async-state p { margin: 0; }
-.admin-async-state h2 { font-size: 18px; color: var(--admin-text-primary); }
-.admin-async-state p { color: var(--admin-text-secondary); }
-.admin-async-state__icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: var(--admin-bg-subtle);
-}
-.admin-async-state--loading .admin-async-state__icon {
-  border: 6px solid var(--admin-border);
-  border-top-color: var(--admin-brand-primary);
-  background: transparent;
-  animation: admin-spin 0.8s linear infinite;
-}
-.admin-async-state--error .admin-async-state__icon { background: var(--admin-danger-soft); }
-.admin-async-state button,
-.admin-confirm__actions button {
-  min-height: 40px;
-  padding: 0 16px;
-  border: 1px solid var(--admin-border);
-  border-radius: var(--admin-radius-md);
-  background: var(--admin-panel);
-  color: var(--admin-text-primary);
-  font: inherit;
-  font-weight: 700;
-}
-.admin-async-state button { margin-top: 4px; background: var(--admin-brand-primary); }
-.admin-confirm-layer {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  display: grid;
-  place-items: center;
-  padding: 24px;
-  background: rgba(0, 0, 0, 0.45);
-}
-.admin-confirm {
-  width: min(440px, 100%);
-  padding: 28px;
-  border-radius: var(--admin-radius-lg);
-  background: var(--admin-panel);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
-}
-.admin-confirm h2,
-.admin-confirm p { margin: 0; }
-.admin-confirm h2 { color: var(--admin-text-primary); font-size: 20px; }
-.admin-confirm p { margin-top: 8px; color: var(--admin-text-secondary); line-height: 1.5; }
-.admin-confirm__actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 24px; }
-.admin-confirm__actions .is-primary { border-color: transparent; background: var(--admin-danger); color: #fff; }
-.admin-confirm--warning .admin-confirm__actions .is-primary { background: var(--admin-brand-primary); color: var(--admin-text-primary); }
-.admin-toast {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 60;
-  min-width: 260px;
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  border-radius: var(--admin-radius-md);
-  background: var(--admin-text-primary);
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
-}
-.admin-toast p { margin: 0; }
-.admin-toast--error { background: var(--admin-danger); }
-.admin-toast--warning { background: var(--admin-warning-text); }
-.admin-toast button { border: 0; background: transparent; color: inherit; font-size: 20px; }
-@keyframes admin-spin { to { transform: rotate(360deg); } }
-
-:root {
-  font-family: var(--admin-font);
-  color: var(--admin-text);
-  background: var(--admin-bg);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  min-width: 320px;
-  font-family: var(--admin-font);
-  background: var(--admin-bg);
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* 스크린리더 전용 텍스트. 정의가 없으면 숨김 라벨이 화면에 그대로 보인다. */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  border: 0;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
+  background: var(--admin-bg);
+}
+
+.admin-scale-slot {
+  position: relative;
+  flex: 0 0 auto;
+  overflow: hidden;
 }
 
 .admin-app {
   display: grid;
   grid-template-columns: var(--admin-sidebar-width) minmax(0, 1fr);
-  min-height: 100vh;
+  grid-template-rows: minmax(0, 1fr);
+  width: var(--admin-canvas-w);
+  height: var(--admin-canvas-h);
+  transform-origin: top left;
+  overflow: hidden;
 }
 
 .admin-app--tablet {
@@ -185,13 +37,16 @@ a {
 }
 
 .admin-sidebar {
-  min-height: 100vh;
+  height: 100%;
+  min-height: 0;
+  max-height: none;
   padding: 0 20px 28px;
   display: flex;
   flex-direction: column;
   gap: 28px;
   background: var(--admin-panel);
   color: #737373;
+  overflow: hidden;
   box-shadow:
     0.5px 0.5px 0.5px rgba(200, 241, 104, 0.25),
     -0.5px -0.5px 0.5px rgba(200, 241, 104, 0.25),
@@ -201,11 +56,22 @@ a {
 
 .admin-main {
   min-width: 0;
-  min-height: 100vh;
+  min-height: 0;
+  height: 100%;
   padding: 40px;
   background: var(--admin-page-bg);
   box-sizing: border-box;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* 페이지 루트: 메인 높이에 맞추고, 넘치면 페이지·내부 패널이 스크롤 */
+.admin-main > * {
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
 }
 
 /* Figma MainContent top-header 241:14215 — 전 관리자 페이지 공통 */
@@ -300,4 +166,3 @@ a {
     padding: 40px 24px;
   }
 }
-

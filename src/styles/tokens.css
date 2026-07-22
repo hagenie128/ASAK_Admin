@@ -1,0 +1,67 @@
+/**
+ * ASAK Admin design tokens
+ * 정본: Figma 0718 `yHhvn5RKjBd91U8BJUQz7F` — Kiosk와 동일 Primitive/Semantic
+ * (화면 JSX·API·store는 유지. :root 값만 Variable에 맞춤)
+ *
+ * 레이어: Kiosk `styles/tokens.css`와 동일 역할
+ */
+:root {
+  /* Brand — Semantic/Brand/* */
+  --admin-brand-primary: #b5e30f; /* Brand/Primary · Green/300 */
+  --admin-brand-secondary: #6c9700; /* Brand/Secondary · Green/500 */
+  --admin-brand-subtle: #f5fbe0; /* Brand/Subtle · Green/50 */
+  --admin-lime: #b5e30f; /* alias → Brand/Primary (구 #c6e84a 폐기) */
+  --admin-lime-soft: #c8f064; /* Color/Green/200 (차트 막대) */
+  --admin-deep-green: #5b8c2a; /* Color/Green/600 */
+
+  /* Surface / BG — Semantic/BG/* */
+  --admin-bg: #f7f7f7; /* BG/Page/Admin · Neutral/50 */
+  --admin-page-bg: #f7f7f7;
+  --admin-panel: #ffffff; /* BG/Admin · White */
+  --admin-sidebar: #ffffff; /* 라이트 Navbar 정본 */
+  --admin-sidebar-text: #737373; /* Text/Tertiary */
+  --admin-bg-subtle: #f5f5f5; /* BG/Subtle · Neutral/100 */
+  --admin-bg-inverse: #1a1a1a; /* BG/Inverse · Surface/600 · SalesPeriodFilter 등 */
+
+  /* Text — Semantic/Text/Admin/* */
+  --admin-text: #111827; /* Text/Admin/Primary · CoolGray/950 */
+  --admin-text-primary: #111827;
+  --admin-text-secondary: #6b7280; /* Text/Admin/Secondary · CoolGray/700 */
+  --admin-muted: #6b7280;
+  --admin-text-tertiary: #737373; /* Text/Tertiary */
+
+  /* Border / Status */
+  --admin-border: #e5e7eb; /* Border/Default · CoolGray/200 */
+  --admin-danger: #ef4444; /* Status/Error */
+  --admin-danger-soft: #fff0eb; /* Status/ErrorBG */
+  --admin-warning: #fbbf24; /* Status/Warning · Shared/Toast */
+  --admin-warning-bg: #fffbeb; /* Status/WarningBG · Yellow/50 */
+  --admin-warning-text: #92400e; /* Status/WarningText */
+  --admin-success: #5da45d; /* Status/Success */
+  --admin-success-soft: #ebf5eb; /* Status/SuccessBG */
+  --admin-text-inverse: #292d30; /* Text/Inverse · Toast 본문 */
+  --admin-shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.08); /* Shadow/Subtle · Toast */
+  --admin-shadow-floating: 0 2px 6px rgba(0, 0, 0, 0.06), 0 10px 28px rgba(0, 0, 0, 0.12); /* Shadow/Floating · Confirm */
+
+  /* Category (StatusBadge · Ingredient chips) */
+  --admin-category-dressing: #6d3fc4; /* Category/Dressing */
+  --admin-category-dressing-bg: #eee8fc; /* Category/DressingBG */
+
+  /* Radius / Spacing (Semantic) */
+  --admin-radius-sm: 4px;
+  --admin-radius-md: 8px;
+  --admin-radius-lg: 12px;
+  --admin-radius-xl: 16px;
+  --admin-space-md: 16px;
+  --admin-space-lg: 24px;
+  --admin-space-xl: 32px;
+
+  /* Type */
+  --admin-font: "Pretendard Variable", Pretendard, sans-serif;
+  --admin-sidebar-width: 240px;
+  --admin-sidebar-compact-width: 88px;
+
+  /* Figma Admin 캔버스 (스케일 기준) */
+  --admin-canvas-w: 1920px;
+  --admin-canvas-h: 1080px;
+}

@@ -1,6 +1,13 @@
 // 결제수단 편집 Hook — WBS2-040
+// 1차: 토글·정렬·저장 연결됨.
+// 저장 실패(asak_mock_fail_save=1) 시 baselineRows 스냅샷으로 롤백.
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getPaymentMethods, savePaymentMethods } from "../mocks/adminMockRepository.js";
+
+function cloneRows(rows) {
+  return structuredClone(rows ?? []);
+}
 
 function snapshot(rows) {
   return rows.map((row) => `${row.methodId}:${row.isActive}:${row.sortOrder}`).join("|");
@@ -21,6 +28,7 @@ function reorder(rows, methodId, direction) {
 export function usePaymentMethodDraft() {
   const [rows, setRows] = useState([]);
   const [baseline, setBaseline] = useState("");
+  const [baselineRows, setBaselineRows] = useState([]);
   const [status, setStatus] = useState("loading");
   const [isSaving, setIsSaving] = useState(false);
 
@@ -28,6 +36,7 @@ export function usePaymentMethodDraft() {
     const envelope = getPaymentMethods();
     const nextRows = [...(envelope.data ?? [])].sort((a, b) => a.sortOrder - b.sortOrder);
     setRows(nextRows);
+    setBaselineRows(cloneRows(nextRows));
     setBaseline(snapshot(nextRows));
     setStatus("ready");
   }, []);
@@ -56,23 +65,25 @@ export function usePaymentMethodDraft() {
       return { success: true, message: "변경사항이 없습니다." };
     }
 
-    const before = rows;
+    const attempt = rows;
     setIsSaving(true);
     try {
-      const result = savePaymentMethods(before);
+      const result = savePaymentMethods(attempt);
       if (result.success) {
-        setBaseline(snapshot(before));
+        setBaselineRows(cloneRows(attempt));
+        setBaseline(snapshot(attempt));
       } else {
-        setRows(before);
+        // before(=attempt)는 현재 dirty 상태와 같음 → 마지막 성공 baseline으로 복원
+        setRows(cloneRows(baselineRows));
       }
       return result;
     } catch {
-      setRows(before);
+      setRows(cloneRows(baselineRows));
       return { success: false, message: "저장에 실패했습니다." };
     } finally {
       setIsSaving(false);
     }
-  }, [rows, isDirty, isSaving]);
+  }, [rows, isDirty, isSaving, baselineRows]);
 
   return {
     status,

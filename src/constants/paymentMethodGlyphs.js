@@ -1,13 +1,9 @@
-/** 결제수단 아이콘 대체 — Figma SVG 미수집 시 글리프로 표시 */
+/** 결제수단 아이콘 — Figma SCR-018 (134:11493) 글리프 */
 export const PAYMENT_METHOD_GLYPHS = {
   card: "💳",
-  kakao: "K",
-  naver: "N",
-  toss: "T",
-  payco: "P",
-  apple: "",
-  cash: "₩",
-  zero: "0",
+  kakao: "🟡",
+  naver: "🟢",
+  zero: "🔵",
 };
 
 export function getPaymentMethodGlyph(methodId) {

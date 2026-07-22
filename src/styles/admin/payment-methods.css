@@ -2,11 +2,15 @@
 /* MainContent 240 + 패딩 32 = 좌측 272. 좌열 898 + 간격 16 + 우열 686 = 1600. */
 .payment-settings {
   width: 100%;
+  height: 100%;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 24px;
   color: var(--admin-text-primary);
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .payment-settings h1,
@@ -42,9 +46,9 @@
 }
 
 .payment-settings h2 {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 24px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--admin-text-primary);
 }
 
@@ -165,6 +169,9 @@
 /* PoliciesSection (134:11563) */
 .payment-settings__policies-title {
   margin-top: 32px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
 }
 
 .payment-policy-row {
@@ -178,10 +185,10 @@
   width: 441px;
   flex: 1 1 441px;
   min-width: 0;
-  padding: 20px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   border: 1px solid var(--admin-border);
   border-radius: 12px;
   background: var(--admin-panel);
@@ -195,7 +202,7 @@
 }
 
 .payment-policy-card__head strong {
-  font-size: 16px;
+  font-size: 20px;
   line-height: 24px;
   font-weight: 700;
 }
@@ -205,8 +212,9 @@
   background: none;
   color: var(--admin-text-secondary);
   font-family: inherit;
-  font-size: 13px;
-  line-height: 18px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
 }
 
 .payment-policy-card p {
@@ -224,10 +232,11 @@
 }
 
 .payment-settings__preview-head {
-  height: 24px;
+  min-height: 24px;
   display: flex;
   align-items: center;
-  gap: 42px;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .payment-settings__preview-head p {
@@ -250,10 +259,18 @@
 }
 
 .payment-preview-row {
-  height: 84px;
+  width: 100%;
+  max-width: 638px;
+  min-height: 84px;
+  padding: 20px 24px;
   display: flex;
   align-items: center;
   gap: 16px;
+  border-radius: 12px;
+}
+
+.payment-preview-row .payment-toggle {
+  pointer-events: none;
 }
 
 /* Admin/PaymentSaveBar / dirty (638:20860) — 560×72, MainContent 가운데 정렬 */

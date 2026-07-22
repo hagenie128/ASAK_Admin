@@ -1,2 +1,55 @@
-// 매출 조회 Hook 자리.
-// TODO: summary/monthly/daily getter + 기간 검증 구현 (WBS2-041~043)
+// Page → mode / period 로 getter 고르기
+// getSalesSummary(period) | getMonthlySales() | getDailySales()
+// return { status, data, error, refetch } — data 는 envelope.data
+
+import { useEffect, useState } from "react";
+import { getDailySales, getMonthlySales, getSalesSummary } from "../mocks/adminMockRepository";
+
+/**
+ * @param {object} [options]
+ * @param {"summary"|"monthly"|"daily"} [options.mode]
+ * @param {"today"|"week"|"month"|"empty"|"partial"} [options.period] summary 전용
+ */
+export function useSalesQuery({ mode = "summary", period = "month" } = {}) {
+  const [status, setStatus] = useState("idle");
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+
+  const refetch = () => {
+    setStatus("loading");
+    setError(null);
+    try {
+      let envelope;
+      switch (mode) {
+        case "summary":
+          envelope = getSalesSummary(period);
+          break;
+        case "monthly":
+          envelope = getMonthlySales();
+          break;
+        case "daily":
+          envelope = getDailySales();
+          break;
+        default:
+          throw new Error("Invalid mode");
+      }
+      setData(envelope.data);
+      setStatus("success");
+    } catch (err) {
+      setError(err);
+      setData(null);
+      setStatus("error");
+    }
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [mode, period]);
+
+  return {
+    status,
+    data,
+    error,
+    refetch,
+  };
+}

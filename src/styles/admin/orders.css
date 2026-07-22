@@ -1,10 +1,13 @@
 /* SCR-010 / Order management ------------------------------------------------ */
 .order-management {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 24px;
   color: var(--admin-text-primary);
+  min-height: 0;
+  overflow: hidden;
 }
 .order-management__header {
   display: none;
@@ -17,20 +20,22 @@
   border: 1px solid var(--admin-border);
   border-radius: 12px;
   background: #fff;
+  flex: 0 0 auto;
 }
 .order-management__filters button,
-.order-management__filters input {
+.order-management__filters .admin-search-input {
   height: 40px;
   padding: 0 14px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--admin-border);
   border-radius: 8px;
   background: #fff;
   color: var(--admin-text-secondary);
   font: inherit;
   font-size: 14px;
 }
-.order-management__filters input {
+.order-management__filters .order-management__keyword {
   width: 220px;
+  color: var(--admin-text-primary);
 }
 .order-management__filters .order-management__search {
   border-color: var(--admin-brand-primary);
@@ -41,16 +46,24 @@
 .order-management__body {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 460px;
+  grid-template-rows: minmax(0, 1fr);
   gap: 20px;
-  margin-top: 20px;
+  margin-top: 0;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
 }
 .order-management__table-wrap,
 .order-management__detail {
-  min-height: 844px;
+  min-height: 0;
+  min-width: 0;
+  height: auto;
+  max-height: 100%;
   border: 1px solid var(--admin-border);
   border-radius: 12px;
   background: #fff;
-  overflow: hidden;
+  overflow: auto;
+  scrollbar-width: thin;
 }
 .order-management__table {
   width: 100%;
@@ -134,45 +147,7 @@
   opacity: 0.4;
   cursor: not-allowed;
 }
-.order-management__detail {
-  padding: 24px 28px;
-}
-.order-management__detail h2 {
-  margin: 0 0 14px;
-  font-size: 20px;
-  line-height: 28px;
-}
-.order-management__detail dl {
-  margin: 0;
-  padding-bottom: 4px;
-}
-.order-management__detail dl div,
-.order-management__total {
-  display: flex;
-  justify-content: space-between;
-  margin: 9px 0;
-  font-size: 14px;
-  line-height: 20px;
-}
-.order-management__detail dt {
-  color: var(--admin-text-secondary);
-}
-.order-management__detail dd {
-  margin: 0;
-  font-weight: 600;
-}
-/* Figma 134:10630의 상세 메뉴 행은 구분선 없이 48px 간격으로 촘촘하다. */
-.order-management__items {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #f3f4f6;
-}
-
-.order-management__item {
-  padding: 6px 8px;
-}
-
-/* 환불 결제상태만 빨간 테두리 박스로 강조한다. */
+/* 환불 결제상태만 빨간 테두리 박스로 강조한다. (테이블 셀용) */
 .order-refund {
   display: inline-flex;
   align-items: center;
@@ -186,68 +161,242 @@
   line-height: 18px;
   font-weight: 500;
 }
-.order-management__item strong {
+
+/* Figma Admin/DetailPanel (150:5418) */
+.order-management__detail.order-detail-panel {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+}
+.order-detail-panel__content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+.order-detail-panel__title {
+  margin: 0;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+}
+.order-detail-panel__info {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.order-detail-panel__info > div {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0;
   font-size: 14px;
+  line-height: 20px;
 }
-.order-management__item span {
-  float: right;
-  font-size: 13px;
+.order-detail-panel__info dt {
+  flex: 1 1 auto;
   color: var(--admin-text-secondary);
+  font-weight: 400;
 }
-.order-management__item small {
-  display: block;
-  margin-top: 6px;
+.order-detail-panel__info dd {
+  margin: 0;
+  color: var(--admin-text-primary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.order-detail-panel__divider {
+  width: 100%;
+  height: 1px;
+  background: var(--admin-bg-subtle);
+  border: 0;
+}
+.order-detail-panel__items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.order-detail-panel__item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 8px;
+}
+.order-detail-panel__item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  font-size: 14px;
+  line-height: 20px;
+}
+.order-detail-panel__item-row strong {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+}
+.order-detail-panel__qty {
+  flex: 0 0 auto;
   color: var(--admin-text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.order-detail-panel__price {
+  flex: 0 0 auto;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+  white-space: nowrap;
+}
+.order-detail-panel__meta {
+  margin: 0;
   font-size: 12px;
   line-height: 16px;
-}
-.order-management__detail section {
-  padding: 16px 0;
-  border-bottom: 1px solid #f3f4f6;
-}
-.order-management__detail h3 {
-  margin: 0 0 10px;
-  font-size: 14px;
-}
-.order-management__detail section p {
-  margin: 0;
-  padding: 14px;
-  border-radius: 8px;
-  background: #f5f5f5;
+  font-weight: 400;
   color: var(--admin-text-secondary);
-  font-size: 13px;
 }
-.order-management__total {
-  margin-top: 28px;
-  font-size: 16px;
-}
-.order-management__total b {
-  color: #6c9700;
-  font-size: 24px;
-}
-.order-management__detail footer {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1.5fr;
+.order-detail-panel__note {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
-  margin-top: 28px;
+  width: 100%;
 }
-.order-management__detail footer button {
-  height: 40px;
-  border: 1px solid #e5e7eb;
+.order-detail-panel__note h3 {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+}
+.order-detail-panel__note p {
+  margin: 0;
+  padding: 12px 14px;
   border-radius: 8px;
+  background: var(--admin-bg-subtle);
+  color: var(--admin-text-secondary);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+.order-detail-panel__total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 0;
+  margin: 0;
+}
+.order-detail-panel__total span {
+  flex: 1 1 auto;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--admin-text-primary);
+}
+.order-detail-panel__total b {
+  flex: 0 0 auto;
+  color: var(--admin-brand-secondary);
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.order-detail-panel__actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  margin: 0;
+}
+.order-detail-panel__btn {
+  box-sizing: border-box;
+  height: 36px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--admin-border);
   background: #fff;
   color: var(--admin-text-secondary);
   font: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
-.order-management__detail footer button:nth-child(2) {
-  border-color: #ef4444;
-  color: #ef4444;
+.order-detail-panel__btn--close,
+.order-detail-panel__btn--refund {
+  flex: 1 1 0;
+  min-width: 0;
 }
-.order-management__detail footer button:last-child {
-  border-color: var(--admin-brand-primary);
+.order-detail-panel__btn--refund {
+  border-width: 1.5px;
+  border-color: var(--admin-danger);
+  color: var(--admin-danger);
+}
+.order-detail-panel__btn--print {
+  flex: 0 0 160px;
+  width: 160px;
+  border-color: transparent;
   background: var(--admin-brand-primary);
-  color: #0d0d0d;
+  color: #212121;
   font-weight: 700;
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.12),
+    0 2px 6px rgba(0, 0, 0, 0.06);
+}
+.order-detail-panel__actions--refunded .order-detail-panel__btn--close {
+  flex: 1 1 0;
+}
+.order-detail-panel__btn--print-outline {
+  flex: 0 0 240px;
+  width: 240px;
+  border-width: 3px;
+  border-color: var(--admin-brand-primary);
+  background: #fff;
+  color: #212121;
+  font-weight: 700;
+  box-shadow:
+    0 10px 14px rgba(0, 0, 0, 0.12),
+    0 2px 3px rgba(0, 0, 0, 0.06);
+}
+.order-detail-panel__empty {
+  flex: 1 1 auto;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 32px 24px;
+  text-align: center;
+}
+.order-detail-panel__empty-icon {
+  display: block;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+.order-detail-panel__empty-title {
+  margin: 0;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--admin-text-primary);
+}
+.order-detail-panel__empty-desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--admin-text-tertiary);
 }
 
 /* Tablet 변형은 AdminLayout matchMedia → AdminSidebar model="Tablet" + .admin-app--tablet 로 처리.
