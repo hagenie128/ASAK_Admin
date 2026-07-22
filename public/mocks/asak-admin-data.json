@@ -14795,10 +14795,100 @@
           "targetType": "MENU",
           "targetId": 3664,
           "name": "로스트닭다리살 샐러드",
+          "category": "샐러디·볼",
+          "isSoldOut": false,
+          "imageKey": "salmon",
+          "price": 12800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 801,
+          "name": "고단백 치킨 볼",
+          "category": "프로틴",
+          "isSoldOut": false,
+          "imageKey": "pasta",
+          "price": 11900
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2254,
+          "name": "멕시칸 랩",
+          "category": "랩",
+          "isSoldOut": false,
+          "imageKey": "ricotta",
+          "price": 8400
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 364,
+          "name": "스파이시 쉬림프 샌드위치",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "tomato",
+          "price": 8900
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9800,
+          "name": "콜라",
+          "category": "사이드·음료",
+          "isSoldOut": false,
+          "imageKey": "tomato",
+          "price": 2000
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 3664,
+          "name": "로스트닭다리살 샐러드",
           "category": "신메뉴",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "pasta",
           "price": 12800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 1167,
+          "name": "클래식 시저 샐러드",
+          "category": "샐러디·볼",
+          "isSoldOut": false,
+          "imageKey": "sandwich",
+          "price": 9800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 802,
+          "name": "튜나 프로틴 샐러드",
+          "category": "프로틴",
+          "isSoldOut": false,
+          "imageKey": "ricotta",
+          "price": 10900
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 701,
+          "name": "시저치킨 랩",
+          "category": "랩",
+          "isSoldOut": false,
+          "imageKey": "salmon",
+          "price": 7600
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 501,
+          "name": "치킨 클럽 샌드위치",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "chicken",
+          "price": 9200
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9801,
+          "name": "제로콜라",
+          "category": "사이드·음료",
+          "isSoldOut": false,
+          "imageKey": "chicken",
+          "price": 2000
         },
         {
           "targetType": "MENU",
@@ -14806,8 +14896,53 @@
           "name": "클래식 시저 샐러드",
           "category": "신메뉴",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "ricotta",
           "price": 9800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 1833,
+          "name": "베이컨 아보카도 샐러드",
+          "category": "샐러디·볼",
+          "isSoldOut": false,
+          "imageKey": "tomato",
+          "price": 9800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2068,
+          "name": "닭가슴살 플레인",
+          "category": "프로틴",
+          "isSoldOut": false,
+          "imageKey": "salmon",
+          "price": 9900
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 702,
+          "name": "베지 허브 랩",
+          "category": "랩",
+          "isSoldOut": false,
+          "imageKey": "sandwich",
+          "price": 7200
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2012,
+          "name": "BLT 클래식",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "pasta",
+          "price": 7800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9802,
+          "name": "스프라이트",
+          "category": "사이드·음료",
+          "isSoldOut": false,
+          "imageKey": "pasta",
+          "price": 2000
         },
         {
           "targetType": "MENU",
@@ -14815,8 +14950,53 @@
           "name": "멕시칸 랩",
           "category": "신메뉴",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "salmon",
           "price": 8400
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2820,
+          "name": "단호박 무스 샐러드",
+          "category": "샐러디·볼",
+          "isSoldOut": false,
+          "imageKey": "chicken",
+          "price": 8500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2069,
+          "name": "연어 프로틴볼",
+          "category": "프로틴",
+          "isSoldOut": false,
+          "imageKey": "sandwich",
+          "price": 13900
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2054,
+          "name": "치킨 시저랩",
+          "category": "랩",
+          "isSoldOut": false,
+          "imageKey": "tomato",
+          "price": 7600
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2013,
+          "name": "터키 아보카도",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "ricotta",
+          "price": 8900
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9803,
+          "name": "아메리카노",
+          "category": "사이드·음료",
+          "isSoldOut": false,
+          "imageKey": "ricotta",
+          "price": 2500
         },
         {
           "targetType": "MENU",
@@ -14824,17 +15004,107 @@
           "name": "연어 포케볼",
           "category": "신메뉴",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "sandwich",
           "price": 14500
         },
         {
           "targetType": "MENU",
+          "targetId": 3388,
+          "name": "두부 소보로 샐러드",
+          "category": "샐러디·볼",
+          "isSoldOut": false,
+          "imageKey": "pasta",
+          "price": 9200
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2070,
+          "name": "계란흰자 볼",
+          "category": "프로틴",
+          "isSoldOut": false,
+          "imageKey": "tomato",
+          "price": 8500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2055,
+          "name": "터키 클럽랩",
+          "category": "랩",
+          "isSoldOut": false,
+          "imageKey": "chicken",
+          "price": 8200
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2014,
+          "name": "치킨 바질페스토",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "salmon",
+          "price": 9200
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9804,
+          "name": "아이스티",
+          "category": "사이드·음료",
+          "isSoldOut": false,
+          "imageKey": "salmon",
+          "price": 2300
+        },
+        {
+          "targetType": "MENU",
           "targetId": 1833,
           "name": "베이컨 아보카도 샐러드",
           "category": "신메뉴",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "tomato",
           "price": 9800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 4581,
+          "name": "리코타 치즈 샐러드",
+          "category": "샐러디·볼",
+          "isSoldOut": false,
+          "imageKey": "ricotta",
+          "price": 10800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2071,
+          "name": "소고기 프로틴",
+          "category": "프로틴",
+          "isSoldOut": false,
+          "imageKey": "chicken",
+          "price": 14900
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2056,
+          "name": "베지 그릴랩",
+          "category": "랩",
+          "isSoldOut": false,
+          "imageKey": "pasta",
+          "price": 7200
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2015,
+          "name": "참치 멜트",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "sandwich",
+          "price": 8500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9806,
+          "name": "쿠키",
+          "category": "사이드·음료",
+          "isSoldOut": false,
+          "imageKey": "sandwich",
+          "price": 1500
         },
         {
           "targetType": "MENU",
@@ -14844,186 +15114,6 @@
           "isSoldOut": false,
           "imageKey": "chicken",
           "price": 8500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 3388,
-          "name": "두부 소보로 샐러드",
-          "category": "신메뉴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9200
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 4581,
-          "name": "리코타 치즈 샐러드",
-          "category": "신메뉴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 10800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 901,
-          "name": "피넛 치킨 크런치",
-          "category": "신메뉴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 10500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2000,
-          "name": "트러플 에그",
-          "category": "신메뉴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 12800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2001,
-          "name": "와사비 연어",
-          "category": "신메뉴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 15200
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2002,
-          "name": "허니버터 치킨",
-          "category": "신메뉴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 11800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2003,
-          "name": "블랙페퍼 우삼",
-          "category": "신메뉴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 13500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2004,
-          "name": "레몬딜 쉬림프",
-          "category": "신메뉴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 14200
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2005,
-          "name": "갈릭 스테이크볼",
-          "category": "신메뉴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 15800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2007,
-          "name": "치폴레 치킨",
-          "category": "신메뉴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 12100
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2008,
-          "name": "트러플 감자볼",
-          "category": "신메뉴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9900
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2009,
-          "name": "매운갈비 샐러디",
-          "category": "신메뉴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 12900
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2010,
-          "name": "크림빠네 치킨",
-          "category": "신메뉴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 11500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2011,
-          "name": "유자드레싱 연어",
-          "category": "신메뉴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 14800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 3664,
-          "name": "로스트닭다리살 샐러드",
-          "category": "샐러디·볼",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 12800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 1167,
-          "name": "클래식 시저 샐러드",
-          "category": "샐러디·볼",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 1833,
-          "name": "베이컨 아보카도 샐러드",
-          "category": "샐러디·볼",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2820,
-          "name": "단호박 무스 샐러드",
-          "category": "샐러디·볼",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 8500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 3388,
-          "name": "두부 소보로 샐러드",
-          "category": "샐러디·볼",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9200
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 4581,
-          "name": "리코타 치즈 샐러드",
-          "category": "샐러디·볼",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 10800
         },
         {
           "targetType": "MENU",
@@ -15031,8 +15121,53 @@
           "name": "연어 아보카도 볼",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "salmon",
           "price": 14200
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2072,
+          "name": "두부와 퀴노아",
+          "category": "프로틴",
+          "isSoldOut": false,
+          "imageKey": "pasta",
+          "price": 9200
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2057,
+          "name": "불고기랩",
+          "category": "랩",
+          "isSoldOut": false,
+          "imageKey": "ricotta",
+          "price": 8900
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2016,
+          "name": "햄치즈 토스트",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "tomato",
+          "price": 6500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9807,
+          "name": "감자칩",
+          "category": "사이드·음료",
+          "isSoldOut": false,
+          "imageKey": "tomato",
+          "price": 1800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 3388,
+          "name": "두부 소보로 샐러드",
+          "category": "신메뉴",
+          "isSoldOut": false,
+          "imageKey": "pasta",
+          "price": 9200
         },
         {
           "targetType": "MENU",
@@ -15040,8 +15175,53 @@
           "name": "그릭 페타 샐러드",
           "category": "샐러디·볼",
           "isSoldOut": false,
+          "imageKey": "sandwich",
+          "price": 9800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2073,
+          "name": "참치 프로틴",
+          "category": "프로틴",
+          "isSoldOut": false,
+          "imageKey": "ricotta",
+          "price": 10800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2058,
+          "name": "새우 아보랩",
+          "category": "랩",
+          "isSoldOut": false,
+          "imageKey": "salmon",
+          "price": 9500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2017,
+          "name": "쉬림프 오픈",
+          "category": "샌드위치",
+          "isSoldOut": false,
           "imageKey": "chicken",
           "price": 9800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9808,
+          "name": "프로틴바",
+          "category": "사이드·음료",
+          "isSoldOut": false,
+          "imageKey": "chicken",
+          "price": 2800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 4581,
+          "name": "리코타 치즈 샐러드",
+          "category": "신메뉴",
+          "isSoldOut": false,
+          "imageKey": "ricotta",
+          "price": 10800
         },
         {
           "targetType": "MENU",
@@ -15049,8 +15229,53 @@
           "name": "퀴노아 슈퍼푸드",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "tomato",
           "price": 11500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2075,
+          "name": "슈림프 프로틴",
+          "category": "프로틴",
+          "isSoldOut": false,
+          "imageKey": "salmon",
+          "price": 12800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2059,
+          "name": "스파이시 튜나랩",
+          "category": "랩",
+          "isSoldOut": false,
+          "imageKey": "sandwich",
+          "price": 8600
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2019,
+          "name": "베지 후무스",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "pasta",
+          "price": 7200
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9809,
+          "name": "요거트",
+          "category": "사이드·음료",
+          "isSoldOut": false,
+          "imageKey": "pasta",
+          "price": 2500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 901,
+          "name": "피넛 치킨 크런치",
+          "category": "신메뉴",
+          "isSoldOut": false,
+          "imageKey": "salmon",
+          "price": 10500
         },
         {
           "targetType": "MENU",
@@ -15063,12 +15288,102 @@
         },
         {
           "targetType": "MENU",
+          "targetId": 2076,
+          "name": "터키 프로틴",
+          "category": "프로틴",
+          "isSoldOut": false,
+          "imageKey": "sandwich",
+          "price": 10500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2061,
+          "name": "바질 치킨랩",
+          "category": "랩",
+          "isSoldOut": false,
+          "imageKey": "tomato",
+          "price": 8400
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2020,
+          "name": "스파이시 치킨",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "ricotta",
+          "price": 9100
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9810,
+          "name": "탄산수",
+          "category": "사이드·음료",
+          "isSoldOut": false,
+          "imageKey": "ricotta",
+          "price": 1500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2000,
+          "name": "트러플 에그",
+          "category": "신메뉴",
+          "isSoldOut": false,
+          "imageKey": "sandwich",
+          "price": 12800
+        },
+        {
+          "targetType": "MENU",
           "targetId": 2033,
           "name": "불고기 라이스볼",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "pasta",
           "price": 11900
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2077,
+          "name": "저지방 시저",
+          "category": "프로틴",
+          "isSoldOut": false,
+          "imageKey": "tomato",
+          "price": 9800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2062,
+          "name": "홀그레인 베지",
+          "category": "랩",
+          "isSoldOut": false,
+          "imageKey": "chicken",
+          "price": 7100
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2021,
+          "name": "연어 크림치즈",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "salmon",
+          "price": 11200
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9811,
+          "name": "핫초코",
+          "category": "사이드·음료",
+          "isSoldOut": false,
+          "imageKey": "salmon",
+          "price": 2700
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2001,
+          "name": "와사비 연어",
+          "category": "신메뉴",
+          "isSoldOut": false,
+          "imageKey": "tomato",
+          "price": 15200
         },
         {
           "targetType": "MENU",
@@ -15076,8 +15391,44 @@
           "name": "새우 망고 살사",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "ricotta",
           "price": 13200
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2078,
+          "name": "단백질 파워볼",
+          "category": "프로틴",
+          "isSoldOut": false,
+          "imageKey": "chicken",
+          "price": 11900
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2063,
+          "name": "BBQ 치킨랩",
+          "category": "랩",
+          "isSoldOut": false,
+          "imageKey": "pasta",
+          "price": 8800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2022,
+          "name": "카프레제",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "sandwich",
+          "price": 8200
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2002,
+          "name": "허니버터 치킨",
+          "category": "신메뉴",
+          "isSoldOut": false,
+          "imageKey": "chicken",
+          "price": 11800
         },
         {
           "targetType": "MENU",
@@ -15085,8 +15436,44 @@
           "name": "치킨 시저 볼",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "salmon",
           "price": 10200
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2079,
+          "name": "라이트 튜나",
+          "category": "프로틴",
+          "isSoldOut": false,
+          "imageKey": "pasta",
+          "price": 9500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2064,
+          "name": "크림치즈 연어랩",
+          "category": "랩",
+          "isSoldOut": false,
+          "imageKey": "ricotta",
+          "price": 10200
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2023,
+          "name": "풀드포크",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "tomato",
+          "price": 10500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2003,
+          "name": "블랙페퍼 우삼",
+          "category": "신메뉴",
+          "isSoldOut": false,
+          "imageKey": "pasta",
+          "price": 13500
         },
         {
           "targetType": "MENU",
@@ -15094,8 +15481,35 @@
           "name": "우삼겹 포케",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "sandwich",
           "price": 12900
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2065,
+          "name": "스파이시 비프랩",
+          "category": "랩",
+          "isSoldOut": false,
+          "imageKey": "salmon",
+          "price": 9600
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2024,
+          "name": "치킨커틀릿 샌드",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "chicken",
+          "price": 9900
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2004,
+          "name": "레몬딜 쉬림프",
+          "category": "신메뉴",
+          "isSoldOut": false,
+          "imageKey": "ricotta",
+          "price": 14200
         },
         {
           "targetType": "MENU",
@@ -15103,8 +15517,35 @@
           "name": "그린 갓",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "tomato",
           "price": 7800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2066,
+          "name": "아보카도 에그랩",
+          "category": "랩",
+          "isSoldOut": false,
+          "imageKey": "sandwich",
+          "price": 7800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2026,
+          "name": "로스트비프",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "pasta",
+          "price": 13200
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2005,
+          "name": "갈릭 스테이크볼",
+          "category": "신메뉴",
+          "isSoldOut": false,
+          "imageKey": "salmon",
+          "price": 15800
         },
         {
           "targetType": "MENU",
@@ -15117,12 +15558,48 @@
         },
         {
           "targetType": "MENU",
+          "targetId": 2027,
+          "name": "모짜렐라 토마토",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "ricotta",
+          "price": 8400
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2007,
+          "name": "치폴레 치킨",
+          "category": "신메뉴",
+          "isSoldOut": false,
+          "imageKey": "sandwich",
+          "price": 12100
+        },
+        {
+          "targetType": "MENU",
           "targetId": 2040,
           "name": "커리 치킨 볼",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "pasta",
           "price": 11100
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2028,
+          "name": "칠리콘카네 샌드",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "salmon",
+          "price": 9500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2008,
+          "name": "트러플 감자볼",
+          "category": "신메뉴",
+          "isSoldOut": false,
+          "imageKey": "tomato",
+          "price": 9900
         },
         {
           "targetType": "MENU",
@@ -15130,8 +15607,26 @@
           "name": "트러플 머쉬룸",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "ricotta",
           "price": 13800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2029,
+          "name": "바질 쉬림프",
+          "category": "샌드위치",
+          "isSoldOut": false,
+          "imageKey": "sandwich",
+          "price": 10800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2009,
+          "name": "매운갈비 샐러디",
+          "category": "신메뉴",
+          "isSoldOut": false,
+          "imageKey": "chicken",
+          "price": 12900
         },
         {
           "targetType": "MENU",
@@ -15139,8 +15634,17 @@
           "name": "비트 염소치즈",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "salmon",
           "price": 10500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2010,
+          "name": "크림빠네 치킨",
+          "category": "신메뉴",
+          "isSoldOut": false,
+          "imageKey": "pasta",
+          "price": 11500
         },
         {
           "targetType": "MENU",
@@ -15148,8 +15652,17 @@
           "name": "멕시칸 치킨볼",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "sandwich",
           "price": 11800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2011,
+          "name": "유자드레싱 연어",
+          "category": "신메뉴",
+          "isSoldOut": false,
+          "imageKey": "ricotta",
+          "price": 14800
         },
         {
           "targetType": "MENU",
@@ -15157,7 +15670,7 @@
           "name": "연어 아보 포케",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "tomato",
           "price": 14800
         },
         {
@@ -15175,7 +15688,7 @@
           "name": "소고기 타코볼",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "pasta",
           "price": 12500
         },
         {
@@ -15184,7 +15697,7 @@
           "name": "렌틸 비건볼",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "ricotta",
           "price": 9200
         },
         {
@@ -15193,7 +15706,7 @@
           "name": "치킨 마요 덮밥볼",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "salmon",
           "price": 10900
         },
         {
@@ -15202,7 +15715,7 @@
           "name": "콥 샐러드",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "sandwich",
           "price": 11200
         },
         {
@@ -15211,7 +15724,7 @@
           "name": "시저 파마산",
           "category": "샐러디·볼",
           "isSoldOut": false,
-          "imageKey": "chicken",
+          "imageKey": "tomato",
           "price": 9900
         },
         {
@@ -15222,519 +15735,6 @@
           "isSoldOut": false,
           "imageKey": "chicken",
           "price": 10500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 801,
-          "name": "고단백 치킨 볼",
-          "category": "프로틴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 11900
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 802,
-          "name": "튜나 프로틴 샐러드",
-          "category": "프로틴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 10900
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2068,
-          "name": "닭가슴살 플레인",
-          "category": "프로틴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9900
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2069,
-          "name": "연어 프로틴볼",
-          "category": "프로틴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 13900
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2070,
-          "name": "계란흰자 볼",
-          "category": "프로틴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 8500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2071,
-          "name": "소고기 프로틴",
-          "category": "프로틴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 14900
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2072,
-          "name": "두부와 퀴노아",
-          "category": "프로틴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9200
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2073,
-          "name": "참치 프로틴",
-          "category": "프로틴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 10800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2075,
-          "name": "슈림프 프로틴",
-          "category": "프로틴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 12800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2076,
-          "name": "터키 프로틴",
-          "category": "프로틴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 10500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2077,
-          "name": "저지방 시저",
-          "category": "프로틴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2078,
-          "name": "단백질 파워볼",
-          "category": "프로틴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 11900
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2079,
-          "name": "라이트 튜나",
-          "category": "프로틴",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2254,
-          "name": "멕시칸 랩",
-          "category": "랩",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 8400
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 701,
-          "name": "시저치킨 랩",
-          "category": "랩",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 7600
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 702,
-          "name": "베지 허브 랩",
-          "category": "랩",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 7200
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2054,
-          "name": "치킨 시저랩",
-          "category": "랩",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 7600
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2055,
-          "name": "터키 클럽랩",
-          "category": "랩",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 8200
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2056,
-          "name": "베지 그릴랩",
-          "category": "랩",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 7200
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2057,
-          "name": "불고기랩",
-          "category": "랩",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 8900
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2058,
-          "name": "새우 아보랩",
-          "category": "랩",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2059,
-          "name": "스파이시 튜나랩",
-          "category": "랩",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 8600
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2061,
-          "name": "바질 치킨랩",
-          "category": "랩",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 8400
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2062,
-          "name": "홀그레인 베지",
-          "category": "랩",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 7100
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2063,
-          "name": "BBQ 치킨랩",
-          "category": "랩",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 8800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2064,
-          "name": "크림치즈 연어랩",
-          "category": "랩",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 10200
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2065,
-          "name": "스파이시 비프랩",
-          "category": "랩",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9600
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2066,
-          "name": "아보카도 에그랩",
-          "category": "랩",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 7800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 364,
-          "name": "스파이시 쉬림프 샌드위치",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 8900
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 501,
-          "name": "치킨 클럽 샌드위치",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9200
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2012,
-          "name": "BLT 클래식",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 7800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2013,
-          "name": "터키 아보카도",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 8900
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2014,
-          "name": "치킨 바질페스토",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9200
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2015,
-          "name": "참치 멜트",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 8500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2016,
-          "name": "햄치즈 토스트",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 6500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2017,
-          "name": "쉬림프 오픈",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2019,
-          "name": "베지 후무스",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 7200
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2020,
-          "name": "스파이시 치킨",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9100
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2021,
-          "name": "연어 크림치즈",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 11200
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2022,
-          "name": "카프레제",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 8200
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2023,
-          "name": "풀드포크",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 10500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2024,
-          "name": "치킨커틀릿 샌드",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9900
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2026,
-          "name": "로스트비프",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 13200
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2027,
-          "name": "모짜렐라 토마토",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 8400
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2028,
-          "name": "칠리콘카네 샌드",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 9500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2029,
-          "name": "바질 쉬림프",
-          "category": "샌드위치",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 10800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9800,
-          "name": "콜라",
-          "category": "사이드·음료",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 2000
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9801,
-          "name": "제로콜라",
-          "category": "사이드·음료",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 2000
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9802,
-          "name": "스프라이트",
-          "category": "사이드·음료",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 2000
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9803,
-          "name": "아메리카노",
-          "category": "사이드·음료",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 2500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9804,
-          "name": "아이스티",
-          "category": "사이드·음료",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 2300
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9806,
-          "name": "쿠키",
-          "category": "사이드·음료",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 1500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9807,
-          "name": "감자칩",
-          "category": "사이드·음료",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 1800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9808,
-          "name": "프로틴바",
-          "category": "사이드·음료",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 2800
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9809,
-          "name": "요거트",
-          "category": "사이드·음료",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 2500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9810,
-          "name": "탄산수",
-          "category": "사이드·음료",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 1500
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9811,
-          "name": "핫초코",
-          "category": "사이드·음료",
-          "isSoldOut": false,
-          "imageKey": "chicken",
-          "price": 2700
         }
       ],
       "soldOut": [
@@ -15804,259 +15804,12 @@
         },
         {
           "targetType": "MENU",
-          "targetId": 5000,
-          "name": "품절메뉴 1",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5001,
-          "name": "품절메뉴 2",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5002,
-          "name": "품절메뉴 3",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5003,
-          "name": "품절메뉴 4",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5004,
-          "name": "품절메뉴 5",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5005,
-          "name": "품절메뉴 6",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5006,
-          "name": "품절메뉴 7",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5007,
-          "name": "품절메뉴 8",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5008,
-          "name": "품절메뉴 9",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5009,
-          "name": "품절메뉴 10",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5010,
-          "name": "품절메뉴 11",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5011,
-          "name": "품절메뉴 12",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5012,
-          "name": "품절메뉴 13",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5013,
-          "name": "품절메뉴 14",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5014,
-          "name": "품절메뉴 15",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5015,
-          "name": "품절메뉴 16",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5016,
-          "name": "품절메뉴 17",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5017,
-          "name": "품절메뉴 18",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5018,
-          "name": "품절메뉴 19",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5019,
-          "name": "품절메뉴 20",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5020,
-          "name": "품절메뉴 21",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5021,
-          "name": "품절메뉴 22",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5022,
-          "name": "품절메뉴 23",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5023,
-          "name": "품절메뉴 24",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5024,
-          "name": "품절메뉴 25",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5025,
-          "name": "품절메뉴 26",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5026,
-          "name": "품절메뉴 27",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5027,
-          "name": "품절메뉴 28",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5028,
-          "name": "품절메뉴 29",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 5029,
-          "name": "품절메뉴 30",
-          "category": "시즌",
-          "isSoldOut": true,
-          "imageKey": "salmon"
-        },
-        {
-          "targetType": "MENU",
           "targetId": 902,
           "name": "기간 한정 트러플 볼",
           "category": "신메뉴",
           "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2006,
-          "name": "바질 모짜렐라",
-          "category": "신메뉴",
-          "isSoldOut": true,
-          "imageKey": "chicken"
+          "imageKey": "salmon",
+          "price": 15800
         },
         {
           "targetType": "MENU",
@@ -16064,31 +15817,8 @@
           "name": "타코 쉬림프 포케볼",
           "category": "샐러디·볼",
           "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2036,
-          "name": "두부 테리아키",
-          "category": "샐러디·볼",
-          "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2043,
-          "name": "훈제오리 샐러드",
-          "category": "샐러디·볼",
-          "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2050,
-          "name": "참치마요 샐러디",
-          "category": "샐러디·볼",
-          "isSoldOut": true,
-          "imageKey": "chicken"
+          "imageKey": "tomato",
+          "price": 13500
         },
         {
           "targetType": "MENU",
@@ -16096,7 +15826,8 @@
           "name": "치킨 브로콜리",
           "category": "프로틴",
           "isSoldOut": true,
-          "imageKey": "chicken"
+          "imageKey": "salmon",
+          "price": 11200
         },
         {
           "targetType": "MENU",
@@ -16104,15 +15835,8 @@
           "name": "햄에그랩",
           "category": "랩",
           "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2067,
-          "name": "페스토 모짜랩",
-          "category": "랩",
-          "isSoldOut": true,
-          "imageKey": "chicken"
+          "imageKey": "sandwich",
+          "price": 6900
         },
         {
           "targetType": "MENU",
@@ -16120,23 +15844,8 @@
           "name": "에그마요 샌드위치",
           "category": "샌드위치",
           "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2018,
-          "name": "스테이크 샌드",
-          "category": "샌드위치",
-          "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 2025,
-          "name": "에그아보 오픈",
-          "category": "샌드위치",
-          "isSoldOut": true,
-          "imageKey": "chicken"
+          "imageKey": "chicken",
+          "price": 6900
         },
         {
           "targetType": "MENU",
@@ -16144,95 +15853,8 @@
           "name": "시즌 종료 메뉴 1",
           "category": "시즌오프",
           "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9902,
-          "name": "시즌 종료 메뉴 2",
-          "category": "시즌오프",
-          "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9903,
-          "name": "시즌 종료 메뉴 3",
-          "category": "시즌오프",
-          "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9904,
-          "name": "시즌 종료 메뉴 4",
-          "category": "시즌오프",
-          "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9905,
-          "name": "시즌 종료 메뉴 5",
-          "category": "시즌오프",
-          "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9906,
-          "name": "시즌 종료 메뉴 6",
-          "category": "시즌오프",
-          "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9907,
-          "name": "시즌 종료 메뉴 7",
-          "category": "시즌오프",
-          "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9908,
-          "name": "시즌 종료 메뉴 8",
-          "category": "시즌오프",
-          "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9909,
-          "name": "시즌 종료 메뉴 9",
-          "category": "시즌오프",
-          "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9910,
-          "name": "시즌 종료 메뉴 10",
-          "category": "시즌오프",
-          "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9911,
-          "name": "시즌 종료 메뉴 11",
-          "category": "시즌오프",
-          "isSoldOut": true,
-          "imageKey": "chicken"
-        },
-        {
-          "targetType": "MENU",
-          "targetId": 9912,
-          "name": "시즌 종료 메뉴 12",
-          "category": "시즌오프",
-          "isSoldOut": true,
-          "imageKey": "chicken"
+          "imageKey": "salmon",
+          "price": 3500
         },
         {
           "targetType": "MENU",
@@ -16240,7 +15862,170 @@
           "name": "수프",
           "category": "사이드·음료",
           "isSoldOut": true,
-          "imageKey": "chicken"
+          "imageKey": "salmon",
+          "price": 3000
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2006,
+          "name": "바질 모짜렐라",
+          "category": "신메뉴",
+          "isSoldOut": true,
+          "imageKey": "sandwich",
+          "price": 10900
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2036,
+          "name": "두부 테리아키",
+          "category": "샐러디·볼",
+          "isSoldOut": true,
+          "imageKey": "chicken",
+          "price": 8900
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2067,
+          "name": "페스토 모짜랩",
+          "category": "랩",
+          "isSoldOut": true,
+          "imageKey": "tomato",
+          "price": 8500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2018,
+          "name": "스테이크 샌드",
+          "category": "샌드위치",
+          "isSoldOut": true,
+          "imageKey": "pasta",
+          "price": 12500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9902,
+          "name": "시즌 종료 메뉴 2",
+          "category": "시즌오프",
+          "isSoldOut": true,
+          "imageKey": "sandwich",
+          "price": 4000
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2043,
+          "name": "훈제오리 샐러드",
+          "category": "샐러디·볼",
+          "isSoldOut": true,
+          "imageKey": "pasta",
+          "price": 14500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2025,
+          "name": "에그아보 오픈",
+          "category": "샌드위치",
+          "isSoldOut": true,
+          "imageKey": "ricotta",
+          "price": 8700
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9903,
+          "name": "시즌 종료 메뉴 3",
+          "category": "시즌오프",
+          "isSoldOut": true,
+          "imageKey": "tomato",
+          "price": 4500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 2050,
+          "name": "참치마요 샐러디",
+          "category": "샐러디·볼",
+          "isSoldOut": true,
+          "imageKey": "ricotta",
+          "price": 9800
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9904,
+          "name": "시즌 종료 메뉴 4",
+          "category": "시즌오프",
+          "isSoldOut": true,
+          "imageKey": "chicken",
+          "price": 5000
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9905,
+          "name": "시즌 종료 메뉴 5",
+          "category": "시즌오프",
+          "isSoldOut": true,
+          "imageKey": "pasta",
+          "price": 5500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9906,
+          "name": "시즌 종료 메뉴 6",
+          "category": "시즌오프",
+          "isSoldOut": true,
+          "imageKey": "ricotta",
+          "price": 6000
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9907,
+          "name": "시즌 종료 메뉴 7",
+          "category": "시즌오프",
+          "isSoldOut": true,
+          "imageKey": "salmon",
+          "price": 6500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9908,
+          "name": "시즌 종료 메뉴 8",
+          "category": "시즌오프",
+          "isSoldOut": true,
+          "imageKey": "sandwich",
+          "price": 7000
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9909,
+          "name": "시즌 종료 메뉴 9",
+          "category": "시즌오프",
+          "isSoldOut": true,
+          "imageKey": "tomato",
+          "price": 7500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9910,
+          "name": "시즌 종료 메뉴 10",
+          "category": "시즌오프",
+          "isSoldOut": true,
+          "imageKey": "chicken",
+          "price": 8000
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9911,
+          "name": "시즌 종료 메뉴 11",
+          "category": "시즌오프",
+          "isSoldOut": true,
+          "imageKey": "pasta",
+          "price": 8500
+        },
+        {
+          "targetType": "MENU",
+          "targetId": 9912,
+          "name": "시즌 종료 메뉴 12",
+          "category": "시즌오프",
+          "isSoldOut": true,
+          "imageKey": "ricotta",
+          "price": 9000
         }
       ]
     }
@@ -16253,15 +16038,15 @@
     "data": [
       {
         "methodId": "card",
-        "name": "카드/삼성페이",
-        "description": "신용·체크카드",
+        "name": "카드 / 삼성페이 결제",
+        "description": "신용 · 체크카드",
         "isActive": true,
         "isMaintenance": false,
         "sortOrder": 1
       },
       {
         "methodId": "kakao",
-        "name": "카카오페이",
+        "name": "카카오페이 결제",
         "description": "모바일 간편결제",
         "isActive": true,
         "isMaintenance": false,
@@ -16269,51 +16054,19 @@
       },
       {
         "methodId": "naver",
-        "name": "네이버페이",
-        "description": "간편결제",
+        "name": "네이버페이 결제",
+        "description": "모바일 간편결제",
         "isActive": true,
         "isMaintenance": false,
         "sortOrder": 3
       },
       {
-        "methodId": "toss",
-        "name": "토스페이",
-        "description": "간편결제",
+        "methodId": "zero",
+        "name": "제로페이 결제",
+        "description": "QR 결제",
         "isActive": true,
         "isMaintenance": false,
         "sortOrder": 4
-      },
-      {
-        "methodId": "payco",
-        "name": "페이코",
-        "description": "점검 중",
-        "isActive": true,
-        "isMaintenance": true,
-        "sortOrder": 5
-      },
-      {
-        "methodId": "apple",
-        "name": "애플페이",
-        "description": "준비 중",
-        "isActive": false,
-        "isMaintenance": false,
-        "sortOrder": 6
-      },
-      {
-        "methodId": "cash",
-        "name": "현금",
-        "description": "카운터 결제",
-        "isActive": false,
-        "isMaintenance": false,
-        "sortOrder": 7
-      },
-      {
-        "methodId": "zero",
-        "name": "제로페이",
-        "description": "비활성",
-        "isActive": false,
-        "isMaintenance": true,
-        "sortOrder": 8
       }
     ]
   },

@@ -325,8 +325,33 @@ export function getDashboard() {
   return envelope;
 }
 
+/** MENU row는 menus 목록의 name·categoryName으로 맞춘다 (뱃지/이름 불일치 방지). */
+function syncSoldOutMenuRow(row, menuById) {
+  if (row?.targetType !== "MENU") return row;
+  const menu = menuById.get(row.targetId);
+  if (!menu) return row;
+  return {
+    ...row,
+    name: menu.name ?? row.name,
+    category: menu.categoryName ?? row.category,
+    price: menu.price ?? row.price,
+  };
+}
+
 export function getSoldOutCatalog() {
-  return clone(adminMock.soldOut);
+  const envelope = clone(adminMock.soldOut);
+  const menuById = new Map(
+    (adminMock.menus?.data?.content ?? []).map((menu) => [menu.menuId, menu]),
+  );
+  if (envelope?.data) {
+    envelope.data.available = (envelope.data.available ?? []).map((row) =>
+      syncSoldOutMenuRow(row, menuById),
+    );
+    envelope.data.soldOut = (envelope.data.soldOut ?? []).map((row) =>
+      syncSoldOutMenuRow(row, menuById),
+    );
+  }
+  return envelope;
 }
 
 /** 품절 draft 저장 stub — sessionStorage asak_mock_fail_save=1 이면 실패 */

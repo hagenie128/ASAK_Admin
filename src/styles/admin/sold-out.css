@@ -173,7 +173,8 @@
 
 .sold-out-card {
   width: 134px;
-  height: 144px;
+  /* 이미지 88 + 이름 2줄(32) + 칩 + 패딩 — 긴 메뉴명도 잘리지 않게 */
+  height: 168px;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--admin-border);
@@ -198,8 +199,8 @@
 
 .sold-out-card__image {
   position: relative;
-  height: 96px;
-  flex: 0 0 96px;
+  height: 88px;
+  flex: 0 0 88px;
 }
 
 .sold-out-card__image img {
@@ -239,27 +240,42 @@
 }
 
 .sold-out-card__info {
-  flex: 1 0 0;
+  flex: 1 1 auto;
   min-height: 0;
-  padding: 6px 8px;
+  padding: 6px 8px 8px;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
 .sold-out-card__info strong {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   font-size: 12px;
   line-height: 16px;
+  min-height: 32px;
+  max-height: 32px;
   font-weight: 500;
   color: var(--admin-text-primary);
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 .sold-out-card__chips {
   display: flex;
+  flex-wrap: wrap;
   gap: 4px;
+  align-items: center;
+  min-height: 18px;
+}
+
+.sold-out-card__chips .admin-status-badge {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  line-height: 14px;
 }
 
 .sold-out-chip {

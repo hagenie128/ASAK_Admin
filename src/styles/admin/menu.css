@@ -168,7 +168,8 @@
 }
 
 .admin-menu-card {
-  height: 234px;
+  /* 이미지 + 이름 2줄(40) + 가격 한 줄 고정 영역 */
+  height: 248px;
   padding: 8px;
   display: flex;
   flex-direction: column;
@@ -201,22 +202,35 @@
 .admin-menu-card div {
   padding: 0 8px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  gap: 8px;
+  min-height: 40px;
 }
 
 .admin-menu-card strong {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   font-size: 14px;
   line-height: 20px;
+  max-height: 40px;
   font-weight: 700;
   color: var(--admin-text-primary);
+  overflow: hidden;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 .admin-menu-card b {
+  flex: 0 0 auto;
   font-size: 14px;
   line-height: 20px;
   font-weight: 700;
   color: #6c9700;
+  white-space: nowrap;
 }
 
 /* Menu-Detail-Panel — 우측 상세. 항상 보이고, 안쪽만 스크롤 */

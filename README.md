@@ -42,7 +42,6 @@ npm run dev
 
 - [src/STRUCTURE_GUIDE.md](src/STRUCTURE_GUIDE.md) — 짧은 구조 지도
 - [docs/README.md](docs/README.md) — Admin 문서 목차
-- [_local_study/ADMIN_MOCK_STUDY.md](_local_study/ADMIN_MOCK_STUDY.md) — 공부 가이드 (로컬·gitignore)
 - [public/mocks/README.md](public/mocks/README.md) — Mock 필드 사전
 - [ui-index.md](../ui-index.md)
 - [Current Implementation Map](../ASAK/docs/planning/current-implementation-map-2026-07-16.md)
@@ -60,13 +59,15 @@ src/
   styles/     tokens → reset → global → commonStyle
 docs/         온보딩·아키텍처·API 등
 public/mocks/ asak-admin-data.json
-_local_study/ 개인 공부 노트 (gitignore)
 ```
 
 ## 현재 구현 기준 (2026-07-23)
 
-- **Figma UI + mock 바인딩:** Live·주문·품절·메뉴·결제·매출·대시보드 연결
+- **Figma UI + mock 바인딩:** Live·주문·품절·메뉴·결제(4종)·매출 3화면·대시보드 **1차 연결** (1차 mock ≠ DONE)
 - **데이터 흐름:** Page → Hook → `adminMockRepository` → `asak-admin-data.json`
+- **셸:** 1920×1080 캔버스 + viewport scale · Shared `AdminAsyncState` / `AdminConfirmDialog`
 - **코드 경로(실행):** kebab-case · Canonical과 일부 CONFLICT → WBS2-033
+- **작업 브랜치:** `feature/admin-mock-figma-parity` (main 미머지)
 - Admin 정본은 이 저장소. Kiosk 안 Admin scaffold에 새 기능 넣지 말 것.
-- Backend API 없음 → mock과 실연동을 구분할 것.
+- Backend business API 없음 → 저장/환불 등은 stub. mock과 실연동을 구분할 것.
+- 실행용 `IMPLEMENTATION_PLAN`은 삭제됨 → `src/STRUCTURE_GUIDE.md` · `public/mocks/README.md` · 중앙 WBS/맵 참고.

@@ -2,7 +2,6 @@
 
 > 기준일: **2026-07-23**  
 > 짧은 지도: [STRUCTURE_GUIDE.md](STRUCTURE_GUIDE.md)  
-> 공부 본문(로컬): [`_local_study/ADMIN_MOCK_STUDY.md`](../_local_study/ADMIN_MOCK_STUDY.md)  
 > Mock 필드: [`../public/mocks/README.md`](../public/mocks/README.md)
 
 | 폴더 | 역할 | 현재 |

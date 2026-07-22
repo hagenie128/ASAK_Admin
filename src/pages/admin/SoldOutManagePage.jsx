@@ -56,10 +56,10 @@ function ItemCard({ item, checked, onToggle, soldOut = false }) {
         <input type="checkbox" checked={checked} readOnly tabIndex={-1} aria-hidden="true" />
       </div>
       <div className="sold-out-card__info">
-        <strong>{item.name}</strong>
+        <strong title={item.name}>{item.name}</strong>
         <div className="sold-out-card__chips">
-          <span className="sold-out-chip">{item.category}</span>
-          {soldOut ? <AdminStatusBadge role="soldOut" /> : null}
+          {item.category ? <span className="sold-out-chip">{item.category}</span> : null}
+          {soldOut || item.isSoldOut ? <AdminStatusBadge role="soldOut" /> : null}
         </div>
       </div>
     </article>

@@ -75,7 +75,7 @@ export default function MenuListPanel({
             >
               <img src={menu.detail?.imageUrl || ricottaImage} alt="" />
               <div>
-                <strong>{menu.name}</strong>
+                <strong title={menu.name}>{menu.name}</strong>
                 <b>{formatCurrency(menu.price)}</b>
               </div>
             </article>
