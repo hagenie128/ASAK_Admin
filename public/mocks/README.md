@@ -15,7 +15,7 @@
 
 | 영역 | 규모 |
 |------|------|
-| 주문 | **160건+** · RECEIVED/PREPARING/COMPLETED/CANCELLED · PAID/READY/FAILED/REFUNDED · 매장/포장 · 옵션/제외재료 |
+| 주문 | **160건+** · RECEIVED/PREPARING/COMPLETED/CANCELLED(legacy mock 표기) · PAID/READY/FAILED/REFUNDED · 매장/포장 · 옵션/제외재료 |
 | Live | **수십 건** 카드 (narrow/wide, exclude/plus/drink/side) |
 | Dashboard | 최근주문 20 · 상태 4종 카운트 |
 | 품절 | 판매중 다수 + 품절 메뉴 30 + 재료/세트 |
@@ -65,7 +65,10 @@ getDailySales();
 ## 필드 / props 사전 (바인딩용)
 
 > 화면 연결할 때 **이 표만 보고** props를 맞춘다. JSON 전체를 다시 열어보지 않아도 된다.  
-> 금액 정본 목표는 `totalAmount`이나, **현재 mock은 `totalPrice`** → 이후 adapter에서 맞출 예정.
+> API/신규 DTO 정본은 `totalAmount`와 `CANCELED`다. **현재 mock JSON은** 각각
+> `totalPrice`, `CANCELLED`를 쓰는 legacy 자산이므로, 실제 API 연결 시 repository/adapter에서
+> 정규화한다. 이 문서에서 `totalPrice`와 `CANCELLED`가 보이면 현재 mock의 실제 필드값을
+> 설명하는 것이며, 새 API 계약으로 복사하지 않는다.
 
 ### 1) Live 주문 카드 — `getLiveOrders().data.content[]`
 
@@ -345,7 +348,8 @@ JSON 예시 (`getMonthlySales().data` — 일부):
 | 이슈 | 어떻게 |
 |------|--------|
 | Live vs 주문목록 필드가 다름 | Live는 UI 카드용(`menus`/`tone`), 목록은 API형(`items`/`optionItems`) |
-| `totalPrice` vs `totalAmount` | mock= `totalPrice`, 정본 목표=`totalAmount` → adapter |
+| `totalPrice` vs `totalAmount` | legacy mock=`totalPrice`, API 정본=`totalAmount` → adapter에서 정규화 |
+| `CANCELLED` vs `CANCELED` | legacy mock=`CANCELLED`, API 정본=`CANCELED` → adapter에서 정규화 |
 | `paymentStatus`에 `PAID` | 정본은 READY/APPROVED/FAILED — adapter에서 정규화 |
 | Envelope unwrap | `api/client.js`만 (repository는 envelope 통째 반환) |
 

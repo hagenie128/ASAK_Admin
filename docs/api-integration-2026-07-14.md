@@ -25,10 +25,19 @@
 
 | API | 화면 | 핵심 필드 |
 | --- | --- | --- |
-| `GET /api/admin/orders` | 주문 목록 | orderNo, orderStatus, paymentStatus, totalPrice |
+| `GET /api/admin/orders/active` | SCR-009 실시간 주문 현황 | orderId, orderNo, orderStatus, totalAmount, createdAt, items |
+| `GET /api/admin/orders` | SCR-010 주문 목록 | orderNo, orderStatus, paymentStatus, totalAmount |
 | `PATCH /api/admin/orders/{id}/status` | 주문 상세 | orderStatus |
 | `GET/PATCH /api/admin/sold-out-items` | 품절 관리 | targetType, targetId, isSoldOut |
 | 메뉴·결제수단·매출 API | 운영 설정 | 별도 계약 확정 후 연결 |
+
+## 주문 계약 정본
+
+- API와 신규 DTO의 금액 필드는 `totalAmount`를 사용한다.
+- 주문 취소 상태 enum은 `CANCELED`를 사용한다.
+- 현재 `asak-admin-data.json`의 `totalPrice`, `CANCELLED`는 legacy mock 표기다.
+  실제 API 연결 시 repository/adapter에서 각각 `totalAmount`, `CANCELED`로 정규화한다.
+  Page와 컴포넌트는 API 원본과 legacy mock 필드를 섞어 직접 처리하지 않는다.
 
 ## 오류 처리
 
