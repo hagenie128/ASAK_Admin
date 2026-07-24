@@ -5,3 +5,9 @@ dist/
 .env.*
 !.env.example
 npm-debug.log*
+# Added by code-review-graph
+.code-review-graph/
+
+# Local AI agent MCP settings (machine-specific paths)
+.mcp.json
+.cursor/mcp.json
